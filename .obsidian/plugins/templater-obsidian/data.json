@@ -1,0 +1,102 @@
+{
+  "command_timeout": 5,
+  "templates_folder": "99-system/templates",
+  "templates_pairs": [
+    [
+      "",
+      ""
+    ]
+  ],
+  "trigger_on_file_creation": true,
+  "auto_jump_to_cursor": false,
+  "enable_system_commands": false,
+  "shell_path": "",
+  "user_scripts_folder": "",
+  "enable_folder_templates": true,
+  "folder_templates": [
+    {
+      "folder": "/",
+      "template": "99-system/templates/Default Template.md"
+    },
+    {
+      "folder": "01-daily-日记",
+      "template": "99-system/templates/Daily Note Template.md"
+    },
+    {
+      "folder": "80-archive-档案库/Application-应用",
+      "template": "99-system/templates/Application Template.md"
+    },
+    {
+      "folder": "80-archive-档案库/Album-专辑",
+      "template": "99-system/templates/Album Template.md"
+    },
+    {
+      "folder": "80-archive-档案库/Paper-论文",
+      "template": "99-system/templates/Paper Template.md"
+    },
+    {
+      "folder": "80-archive-档案库/Game-游戏",
+      "template": "99-system/templates/Video Game Template.md"
+    },
+    {
+      "folder": "80-archive-档案库/People-人物",
+      "template": "99-system/templates/People Template.md"
+    },
+    {
+      "folder": "80-archive-档案库/Technique-技术",
+      "template": "99-system/templates/Technique Template.md"
+    },
+    {
+      "folder": "80-archive-档案库/Methodology-方法",
+      "template": "99-system/templates/Methodology Template.md"
+    },
+    {
+      "folder": "80-archive-档案库/Organization-组织",
+      "template": "99-system/templates/Organization Template.md"
+    },
+    {
+      "folder": "80-archive-档案库/Book-书籍",
+      "template": "99-system/templates/Book Template.md"
+    },
+    {
+      "folder": "80-archive-档案库/Article-文章",
+      "template": "99-system/templates/Article Template.md"
+    },
+    {
+      "folder": "80-archive-档案库/Car-汽车",
+      "template": "99-system/templates/Car Template.md"
+    },
+    {
+      "folder": "80-archive-档案库/TVShow-电视剧",
+      "template": "99-system/templates/TV Show Template.md"
+    },
+    {
+      "folder": "80-archive-档案库/ArtAsset-美术资产",
+      "template": "99-system/templates/Art Asset Template.md"
+    },
+    {
+      "folder": "80-archive-档案库/Product-产品",
+      "template": "99-system/templates/Product Template.md"
+    },
+    {
+      "folder": "80-archive-档案库/Movie-电影",
+      "template": "99-system/templates/Movie Template.md"
+    }
+  ],
+  "enable_file_templates": false,
+  "file_templates": [
+    {
+      "regex": ".*",
+      "template": ""
+    }
+  ],
+  "syntax_highlighting": true,
+  "syntax_highlighting_mobile": false,
+  "enabled_templates_hotkeys": [
+    ""
+  ],
+  "startup_templates": [
+    ""
+  ],
+  "intellisense_render": 1
+}

@@ -1,0 +1,16 @@
+filters:
+  and:
+    - template == link("Art Asset Template")
+    - file.folder != "99-system/templates"
+views:
+  - type: cards
+    name: Assets
+    order:
+      - file.name
+      - website
+      - author
+      - genre
+      - rating
+      - release date
+    image: note.cover
+    cardSize: 200

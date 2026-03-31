@@ -1,0 +1,16 @@
+filters:
+  and:
+    - template == link("TV Show Template")
+    - file.folder != "99-system/templates"
+views:
+  - type: cards
+    name: TV Show
+    order:
+      - file.name
+      - genre
+      - creator
+      - cast
+      - release date
+      - rating
+    image: note.cover
+    cardSize: 200

@@ -1,0 +1,16 @@
+filters:
+  and:
+    - template == link("Movie Template")
+    - file.folder != "99-system/templates"
+views:
+  - type: cards
+    name: Movie
+    order:
+      - file.name
+      - genre
+      - creator
+      - cast
+      - release date
+      - rating
+    image: note.cover
+    cardSize: 200

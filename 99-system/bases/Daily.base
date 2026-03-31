@@ -1,0 +1,10 @@
+views:
+  - type: table
+    name: Table
+    filters:
+      and:
+        - file.inFolder("01-daily-日记")
+    order:
+      - file.name
+      - week
+      - highlight

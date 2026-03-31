@@ -1,0 +1,15 @@
+# Obsidian：仅忽略设备相关状态，其他配置照常纳入版本管理
+.obsidian/workspace.json
+.obsidian/workspace-*.json
+.obsidian/cache/
+
+# 插件运行时备份文件
+.obsidian/plugins/iconic/data.json.backup*
+
+# 系统生成文件
+.DS_Store
+**/.DS_Store
+Thumbs.db
+**/Thumbs.db
+Desktop.ini
+**/Desktop.ini

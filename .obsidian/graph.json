@@ -1,0 +1,100 @@
+{
+  "collapse-filter": false,
+  "search": "",
+  "showTags": true,
+  "showAttachments": false,
+  "hideUnresolved": true,
+  "showOrphans": true,
+  "collapse-color-groups": false,
+  "colorGroups": [
+    {
+      "query": "path:80-archive-档案库/People-人物  ",
+      "color": {
+        "a": 1,
+        "rgb": 16711680
+      }
+    },
+    {
+      "query": "path:80-archive-档案库/Technique-技术  ",
+      "color": {
+        "a": 1,
+        "rgb": 33023
+      }
+    },
+    {
+      "query": "path:80-archive-档案库/Application-应用  ",
+      "color": {
+        "a": 1,
+        "rgb": 16711935
+      }
+    },
+    {
+      "query": "path:01-daily-日记  ",
+      "color": {
+        "a": 1,
+        "rgb": 51400
+      }
+    },
+    {
+      "query": "path:10-todo-待办",
+      "color": {
+        "a": 1,
+        "rgb": 16762880
+      }
+    },
+    {
+      "query": "path:11-ideas-想法  ",
+      "color": {
+        "a": 1,
+        "rgb": 16762880
+      }
+    },
+    {
+      "query": "path:12-questions-问题  ",
+      "color": {
+        "a": 1,
+        "rgb": 16762880
+      }
+    },
+    {
+      "query": "path:20-research-调研  ",
+      "color": {
+        "a": 1,
+        "rgb": 38400
+      }
+    },
+    {
+      "query": "path:21-learning-学习  ",
+      "color": {
+        "a": 1,
+        "rgb": 38400
+      }
+    },
+    {
+      "query": "path:22-reading-阅读  ",
+      "color": {
+        "a": 1,
+        "rgb": 38400
+      }
+    },
+    {
+      "query": "path:23-playing-游玩  ",
+      "color": {
+        "a": 1,
+        "rgb": 38400
+      }
+    }
+  ],
+  "collapse-display": true,
+  "showArrow": false,
+  "textFadeMultiplier": 0,
+  "nodeSizeMultiplier": 1,
+  "lineSizeMultiplier": 1,
+  "collapse-forces": true,
+  "centerStrength": 0.518713248970312,
+  "repelStrength": 10,
+  "linkStrength": 1,
+  "linkDistance": 250,
+  "scale": 0.7931764484964506,
+  "close": true
+}

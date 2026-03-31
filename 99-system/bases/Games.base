@@ -1,0 +1,17 @@
+filters:
+  and:
+    - template == link("Video Game Template")
+    - file.folder != "99-system/templates"
+views:
+  - type: cards
+    name: Games
+    order:
+      - file.name
+      - rating
+      - developer
+      - publisher
+      - platform
+      - release date
+      - genre
+    image: note.cover
+    cardSize: 200

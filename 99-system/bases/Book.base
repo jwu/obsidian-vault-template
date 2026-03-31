@@ -1,0 +1,16 @@
+filters:
+  and:
+    - template == link("Book Template")
+    - file.folder != "99-system/templates"
+views:
+  - type: cards
+    name: Books
+    order:
+      - file.name
+      - rating
+      - author
+      - genre
+      - rating
+      - release date
+    image: note.cover
+    cardSize: 200

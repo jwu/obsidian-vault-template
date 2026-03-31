@@ -1,0 +1,19 @@
+{
+  "types": {
+    "aliases": "aliases",
+    "cssclasses": "multitext",
+    "tags": "tags",
+    "rating": "number",
+    "year": "date",
+    "genre": "multitext",
+    "categories": "multitext",
+    "platform": "multitext",
+    "release date": "date",
+    "week": "number",
+    "social media": "multitext",
+    "languages": "multitext",
+    "template": "text",
+    "created": "date",
+    "cast": "multitext"
+  }
+}

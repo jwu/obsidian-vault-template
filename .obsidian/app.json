@@ -1,0 +1,15 @@
+{
+  "alwaysUpdateLinks": true,
+  "showUnsupportedFiles": true,
+  "newFileLocation": "current",
+  "attachmentFolderPath": "./@media",
+  "promptDelete": true,
+  "useTab": false,
+  "tabSize": 4,
+  "pdfExportSettings": {
+    "pageSize": "A4",
+    "landscape": true,
+    "margin": "1",
+    "downscalePercent": 100
+  }
+}

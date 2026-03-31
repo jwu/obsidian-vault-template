@@ -1,0 +1,278 @@
+{
+  "biggerIcons": "on",
+  "clickableIcons": "off",
+  "showAllFileIcons": false,
+  "showAllFolderIcons": false,
+  "minimalFolderIcons": false,
+  "showMarkdownTabIcons": true,
+  "showTitleIcons": true,
+  "showTagPillIcons": false,
+  "showMenuActions": true,
+  "showSuggestionIcons": false,
+  "showQuickSwitcherIcons": true,
+  "showMoveFileIcons": true,
+  "showItemName": "desktop",
+  "biggerSearchResults": "mobile",
+  "maxSearchResults": 50,
+  "colorPicker1": "list",
+  "colorPicker2": "rgb",
+  "uncolorHover": false,
+  "uncolorDrag": false,
+  "uncolorSelect": false,
+  "uncolorQuick": false,
+  "rememberDeletedItems": false,
+  "maxBackups": 5,
+  "dialogState": {
+    "iconMode": true,
+    "emojiMode": false,
+    "rulePage": "file"
+  },
+  "appIcons": {},
+  "tabIcons": {},
+  "fileIcons": {
+    "00-inbox-收件箱": {
+      "icon": "lucide-inbox",
+      "unsynced": [
+        "d4071a504930341f",
+        "c02ce5f195f3cc3a"
+      ],
+      "color": "purple"
+    },
+    "01-daily-日记": {
+      "icon": "lucide-notebook-pen",
+      "unsynced": [
+        "d4071a504930341f",
+        "c02ce5f195f3cc3a"
+      ],
+      "color": "purple"
+    },
+    "10-todo-待办": {
+      "icon": "lucide-list-todo",
+      "color": "orange",
+      "unsynced": [
+        "d4071a504930341f",
+        "c02ce5f195f3cc3a"
+      ]
+    },
+    "11-ideas-想法": {
+      "icon": "lucide-lightbulb",
+      "color": "orange",
+      "unsynced": [
+        "d4071a504930341f",
+        "c02ce5f195f3cc3a"
+      ]
+    },
+    "12-questions-问题": {
+      "icon": "question-mark-glyph",
+      "color": "orange",
+      "unsynced": [
+        "d4071a504930341f",
+        "c02ce5f195f3cc3a"
+      ]
+    },
+    "20-research-调研": {
+      "icon": "experiment",
+      "unsynced": [
+        "d4071a504930341f",
+        "c02ce5f195f3cc3a"
+      ],
+      "color": "green"
+    },
+    "21-learning-学习": {
+      "icon": "lucide-glasses",
+      "color": "green",
+      "unsynced": [
+        "d4071a504930341f",
+        "c02ce5f195f3cc3a"
+      ]
+    },
+    "22-reading-阅读": {
+      "icon": "lucide-book-open",
+      "color": "green",
+      "unsynced": [
+        "d4071a504930341f",
+        "c02ce5f195f3cc3a"
+      ]
+    },
+    "23-playing-游玩": {
+      "icon": "lucide-gamepad-2",
+      "color": "green",
+      "unsynced": [
+        "d4071a504930341f",
+        "c02ce5f195f3cc3a"
+      ]
+    },
+    "30-projects-项目": {
+      "icon": "lucide-square-kanban",
+      "color": "red",
+      "unsynced": [
+        "d4071a504930341f",
+        "c02ce5f195f3cc3a"
+      ]
+    },
+    "80-archive-档案库": {
+      "icon": "lucide-library-big",
+      "color": "blue",
+      "unsynced": [
+        "d4071a504930341f",
+        "c02ce5f195f3cc3a"
+      ]
+    },
+    "80-archive-档案库/Album-专辑": {
+      "icon": "lucide-music",
+      "unsynced": [
+        "d4071a504930341f",
+        "c02ce5f195f3cc3a"
+      ]
+    },
+    "80-archive-档案库/Application-应用": {
+      "icon": "lucide-app-window",
+      "unsynced": [
+        "d4071a504930341f",
+        "c02ce5f195f3cc3a"
+      ]
+    },
+    "80-archive-档案库/ArtAsset-美术资产": {
+      "icon": "lucide-palette",
+      "unsynced": [
+        "d4071a504930341f",
+        "c02ce5f195f3cc3a"
+      ]
+    },
+    "80-archive-档案库/Article-文章": {
+      "icon": "lucide-receipt-text",
+      "unsynced": [
+        "d4071a504930341f",
+        "c02ce5f195f3cc3a"
+      ]
+    },
+    "80-archive-档案库/Book-书籍": {
+      "icon": "lucide-book-a",
+      "unsynced": [
+        "d4071a504930341f",
+        "c02ce5f195f3cc3a"
+      ]
+    },
+    "80-archive-档案库/Car-汽车": {
+      "icon": "lucide-car",
+      "unsynced": [
+        "d4071a504930341f",
+        "c02ce5f195f3cc3a"
+      ]
+    },
+    "80-archive-档案库/Game-游戏": {
+      "icon": "lucide-gamepad",
+      "unsynced": [
+        "d4071a504930341f",
+        "c02ce5f195f3cc3a"
+      ]
+    },
+    "80-archive-档案库/Methodology-方法": {
+      "icon": "lucide-waypoints",
+      "unsynced": [
+        "d4071a504930341f",
+        "c02ce5f195f3cc3a"
+      ]
+    },
+    "80-archive-档案库/Movie-电影": {
+      "icon": "lucide-film",
+      "unsynced": [
+        "d4071a504930341f",
+        "c02ce5f195f3cc3a"
+      ]
+    },
+    "80-archive-档案库/Organization-组织": {
+      "icon": "lucide-component",
+      "unsynced": [
+        "d4071a504930341f",
+        "c02ce5f195f3cc3a"
+      ]
+    },
+    "80-archive-档案库/Paper-论文": {
+      "icon": "lucide-scroll-text",
+      "unsynced": [
+        "d4071a504930341f",
+        "c02ce5f195f3cc3a"
+      ]
+    },
+    "80-archive-档案库/People-人物": {
+      "icon": "lucide-user",
+      "unsynced": [
+        "d4071a504930341f",
+        "c02ce5f195f3cc3a"
+      ]
+    },
+    "80-archive-档案库/Product-产品": {
+      "icon": "lucide-package",
+      "unsynced": [
+        "d4071a504930341f",
+        "c02ce5f195f3cc3a"
+      ]
+    },
+    "80-archive-档案库/TVShow-电视剧": {
+      "icon": "lucide-tv-minimal-play",
+      "unsynced": [
+        "d4071a504930341f",
+        "c02ce5f195f3cc3a"
+      ]
+    },
+    "80-archive-档案库/Technique-技术": {
+      "icon": "lucide-atom",
+      "unsynced": [
+        "d4071a504930341f",
+        "c02ce5f195f3cc3a"
+      ]
+    },
+    "81-knowledge-知识库": {
+      "icon": "lucide-brain",
+      "color": "blue",
+      "unsynced": [
+        "d4071a504930341f",
+        "c02ce5f195f3cc3a"
+      ]
+    },
+    "82-categories-索引库": {
+      "icon": "lucide-book-marked",
+      "color": "blue",
+      "unsynced": [
+        "d4071a504930341f",
+        "c02ce5f195f3cc3a"
+      ]
+    },
+    "98-ai-output": {
+      "icon": "lucide-cpu",
+      "unsynced": [
+        "d4071a504930341f",
+        "c02ce5f195f3cc3a"
+      ]
+    },
+    "99-system": {
+      "icon": "lucide-settings",
+      "unsynced": [
+        "d4071a504930341f",
+        "c02ce5f195f3cc3a"
+      ],
+      "color": "gray"
+    },
+    "99-system/bases": {
+      "icon": "lucide-database",
+      "unsynced": [
+        "d4071a504930341f",
+        "c02ce5f195f3cc3a"
+      ]
+    },
+    "99-system/templates": {
+      "icon": "lucide-book-template",
+      "unsynced": [
+        "d4071a504930341f",
+        "c02ce5f195f3cc3a"
+      ]
+    }
+  },
+  "bookmarkIcons": {},
+  "tagIcons": {},
+  "propertyIcons": {},
+  "ribbonIcons": {},
+  "fileRules": [],
+  "folderRules": []
+}

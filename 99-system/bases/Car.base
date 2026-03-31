@@ -1,0 +1,14 @@
+filters:
+  and:
+    - template == link("Car Template")
+    - file.folder != "99-system/templates"
+views:
+  - type: cards
+    name: Cars
+    order:
+      - file.name
+      - rating
+      - developer
+      - release date
+    image: note.cover
+    cardSize: 200

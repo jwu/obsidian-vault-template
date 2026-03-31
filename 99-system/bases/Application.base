@@ -1,0 +1,12 @@
+filters:
+  and:
+    - template == link("Application Template")
+    - file.folder != "99-system/templates"
+views:
+  - type: table
+    name: Table
+    order:
+      - file.name
+      - website
+      - rating
+      - author

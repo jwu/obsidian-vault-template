@@ -1,0 +1,7 @@
+filters:
+  and:
+    - template == link("Methodology Template")
+    - file.folder != "99-system/templates"
+views:
+  - type: table
+    name: Table

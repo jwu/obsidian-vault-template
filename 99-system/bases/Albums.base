@@ -1,0 +1,16 @@
+filters:
+  and:
+    - template == link("Album Template")
+    - file.folder != "99-system/templates"
+formulas:
+  Album: ""
+views:
+  - type: table
+    name: Table
+    order:
+      - file.name
+    sort:
+      - property: formula.Album
+        direction: ASC
+  - type: table
+    name: View

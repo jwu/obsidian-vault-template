@@ -1,0 +1,17 @@
+filters:
+  or:
+    - date(created).format("YYYY-MM-DD") == this.file.name
+    - file.links.contains(this.file)
+views:
+  - type: table
+    name: Table
+    filters:
+      and:
+        - '!file.tags.contains("daily")'
+        - file.name != this.file.name
+    order:
+      - file.name
+      - file.path
+    sort:
+      - property: file.path
+        direction: ASC

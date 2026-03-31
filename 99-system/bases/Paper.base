@@ -1,0 +1,12 @@
+filters:
+  and:
+    - template == link("Paper Template")
+    - file.folder != "99-system/templates"
+views:
+  - type: table
+    name: Table
+    order:
+      - file.name
+      - url
+      - release date
+      - rating

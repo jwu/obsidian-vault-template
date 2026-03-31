@@ -1,0 +1,19 @@
+body {
+  --margin-in-between: 0em;
+}
+/* adjust margin between paragraph and ul/ol */
+div:has(> p) ~ div:has(> p) p {
+  margin-top: calc(var(--line-height-normal) * 0.88rem);
+  margin-block-end: var(--margin-in-between);
+}
+div:has(p) + div:has(ul,ol) > :is(ul,ol) {
+  margin-block-start: var(--margin-in-between);
+}
+/* adjust margin between headers and ul/ol. Had to use 0.88rem because default app's line-height somehow uses hardcoded 1.4 instead on line-height-normal: 1.5 */
+.markdown-rendered :is(h1,h2,h3,h4,h5,h6) {
+  margin-top: calc(var(--line-height-normal) * 0.88rem);
+  margin-bottom: var(--margin-in-between);
+}
+.markdown-rendered :has([data-heading]) + div:has(ul,ol) :is(ul,ol) {
+  margin-top: var(--margin-in-between);
+}

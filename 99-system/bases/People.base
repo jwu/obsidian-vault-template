@@ -1,0 +1,27 @@
+filters:
+  and:
+    - template == link("People Template")
+    - file.folder != "99-system/templates"
+views:
+  - type: cards
+    name: Cards
+    order:
+      - file.name
+      - desc
+      - website
+    image: note.avatar
+    cardSize: 200
+  - type: table
+    name: Table
+    order:
+      - file.name
+      - desc
+      - website
+      - github
+      - twitter
+      - youtube
+      - B 站
+      - 抖音
+      - 小红书
+    columnSize:
+      note.desc: 218

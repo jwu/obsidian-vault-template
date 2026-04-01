@@ -49,6 +49,15 @@
 - My Skills
 ### Obsidian Settings
 - 主题：Things
-- 字体：Inter，PingFang SC
+- 字体：
+    - 界面：Inter, PingFang SC, Microsoft YaHei UI
+    - 文字：PingFang SC, Microsoft YaHei
+    - 代码：FiraMono Nerd Font, PingFang SC, Microsoft YaHei Mono
 - 插件
+	- Calendar
+	- Dataview
+	- Enhancing Export
+	- Iconic
+	- Image Converter
 	- Style Settings
+	- Templater

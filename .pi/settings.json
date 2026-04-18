@@ -1,0 +1,3 @@
+{
+  "shellCommandPrefix": "python(){ uv run python \"$@\"; }\npython3(){ uv run python \"$@\"; }\nexport -f python\nexport -f python3"
+}

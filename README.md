@@ -9,24 +9,28 @@
 - 98：AI 专区
 - 99：系统区
 
-## 使用方法（待实践）
+## 使用方法
 
-- 任何事情都先进入收件箱（inbox）
-- AI 从收件箱分拣出待办（todo）、想法（ideas）、问题（questions）
-- todo 里分拣出
-	- to learn
-	- to read（书籍、文章、视频、电视剧、电影等）
-	- to play
-	- to execute（通常是 project task）
-	- 最后转化为 archive 或者 knowledge
-- idea 和 question 则会产生 research
-- research 会转化为 projects 和 knowledge
-
-## 流程（还没想清楚）
-
-- 想法需要经历：调研 -> 立项 -> 执行 -> 运营 -> 复盘 -> 结束
-- 学习需要经历：制定学习计划 -> 学习课程 -> 练习 -> 掌握 -> 知识沉淀
-- 待办需要经历：优先级 -> 任务分配 -> 执行 -> 结束
+- 新事物先进入收件箱（inbox）或记录在日记（daily）
+- AI 从收件箱（inbox）和日记（daily）中分拣出待办（todo）、想法（ideas）、问题（questions）
+- 待办（todo）里分拣出以我为主的工作，包括：
+	- 学习（learning）
+    	- 制定学习计划、课程表、练习事项
+    	- 按计划执行直到熟练掌握
+	- 阅读（reading）
+    	- 阅读是指大脑在一段时间内沉浸接收其他人精心编辑的内容
+    	- 内容包括但不限于：文章、书籍、视频、剧集、电影、音乐
+	- 游玩（playing）
+    	- 游玩是指个体主动实践内容
+    	- 内容包括但不限于：视频游戏、桌游、游乐园、旅游等
+- 想法（ideas）和问题（questions）会产生
+    - 调研（research）
+- 调研（research）会诞生
+    - 项目（projects）
+- 最终沉淀为
+    - 档案库（archive）
+    - 知识库（knowledge）
+    - 数据库（data）
 
 ## 评分系统
 

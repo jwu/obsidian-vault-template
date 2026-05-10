@@ -1,3 +1,19 @@
 {
+  "lastChangelogVersion": "0.74.0",
+  "defaultProvider": "openai-codex",
+  "defaultModel": "gpt-5.5",
+  "defaultThinkingLevel": "medium",
+  "theme": "one-dark",
+  "enableInstallTelemetry": false,
+  "extensions": [
+    "~/bin/pi-config/extensions"
+  ],
+  "packages": [
+    "~/dev/jwu/pi-powerline",
+    "~/dev/jwu/pi-terminal-signals",
+    "~/dev/jwu/pi-filechanges",
+    "npm:pi-animations",
+    "npm:@eko24ive/pi-ask"
+  ],
   "shellCommandPrefix": "python(){ uv run python \"$@\"; }\npython3(){ uv run python \"$@\"; }\nexport -f python\nexport -f python3"
 }

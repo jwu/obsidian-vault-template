@@ -15,9 +15,9 @@ description: 了解项目结构与协作偏好，准备与我协作
 用最少的命令获取全貌，不要逐目录扫描：
 - `obsidian vault=work vault info=files` — 笔记总数
 - `obsidian vault=work daily:read` — 今日日记，了解当前在做什么
-- `obsidian vault=work read path="00-inbox-收件箱/inbox.md"` — 收件箱
-- `obsidian vault=work read path="00-inbox-收件箱/later.md"` — 待分拣
-- `obsidian vault=work read path="10-todo-待办/TODO.md"` — 待办总览
+- `00-inbox-收件箱/inbox.md` — 收件箱
+- `00-inbox-收件箱/later.md` — 待分拣
+- `10-todo-待办/TODO.md` — 待办总览
 
 ## 3. 准备就绪
 完成上述步骤后，用简洁中文告诉我：

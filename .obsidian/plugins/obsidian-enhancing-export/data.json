@@ -59,7 +59,8 @@
   "showExportProgressBar": true,
   "lastEditName": "Html",
   "lastExportDirectory": {
-    "win32": "C:\\Users\\Karas\\Downloads"
+    "win32": "C:\\Users\\Karas\\Downloads",
+    "darwin": "/Users/zyq/Documents"
   },
   "lastExportType": "Html"
 }

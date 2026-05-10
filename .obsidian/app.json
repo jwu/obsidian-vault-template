@@ -1,6 +1,6 @@
 {
   "alwaysUpdateLinks": true,
-  "showUnsupportedFiles": true,
+  "showUnsupportedFiles": false,
   "newFileLocation": "current",
   "attachmentFolderPath": "./@media",
   "promptDelete": true,

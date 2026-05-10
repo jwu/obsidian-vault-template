@@ -160,6 +160,13 @@
         "c02ce5f195f3cc3a"
       ]
     },
+    "80-archive-档案库/Conference-峰会": {
+      "icon": "lucide-messages-square",
+      "unsynced": [
+        "c02ce5f195f3cc3a",
+        "d4071a504930341f"
+      ]
+    },
     "80-archive-档案库/Game-游戏": {
       "icon": "lucide-gamepad",
       "unsynced": [
@@ -223,6 +230,19 @@
         "c02ce5f195f3cc3a"
       ]
     },
+    "80-archive-档案库/Tutorial-教程": {
+      "icon": "lucide-notebook-pen",
+      "unsynced": [
+        "d4071a504930341f"
+      ]
+    },
+    "80-archive-档案库/Website-网站": {
+      "icon": "lucide-globe",
+      "unsynced": [
+        "c02ce5f195f3cc3a",
+        "d4071a504930341f"
+      ]
+    },
     "81-knowledge-知识库": {
       "icon": "lucide-brain",
       "color": "blue",
@@ -234,6 +254,22 @@
     "82-categories-索引库": {
       "icon": "lucide-book-marked",
       "color": "blue",
+      "unsynced": [
+        "d4071a504930341f",
+        "c02ce5f195f3cc3a"
+      ]
+    },
+    "83-data-数据库": {
+      "icon": "lucide-chart-spline",
+      "unsynced": [
+        "d4071a504930341f",
+        "c02ce5f195f3cc3a"
+      ],
+      "color": "blue"
+    },
+    "90-personal-私人数据": {
+      "icon": "lucide-lock-keyhole",
+      "color": "pink",
       "unsynced": [
         "d4071a504930341f",
         "c02ce5f195f3cc3a"
@@ -259,6 +295,20 @@
       "unsynced": [
         "d4071a504930341f",
         "c02ce5f195f3cc3a"
+      ]
+    },
+    "99-system/media": {
+      "icon": "lucide-image",
+      "unsynced": [
+        "c02ce5f195f3cc3a",
+        "d4071a504930341f"
+      ]
+    },
+    "99-system/specs": {
+      "icon": "lucide-ruler",
+      "unsynced": [
+        "c02ce5f195f3cc3a",
+        "d4071a504930341f"
       ]
     },
     "99-system/templates": {

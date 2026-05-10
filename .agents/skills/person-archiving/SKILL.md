@@ -22,6 +22,9 @@ allowed-tools: read bash edit write
 
 如需对齐现有风格，可查看：
 - `../../../80-archive-档案库/People-人物/` 下已有笔记
+    - `../../../80-archive-档案库/People-人物/Jonathan Blow.md`
+    - `../../../80-archive-档案库/People-人物/Daniel Holden.md`
+
 
 ## Output
 
@@ -42,6 +45,23 @@ allowed-tools: read bash edit write
 - 编辑 Markdown 内容时保持 Obsidian 兼容
 - 引用文件夹时不要使用 `[[wikilink]]`，统一使用 `文件夹名/` 形式
 - 若需创建、移动、重命名人物笔记，遵循项目要求，使用 `obsidian vault=work ...` 完成
+
+### 排序硬性流程（每次必须执行）
+
+时间相关条目（访谈、文章、视频、论文、作品、履历）**不得边写边排**。必须执行以下步骤：
+
+1. **先列清单**：在写入文件之前，用 bash `echo` 或注释的方式，把该栏目的年份显式列出来，每行一个年份，例如：
+   ```
+   2025 autoresearch, nanochat, jobs
+   2024 llm.c, LLM101n, minbpe
+   2023 llama2.c, build-nanogpt
+   2022 nanoGPT, nn-zero-to-hero, makemore
+   2020 minGPT, micrograd
+   ```
+2. **目视确认**：确认年份从上到下严格递减，同一年的条目无冲突
+3. **再展开写入**：确认无误后才写入完整条目
+
+这一步不可跳过。如果跳过，几乎必然出现排序错误。
 
 ## Workflow
 
@@ -87,6 +107,17 @@ allowed-tools: read bash edit write
 
 社媒链接包括但不限于：GitHub、Twitter、YouTube、Bluesky、Mastodon、小红书、B 站、抖音等。
 
+##### 按职业侧重搜索
+
+不同类型的人物，活跃平台不同，挖掘时应优先检查对应的高概率平台：
+
+- **技术工程师 / 程序员**：GitHub、个人技术博客、Twitter/X、YouTube（技术分享）
+- **概念艺术家 / 3D 艺术家**：ArtStation、Instagram、Twitter/X、YouTube（教程/过程）
+- **像素艺术家 / 独立游戏美术**：itch.io、Twitter/X、PixelJoint
+- **音乐家 / 音效师**：Bandcamp、SoundCloud、Spotify、网易云音乐
+- **独立游戏开发者**：itch.io、Steam、Twitter/X、GitHub、YouTube
+- **作家 / 记者 / 评论家**：个人博客、Medium、Substack、Twitter/X
+
 #### 整理内容
 
 根据上述社媒链接的挖掘开始内容整理。
@@ -99,7 +130,8 @@ allowed-tools: read bash edit write
 - 视频
     - 从 YouTube 账号里找
 - 作品
-    - 从 GitHub 仓库里找
+    - 代码类：从 GitHub 仓库里找
+    - 音乐类：从 music.163.com 查找（网易云音乐的页面是 SPA，scrapling 抓不到内容，需使用 API）
 - 履历
     - 优先从个人主页 about、自述页找
     - 再从 GitHub、Twitter 等自述里找
@@ -123,6 +155,12 @@ twitter:
 bsky:
 mastodon:
 youtube:
+artstation:
+bandcamp:
+itchio:
+instagram:
+tiktok:
+patreon:
 B 站:
 抖音:
 小红书:
@@ -132,19 +170,23 @@ aliases:
 
 填写规则：
 - `desc`：一句话说明这个人的身份或价值
+- `avatar`：头像 url
 - `website`：个人官网或个人主页
-- `github` / `twitter` / `youtube` / `bsky` / `mastodon` / `B 站` / `抖音` / `小红书`：填主页链接
+- `github` / `twitter` / `youtube` / `bsky` / `mastodon` / `B 站` / `抖音` / `小红书` / `artstation` / `bandcamp` / `itchio` / `instagram` / `tiktok` / `patreon`：填主页链接
 - `aliases`：仅在确有常见别名、中文名、艺名时填写
 - 未找到或无法确认的社媒字段，直接省略，不要保留空字段
 - 仅保留已确认且对后续检索、补充有价值的属性
 
 #### 使用统一格式写入正文
 
-推荐沿用 `People Template` 的结构：
-
 ```md
+![avatar|200](头像链接地址)
+
+## 简介
+- 个人简介
+
 ## 访谈
-- 访谈链接
+- [(2026-01-01) 访谈标题](链接地址)
 
 ## 文章
 - [(2026-01-01) 文章标题](链接地址)
@@ -153,19 +195,20 @@ aliases:
 - [(2026-01-01) 视频标题](链接地址)
 
 ## 作品
-- 作品链接
+- [作品名 (2026)](链接地址)
 
 ## 履历
 - 2020-02-02 ~ 2022-02-02 就职于 foobar
 ```
 
 其中格式要求：
+- 访谈：`[(YYYY-MM-DD) 访谈标题](链接)`
 - 文章：`[(YYYY-MM-DD) 文章标题](链接)`
 - 视频：`[(YYYY-MM-DD) 视频标题](链接)`
 - 论文：`(SIGGRAPH YYYY) 论文名`
-- 作品：优先记录代表性项目、仓库、作品集链接
+- 作品：`[作品名 (YYYY)](链接)`
 - 履历：尽量写清时间范围、组织、职位；缺失则保守描述
-- 文章、视频、履历等时间相关条目统一按时间降序排列，时间越新的越靠上
+- 访谈、文章、视频、作品、履历等时间相关条目统一按时间降序排列，时间越新的越靠上
 
 ## Ambiguity handling
 

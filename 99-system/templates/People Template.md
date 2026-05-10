@@ -6,22 +6,26 @@ desc:
 website:
 github:
 twitter:
+bsky:
+mastodon:
 youtube:
+artstation:
+bandcamp:
+itchio:
+instagram:
+tiktok:
+patreon:
 B 站:
 抖音:
 小红书:
 aliases:
 ---
-avatar
-```dataviewjs
-const avatar = dv.current().avatar;
-if (avatar) {
-    dv.el("img", "", { attr: { src: avatar, width: "200" } });
-}
-```
+![[avatar-placeholder.svg|200]]
+## 简介
+- 个人简介
 
 ## 访谈
-- 访谈链接
+- [(2026-01-01) 访谈标题](链接地址)
 
 ## 文章
 - [(2026-01-01) 文章标题](链接地址)
@@ -30,7 +34,8 @@ if (avatar) {
 - [(2026-01-01) 视频标题](链接地址)
 
 ## 作品
-- 代码仓库链接
+- [作品名 (2026)](链接地址)
 
 ## 履历
-- 2020-02-02 ~ 2022-02-02 就职于 foobar
+- 2023 ~ 2025 就职于 xyz
+- 2018-02-02 ~ 2022-12-10 就职于 foobar

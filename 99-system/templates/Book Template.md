@@ -7,11 +7,6 @@ genre:
 website:
 release date:
 rating:
+aliases:
 ---
-cover
-```dataviewjs
-const cover = dv.current().cover;
-if (cover) {
-    dv.el("img", "", { attr: { src: cover, width: "200" } });
-}
-```
+![[no-image-placeholder.svg|300]]

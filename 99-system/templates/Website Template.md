@@ -1,11 +1,9 @@
 ---
 created: <% tp.file.creation_date("YYYY-MM-DD") %>
-template: "[[Art Asset Template]]"
+template: "[[Website Template]]"
 cover:
-author:
-genre:
-website:
-release date:
+url:
+desc:
 rating:
 ---
 ![[no-image-placeholder-banner.svg|800]]

@@ -6,11 +6,6 @@ genre:
 artist:
 release date:
 rating:
+aliases:
 ---
-cover
-```dataviewjs
-const cover = dv.current().cover;
-if (cover) {
-    dv.el("img", "", { attr: { src: cover, width: "200" } });
-}
-```
+![[album-cover-placeholder.jpg|300]]

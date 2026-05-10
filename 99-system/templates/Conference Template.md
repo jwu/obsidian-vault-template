@@ -1,7 +1,7 @@
 ---
 created: <% tp.file.creation_date("YYYY-MM-DD") %>
 updated: 
-template: "[[Article Template]]"
+template: "[[Conference Template]]"
 author:
 url:
 ---

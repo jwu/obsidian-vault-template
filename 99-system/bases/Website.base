@@ -1,0 +1,14 @@
+filters:
+  and:
+    - template == link("Website Template")
+    - file.folder != "99-system/templates"
+views:
+  - type: cards
+    name: Sites
+    order:
+      - file.name
+      - url
+      - desc
+      - rating
+    image: note.cover
+    cardSize: 200

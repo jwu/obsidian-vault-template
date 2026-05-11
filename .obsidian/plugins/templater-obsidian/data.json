@@ -85,6 +85,10 @@
     {
       "folder": "80-archive-档案库/Website-网站",
       "template": "99-system/templates/Website Template.md"
+    },
+    {
+      "folder": "80-archive-档案库/Tutorial-教程",
+      "template": "99-system/templates/Tutorial Template.md"
     }
   ],
   "enable_file_templates": false,

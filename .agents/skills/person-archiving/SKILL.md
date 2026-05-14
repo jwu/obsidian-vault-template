@@ -1,7 +1,7 @@
 ---
 name: person-archiving
 description: 为该知识库创建或更新人物档案笔记。用户要给某个人物建档、补充人物资料、整理社媒主页、头像、文章、视频、作品或履历时使用。
-allowed-tools: read bash edit write
+allowed-tools: read bash edit write grep find ls
 ---
 
 # Person Archiving

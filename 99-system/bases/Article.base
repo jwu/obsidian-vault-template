@@ -1,11 +1,13 @@
 filters:
   and:
-    - template == link("Paper Template")
+    - template == link("Article Template")
     - file.folder != "99-system/templates"
 views:
   - type: table
-    name: Table
+    name: Articles
     order:
       - file.name
+      - author
+      - url
+      - published
       - rating
-      - aliases

@@ -1,0 +1,15 @@
+filters:
+  and:
+    - template == link("Tutorial Template")
+    - file.folder != "99-system/templates"
+views:
+  - type: table
+    name: Tutorials
+    order:
+      - file.name
+      - author
+      - url
+      - published
+      - repository
+      - desc
+      - rating

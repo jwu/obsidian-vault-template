@@ -8,5 +8,6 @@ views:
     order:
       - file.name
       - website
+      - desc
     image: note.logo
     cardSize: 200

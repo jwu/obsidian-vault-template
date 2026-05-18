@@ -10,3 +10,4 @@ views:
       - website
       - rating
       - author
+    image: note.cover

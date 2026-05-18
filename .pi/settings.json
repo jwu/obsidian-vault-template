@@ -1,5 +1,4 @@
 {
-  "lastChangelogVersion": "0.74.0",
   "defaultProvider": "deepseek",
   "defaultModel": "deepseek-v4-pro",
   "defaultThinkingLevel": "high",
@@ -9,11 +8,13 @@
     "~/bin/pi-config/extensions"
   ],
   "packages": [
+    "~/dev/jwu/pi-default-tools",
     "~/dev/jwu/pi-powerline",
     "~/dev/jwu/pi-terminal-signals",
     "~/dev/jwu/pi-filechanges",
     "npm:pi-animations",
     "npm:@eko24ive/pi-ask"
   ],
+  "tools": ["find", "ls", "grep", "..."],
   "shellCommandPrefix": "python(){ uv run python \"$@\"; }\npython3(){ uv run python \"$@\"; }\nexport -f python\nexport -f python3"
 }

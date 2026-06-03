@@ -54,7 +54,7 @@ page = StealthyFetcher.fetch(url, network_idle=True, wait=3000)
 所有 Python API 通过 `scrapling shell` 运行：
 
 ```bash
-uv run scrapling shell -L warning -c "你的代码"
+scrapling shell -L warning -c "你的代码"
 ```
 
 ## 特定站点抓取指南
@@ -143,4 +143,4 @@ rm -f ${TEMP:-/tmp}/scrapling_output.txt
 ## 杂项
 
 - `DynamicFetcher` 和 `StealthyFetcher` 支持 `cdp_url` 参数连接已启动的 Chrome 实例（需 `--remote-debugging-port=9222`）
-- 更多参数见 `uv run scrapling extract <command> --help` 或源码 https://github.com/D4Vinci/Scrapling
+- 更多参数见 `scrapling extract <command> --help` 或源码 https://github.com/D4Vinci/Scrapling

@@ -16,18 +16,18 @@ CLI 适合快速一次性抓取，不需要登录态的场景。功能比 Python
 OUT="${TEMP:-/tmp}/scrapling_output.md"
 
 # 1. 静态 GET（最快，适合普通网页）
-uv run scrapling extract get --ai-targeted <url> "$OUT"
+scrapling extract get --ai-targeted <url> "$OUT"
 
 # 2. SPA 动态页面（Playwright 渲染）
-uv run scrapling extract fetch --network-idle --wait=3000 --ai-targeted <url> "$OUT"
+scrapling extract fetch --network-idle --wait=3000 --ai-targeted <url> "$OUT"
 
 # 3. 隐身浏览器（反爬严格）
-uv run scrapling extract stealthy-fetch --network-idle --wait=3000 --ai-targeted <url> "$OUT"
+scrapling extract stealthy-fetch --network-idle --wait=3000 --ai-targeted <url> "$OUT"
 ```
 
 读取结果后记得清理：`rm -f "${TEMP:-/tmp}/scrapling_output.md"`
 
-更多参数见 `uv run scrapling extract <command> --help`。
+更多参数见 `scrapling extract <command> --help`。
 
 ## 常用参数
 

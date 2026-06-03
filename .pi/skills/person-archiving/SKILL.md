@@ -101,10 +101,6 @@ allowed-tools: read bash edit write grep find ls
 
 通过所提供的链接，挖掘出：个人主页、GitHub、Twitter、YouTube 等主要社媒链接。
 
-挖掘过程中：
-- 普通网页、个人主页、链接聚合页优先使用 `uv run scrapling`
-- YouTube 频道或视频信息优先使用 `yt-dlp`
-
 社媒链接包括但不限于：GitHub、Twitter、YouTube、Bluesky、Mastodon、小红书、B 站、抖音等。
 
 ##### 按职业侧重搜索

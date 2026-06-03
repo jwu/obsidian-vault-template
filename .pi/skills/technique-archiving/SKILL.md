@@ -84,8 +84,6 @@ allowed-tools: read bash edit write grep find ls
 - GitHub / GitLab 仓库（README、Wiki、Releases）
 - 包管理器页面（npm、crates.io、pypi 等）
 
-获取基础信息时优先使用 `uv run scrapling` 抓取网页内容，GitHub 仓库信息优先使用 `gh` 命令。
-
 #### 原理挖掘
 
 - 从文档的 Architecture / Internals / How it works 章节找

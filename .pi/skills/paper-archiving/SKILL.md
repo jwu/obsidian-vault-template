@@ -89,12 +89,6 @@ allowed-tools: read bash edit write grep find ls
 - GitHub / GitLab 仓库（README、代码结构）
 - 会议官方页面
 
-获取基础信息时：
-- 普通网页优先使用 `uv run scrapling` 抓取内容
-- arXiv 页面使用 scrapling 的 `Fetcher`（静态页面）
-- GitHub 仓库信息优先使用 `gh` 命令
-- YouTube 等视频信息优先使用 `yt-dlp`
-
 #### 摘要与核心内容
 
 从论文中提取以下结构化信息：

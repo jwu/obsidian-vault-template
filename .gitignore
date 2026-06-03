@@ -24,6 +24,7 @@ __pycache__/
 
 # Node / JavaScript 本地依赖与缓存
 node_modules/
+package-lock.json
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

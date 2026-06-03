@@ -73,10 +73,12 @@ AI 的首要任务：理解内容、保留原意、帮助归类、提升可执�
 ### 搜索
 
 - 默认不全库扫描，按任务读取相关笔记与必要索引
-- 搜索文件内容优先使用 `rg`（ripgrep），而非 `find` 或 `grep`
-- 获取 GitHub 仓库信息优先使用 `gh`
-- 获取 YouTube 等视频信息优先使用 `yt-dlp`
-- 获取互联网信息优先使用 `uv run scrapling shell`，使用前务必阅读 `99-system/scrapling-api-guide.md`
+- 搜索文件内容优先使用 tool `grep`、`find` 和 `ls`
+- 获取互联网信息优先使用 tool `webfetch`
+- 以上 tool 失败后，再考虑
+    - 获取 GitHub 仓库信息优先使用 `gh`
+    - 获取 YouTube 等视频信息优先使用 `yt-dlp`
+    - 获取互联网信息优先使用 `scrapling shell`，使用前务必阅读 `99-system/scrapling-api-guide.md`
 
 ### 提交
 

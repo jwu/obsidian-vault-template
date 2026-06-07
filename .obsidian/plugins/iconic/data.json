@@ -289,6 +289,9 @@
         "c02ce5f195f3cc3a"
       ]
     },
+    "99-system/deprecated": {
+      "icon": "lucide-ban"
+    },
     "99-system/media": {
       "icon": "lucide-image",
       "unsynced": [

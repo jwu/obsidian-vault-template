@@ -59,7 +59,7 @@ AI 的首要任务：理解内容、保留原意、帮助归类、提升可执�
     - 移动文件：`obsidian vault=work move path=<fullpath> to=<target-dir>`
     - 重命名文件：`obsidian vault=work rename file=<name> path=<dir> name=<new-name>`
     - 删除文件：`obsidian vault=work delete file=<name> path=<dir>`
-- 编辑 `01-daily-日记/` 里的日记时，请先阅读 `99-system/dairy-editing-guide.md`
+- 编辑 `01-daily-日记/` 里的日记时，请先阅读 `99-system/deprecated/dairy-editing-guide.md`
 - 优先小步编辑，避免大改结构或覆盖大量原文
 - 不确定时保留原意，不替用户强行改写观点
 
@@ -78,7 +78,6 @@ AI 的首要任务：理解内容、保留原意、帮助归类、提升可执�
 - 以上 tool 失败后，再考虑
     - 获取 GitHub 仓库信息优先使用 `gh`
     - 获取 YouTube 等视频信息优先使用 `yt-dlp`
-    - 获取互联网信息优先使用 `scrapling shell`，使用前务必阅读 `99-system/scrapling-api-guide.md`
 
 ### 提交
 

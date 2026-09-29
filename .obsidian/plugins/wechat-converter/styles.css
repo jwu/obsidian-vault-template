@@ -1,0 +1,4321 @@
+/**
+ * 🍎 Apple Style Formatter - 样式表
+ * 极简、优雅、专业的苹果风格排版
+ */
+
+/* ========================================
+   全局变量 - 苹果配色系统
+   ======================================== */
+:root {
+  /* 核心配色 (Light Mode) */
+  --apple-primary: #1d1d1f;
+  --apple-secondary: #6e6e73;
+  --apple-tertiary: #86868b;
+  --apple-background: #ffffff;
+  --apple-surface: #f5f5f7;
+
+  /* 强调色 */
+  --apple-accent: #0071e3;
+  --apple-accent-hover: #0077ed;
+
+  /* 语义色 */
+  --apple-success: #34c759;
+  --apple-warning: #ff9500;
+  --apple-error: #ff3b30;
+
+  /* 代码配色 */
+  --apple-code-text: #c7254e;
+  --apple-code-bg: #f5f5f7;
+  --apple-code-block-bg: #fafafa;
+  --apple-code-block-border: #e8e8ed;
+
+  /* 边框和分隔线 */
+  --apple-divider: #d2d2d7;
+  --apple-border: #e8e8ed;
+
+  /* 间距 */
+  --apple-spacing-xs: 4px;
+  --apple-spacing-sm: 8px;
+  --apple-spacing-md: 16px;
+  --apple-spacing-lg: 24px;
+  --apple-spacing-xl: 32px;
+  --apple-spacing-xxl: 48px;
+
+  /* 圆角 */
+  --apple-radius-sm: 4px;
+  --apple-radius-md: 8px;
+  --apple-radius-lg: 12px;
+
+  /* 字体 */
+  --apple-font-text: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', 'PingFang SC', Arial, sans-serif;
+  --apple-font-code: 'SF Mono', Menlo, Monaco, Consolas, monospace;
+}
+
+/* ========================================
+   深色模式适配 (Dark Mode)
+   ======================================== */
+.theme-dark {
+  --apple-primary: #dcddde;
+  --apple-secondary: #b3b3b3;
+  --apple-tertiary: #5c5c5c;
+  --apple-background: var(--background-primary);
+  --apple-surface: var(--background-secondary);
+  --apple-border: var(--background-modifier-border);
+  --apple-divider: var(--background-modifier-border);
+
+  --apple-code-text: #ff6b6b;
+  --apple-code-bg: #2d2d2d;
+  --apple-code-block-bg: #1e1e1e;
+  --apple-code-block-border: #333;
+}
+
+/* ========================================
+   视图容器
+   ======================================== */
+.apple-converter-container {
+  --apple-loading-accent: #7c3aed;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--apple-background);
+  font-family: var(--apple-font-text);
+  color: var(--apple-primary);
+  position: relative; /* 为悬浮层提供定位上下文 */
+}
+
+/* ========================================
+   顶部工具栏 (Top Toolbar)
+   ======================================== */
+.apple-top-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px; /* 增加高度以容纳双行 */
+  padding: 0 16px;
+  border-bottom: 1px solid var(--apple-divider);
+  background: var(--apple-background);
+  flex-shrink: 0;
+  z-index: 200; /* 确保在最上层 */
+}
+
+.apple-toolbar-title {
+  flex: 1;
+  margin-right: 16px;
+  display: flex;
+  flex-direction: column; /* 双行布局 */
+  justify-content: center;
+  align-items: flex-start;
+  overflow: hidden; /* 关键：确保子元素截断生效 */
+}
+
+.apple-toolbar-plugin-name {
+  font-size: 11px;
+  color: var(--apple-tertiary);
+  font-weight: 500;
+  margin-bottom: 2px;
+  line-height: 1.2;
+}
+
+.apple-toolbar-doc-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--apple-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%; /* 确保占据全宽以触发截断 */
+  line-height: 1.2;
+}
+
+.apple-toolbar-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.apple-converter-container.apple-converter-mobile .apple-top-toolbar {
+  height: 52px;
+  padding: 0 10px;
+}
+
+.apple-converter-container.apple-converter-mobile .apple-toolbar-title {
+  margin-right: 8px;
+  min-width: 0;
+}
+
+.apple-converter-container.apple-converter-mobile .apple-toolbar-plugin-name {
+  display: none;
+}
+
+.apple-converter-container.apple-converter-mobile .apple-toolbar-doc-name {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.apple-converter-container.apple-converter-mobile .apple-toolbar-actions {
+  gap: 6px;
+}
+
+.apple-converter-container.apple-converter-mobile .apple-icon-btn {
+  width: 34px;
+  height: 34px;
+}
+
+.apple-converter-container.apple-converter-mobile .apple-ai-layout-overlay {
+  top: 56px;
+  left: clamp(10px, 3.2vw, 16px);
+  right: clamp(10px, 3.2vw, 16px);
+  width: auto;
+  max-height: calc(100% - 56px - max(8px, env(safe-area-inset-bottom)));
+  border-radius: 14px;
+  border: 1px solid var(--apple-border);
+  box-shadow:
+    0 16px 36px -24px rgba(0, 0, 0, 0.38),
+    0 4px 14px rgba(0, 0, 0, 0.1);
+  padding: 12px 12px calc(24px + env(safe-area-inset-bottom)) 12px;
+  scrollbar-gutter: stable;
+}
+
+.apple-converter-container.apple-converter-mobile .apple-ai-layout-overlay.is-loading {
+  left: 0;
+  right: 0;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.apple-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--apple-radius-sm);
+  color: var(--apple-secondary);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.apple-icon-btn:hover {
+  background: var(--apple-surface);
+  color: var(--apple-primary);
+}
+
+.apple-icon-btn.active {
+  background: var(--apple-accent);
+  color: white;
+}
+
+.apple-icon-btn.is-copying {
+  color: var(--apple-accent);
+  background: transparent;
+  cursor: progress;
+}
+
+.apple-icon-btn.is-copying:hover {
+  color: var(--apple-accent);
+  background: var(--apple-surface);
+}
+
+.apple-copy-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  box-sizing: border-box;
+  animation: apple-copy-spinner-rotate 0.7s linear infinite;
+}
+
+@keyframes apple-copy-spinner-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.apple-icon-btn.is-disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.apple-icon-btn.is-disabled:hover {
+  background: transparent;
+  color: var(--apple-secondary);
+}
+
+/* ========================================
+   AI 编排面板 (Floating AI Layout Panel)
+   ======================================== */
+.apple-ai-layout-overlay {
+  --ai-layout-accent: #0a84ff;
+  --ai-layout-accent-deep: #0a84ff;
+  --ai-layout-accent-soft: color-mix(in srgb, var(--ai-layout-accent) 10%, transparent);
+  --ai-layout-accent-border: color-mix(in srgb, var(--ai-layout-accent) 72%, transparent);
+  position: absolute;
+  top: 48px;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow:
+    0 10px 40px -10px rgba(0, 0, 0, 0.15),
+    0 2px 10px rgba(0, 0, 0, 0.05);
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  z-index: 100;
+  padding: 24px 12px 32px 12px;
+  max-height: 60%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-20px);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  overflow-x: hidden;
+}
+
+.apple-ai-layout-overlay.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.apple-ai-layout-overlay.is-loading .apple-ai-layout-area {
+  opacity: 0.28;
+  pointer-events: none;
+}
+
+.apple-ai-layout-overlay.is-loading::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  z-index: 3;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.18));
+}
+
+.apple-ai-layout-overlay.is-loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(120px, calc(100% - 48px));
+  height: 2px;
+  z-index: 4;
+  border-radius: 999px;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--apple-loading-accent, #7c3aed) 14%, transparent) 0%,
+    var(--apple-loading-accent, #7c3aed) 50%,
+    color-mix(in srgb, var(--apple-loading-accent, #7c3aed) 14%, transparent) 100%
+  );
+  background-size: 200% 100%;
+  animation: apple-ai-layout-loading-strip 1.1s linear infinite;
+}
+
+.apple-converter-container.apple-ai-layout-panel-loading .apple-converter-preview.apple-preview-loading::before {
+  content: none;
+}
+
+.theme-dark .apple-ai-layout-overlay {
+  background: rgba(30, 30, 30, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 10px 40px -10px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.theme-dark .apple-ai-layout-overlay.is-loading::before {
+  background: linear-gradient(180deg, rgba(30, 30, 30, 0.88), rgba(30, 30, 30, 0.24));
+}
+
+.theme-dark .apple-converter-container.apple-converter-mobile .apple-ai-layout-overlay {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.apple-ai-layout-overlay::-webkit-scrollbar {
+  width: 4px;
+}
+
+.apple-ai-layout-overlay::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.apple-ai-layout-overlay::-webkit-scrollbar-thumb {
+  background: rgba(120, 120, 128, 0.5);
+  border-radius: 999px;
+}
+
+.apple-ai-layout-area {
+  max-width: 360px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 2px 16px 0;
+  box-sizing: border-box;
+}
+
+.apple-ai-layout-loading-mask {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.32), rgba(255, 255, 255, 0.22));
+  backdrop-filter: blur(10px) saturate(118%);
+  -webkit-backdrop-filter: blur(10px) saturate(118%);
+  z-index: 2;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.apple-ai-layout-loading-mask.visible {
+  display: flex;
+}
+
+.apple-ai-layout-loading-mask.visible::before {
+  content: none;
+}
+
+.theme-dark .apple-ai-layout-loading-mask {
+  background: linear-gradient(180deg, rgba(30, 30, 30, 0.34), rgba(30, 30, 30, 0.24));
+}
+
+.apple-ai-layout-loading-bar {
+  display: none;
+}
+
+.apple-ai-layout-loading-bar-fill {
+  display: none;
+}
+
+.apple-ai-layout-loading-spinner {
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  border: 2px solid color-mix(in srgb, var(--apple-loading-accent, #7c3aed) 20%, transparent);
+  border-top-color: var(--apple-loading-accent, #7c3aed);
+  animation: apple-ai-layout-spin 0.8s linear infinite;
+}
+
+.apple-ai-layout-loading-text {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--apple-loading-accent, #7c3aed);
+}
+
+@keyframes apple-ai-layout-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes apple-ai-layout-loading-strip {
+  0% {
+    background-position: 200% 0;
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    background-position: -100% 0;
+    opacity: 0.55;
+  }
+}
+
+.apple-ai-layout-header {
+  margin-bottom: 0;
+}
+
+.apple-ai-layout-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--apple-primary);
+  line-height: 1.2;
+}
+
+.apple-ai-layout-subtitle {
+  margin-top: 6px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--apple-secondary);
+}
+
+.apple-ai-layout-status {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: var(--apple-surface);
+  border: 1px solid var(--apple-border);
+}
+
+.apple-ai-layout-status-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.apple-ai-layout-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 56px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ai-layout-accent) 12%, transparent);
+  color: var(--ai-layout-accent-deep);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.apple-ai-layout-badge.is-applied {
+  background: color-mix(in srgb, var(--ai-layout-accent) 18%, transparent);
+}
+
+.apple-ai-layout-badge.is-stale {
+  background: rgba(245, 158, 11, 0.18);
+  color: #b45309;
+}
+
+.apple-ai-layout-badge.is-error {
+  background: rgba(239, 68, 68, 0.18);
+  color: #b91c1c;
+}
+
+.apple-ai-layout-badge.is-disabled {
+  background: rgba(107, 114, 128, 0.16);
+  color: #4b5563;
+}
+
+.apple-ai-layout-status-text {
+  order: 2;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--apple-secondary);
+}
+
+.apple-ai-layout-status .apple-ai-layout-summary {
+  order: 3;
+}
+
+.apple-ai-layout-section {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.apple-ai-layout-advanced {
+  gap: 12px;
+  margin-top: 2px;
+}
+
+.apple-ai-layout-advanced-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--apple-border);
+  background: var(--apple-surface);
+  color: var(--apple-primary);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.apple-ai-layout-advanced-toggle::after {
+  content: '展开';
+  color: var(--apple-secondary);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.apple-ai-layout-advanced-toggle.is-open::after {
+  content: '收起';
+}
+
+.apple-ai-layout-advanced-body {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.apple-ai-layout-advanced-body.visible {
+  display: flex;
+}
+
+.apple-ai-layout-control {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.apple-ai-layout-controls-section {
+  gap: 14px;
+}
+
+.apple-ai-layout-color-select {
+  display: none;
+}
+
+.apple-ai-color-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  align-items: flex-start;
+}
+
+.apple-ai-color-mode-row,
+.apple-ai-color-custom-row {
+  display: flex;
+  align-items: center;
+  min-height: 28px;
+}
+
+.apple-ai-color-grid {
+  display: grid;
+  grid-template-columns: repeat(6, max-content);
+  gap: 8px 9px;
+  align-items: center;
+}
+
+.apple-ai-color-btn {
+  width: 26px;
+  height: 26px;
+}
+
+.apple-ai-color-btn::after {
+  width: 16px;
+  height: 16px;
+}
+
+.apple-ai-color-pill {
+  height: 26px;
+  padding: 0 9px;
+  border: 1px solid var(--apple-border);
+  border-radius: 13px;
+  background: var(--apple-background);
+  color: var(--apple-secondary);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.apple-ai-color-pill:hover {
+  color: var(--apple-primary);
+  border-color: color-mix(in srgb, var(--ai-layout-accent-border) 28%, var(--apple-border));
+}
+
+.apple-ai-color-pill.active {
+  background: color-mix(in srgb, var(--ai-layout-accent) 10%, transparent);
+  color: var(--ai-layout-accent-deep);
+  border-color: color-mix(in srgb, var(--ai-layout-accent-border) 30%, var(--apple-border));
+}
+
+.apple-ai-layout-cache-list {
+  order: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  align-items: flex-start;
+  width: 100%;
+  min-height: 18px;
+}
+
+.apple-ai-layout-cache-list[hidden] {
+  display: none;
+}
+
+.apple-ai-layout-cache-inline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  color: var(--apple-secondary);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.apple-ai-layout-cache-switch-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+}
+
+.apple-ai-layout-cache-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 24px;
+  padding: 2px 8px;
+  border: 1px solid var(--apple-border);
+  border-radius: 7px;
+  background: var(--apple-background);
+  color: var(--apple-primary);
+  font-size: 11px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.apple-ai-layout-cache-chip:hover {
+  border-color: color-mix(in srgb, var(--ai-layout-accent-border) 34%, var(--apple-border));
+  background: color-mix(in srgb, var(--ai-layout-accent) 6%, transparent);
+}
+
+.apple-ai-layout-cache-chip:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.apple-ai-layout-cache-caption {
+  color: var(--apple-tertiary, var(--apple-secondary));
+  font-size: 11px;
+}
+
+.apple-ai-layout-cache-name {
+  font-weight: 650;
+  color: var(--apple-primary);
+}
+
+.apple-ai-layout-cache-separator {
+  color: var(--apple-tertiary, var(--apple-secondary));
+}
+
+.apple-ai-layout-cache-state {
+  font-size: 11px;
+  color: var(--apple-secondary);
+}
+
+.apple-ai-layout-cache-state.is-stale {
+  color: var(--apple-warning, #b45309);
+}
+
+.apple-ai-custom-color-input {
+  position: absolute;
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+
+.apple-ai-layout-summary {
+  color: var(--apple-secondary);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.apple-ai-layout-result-section {
+  margin-top: 2px;
+}
+
+.apple-ai-layout-meta-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.apple-ai-layout-meta-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ai-layout-accent) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ai-layout-accent-border) 12%, transparent);
+  color: var(--ai-layout-accent-deep);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.apple-ai-layout-mini-note {
+  margin-top: 0;
+  color: var(--apple-secondary);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.apple-ai-layout-issues {
+  display: none;
+  margin-top: 10px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.16);
+}
+
+.apple-ai-layout-issues.visible {
+  display: block;
+}
+
+.apple-ai-layout-issues-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #b45309;
+  margin-bottom: 8px;
+  letter-spacing: 0.3px;
+}
+
+.apple-ai-layout-issue-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px 0;
+  border-top: 1px dashed rgba(245, 158, 11, 0.18);
+}
+
+.apple-ai-layout-issue-item:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+
+.apple-ai-layout-issue-item.is-fatal .apple-ai-layout-issue-path {
+  background: rgba(220, 38, 38, 0.14);
+  color: #b91c1c;
+}
+
+.apple-ai-layout-issue-path {
+  flex: 0 0 auto;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: rgba(180, 83, 9, 0.12);
+  color: #92400e;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.apple-ai-layout-issue-message {
+  flex: 1;
+  min-width: 0;
+  color: #7c4a03;
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.apple-ai-layout-block-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.apple-ai-layout-block-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 12px;
+  border-radius: 12px;
+  background: var(--apple-surface);
+  border: 1px solid var(--apple-border);
+}
+
+.apple-ai-layout-block-item.is-skeleton {
+  align-items: center;
+}
+
+.apple-ai-layout-block-index {
+  width: 26px;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--ai-layout-accent-deep);
+}
+
+.apple-ai-layout-block-skeleton-index,
+.apple-ai-layout-block-skeleton-line,
+.apple-ai-layout-block-skeleton-badge {
+  position: relative;
+  overflow: hidden;
+  background: rgba(120, 120, 128, 0.14);
+  border-radius: 999px;
+}
+
+.apple-ai-layout-block-skeleton-index {
+  width: 26px;
+  height: 14px;
+}
+
+.apple-ai-layout-block-skeleton-line.is-title {
+  width: 72%;
+  height: 14px;
+  border-radius: 8px;
+}
+
+.apple-ai-layout-block-skeleton-line.is-meta {
+  width: 38%;
+  height: 10px;
+  margin-top: 6px;
+  border-radius: 8px;
+}
+
+.apple-ai-layout-block-skeleton-badge {
+  width: 42px;
+  height: 22px;
+}
+
+.apple-ai-layout-block-skeleton-index::after,
+.apple-ai-layout-block-skeleton-line::after,
+.apple-ai-layout-block-skeleton-badge::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%);
+  animation: apple-ai-layout-skeleton 1.2s ease-in-out infinite;
+}
+
+@keyframes apple-ai-layout-skeleton {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.apple-ai-layout-block-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.apple-ai-layout-block-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--apple-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.apple-ai-layout-block-remove {
+  flex: 0 0 auto;
+  border: 1px solid var(--apple-border);
+  background: var(--apple-background);
+  color: var(--apple-secondary);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.apple-ai-layout-block-remove:hover {
+  border-color: color-mix(in srgb, var(--ai-layout-accent-border) 24%, var(--apple-border));
+  color: var(--ai-layout-accent-deep);
+}
+
+.apple-ai-layout-empty {
+  padding: 14px;
+  border-radius: 12px;
+  color: var(--apple-secondary);
+  font-size: 12px;
+  background: var(--apple-surface);
+  border: 1px dashed var(--apple-border);
+}
+
+.apple-ai-layout-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 2px;
+}
+
+.apple-ai-layout-debug-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.apple-ai-layout-debug-btn {
+  flex: 1 1 0;
+}
+
+.apple-ai-layout-debug-btn.is-active {
+  background: color-mix(in srgb, var(--ai-layout-accent) 12%, transparent);
+  color: var(--ai-layout-accent-deep);
+  border: 1px solid color-mix(in srgb, var(--ai-layout-accent-border) 18%, transparent);
+}
+
+.apple-ai-layout-debug-panel {
+  display: none;
+  margin-top: 12px;
+  border-radius: 14px;
+  background: #111827;
+  border: 1px solid rgba(17, 24, 39, 0.36);
+  overflow: hidden;
+}
+
+.apple-ai-layout-debug-panel.visible {
+  display: block;
+}
+
+.apple-ai-layout-debug-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 10px 10px 12px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.apple-ai-layout-debug-title {
+  min-width: 0;
+  color: #f3f4f6;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+
+.apple-ai-layout-debug-tools {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+}
+
+.apple-ai-layout-debug-copy {
+  min-height: 24px;
+  padding: 3px 8px;
+  border-radius: 7px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.08);
+  color: #e5e7eb;
+  font-size: 11px;
+  font-weight: 650;
+  line-height: 1.2;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.apple-ai-layout-debug-copy:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+}
+
+.apple-ai-layout-debug-copy:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.apple-ai-layout-debug-body {
+  margin: 0;
+  padding: 12px;
+  max-height: 240px;
+  overflow: auto;
+  color: #d1d5db;
+  font-size: 11px;
+  line-height: 1.65;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: var(--font-monospace), SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+}
+
+.apple-converter-container.apple-converter-mobile .apple-ai-layout-area {
+  max-width: 360px;
+  padding: 2px 6px 0;
+  gap: 16px;
+}
+
+.apple-converter-container.apple-converter-mobile .apple-ai-layout-section {
+  gap: 10px;
+}
+
+/* ========================================
+   悬浮设置面板 (Floating Settings Overlay)
+   ======================================== */
+.apple-settings-overlay {
+  position: absolute;
+  top: 48px; /* 紧贴工具栏下方 */
+  left: 0;
+  right: 0;
+  /* 调整透明度：0.85 -> 0.72，增加通透感 */
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  /* 视觉区分增强 */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow:
+    0 10px 40px -10px rgba(0, 0, 0, 0.15), /* 大阴影营造悬浮感 */
+    0 2px 10px rgba(0, 0, 0, 0.05); /* 小阴影增加层次 */
+
+  /* 底部圆角，像一张从顶部滑出的纸 */
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+
+  z-index: 100;
+  /* 调整内边距：20px -> 12px，让内容更紧凑，两侧留白减少 */
+  padding: 24px 12px 32px 12px;
+
+  /* === 核心修改：高度限制与动画 === */
+  max-height: 60%; /* 限制高度为 60%，内部自动滚动 */
+  overflow-y: auto;
+  /* 保持滚动可感知（移动端也允许惯性滚动） */
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+
+  /* 初始状态：向上隐去 (收起) */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-20px); /* 向上位移，模拟收起状态 */
+
+  /* 丝滑的物理缓动动画 */
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.theme-dark .apple-settings-overlay {
+  /* 调整深色模式透明度：0.95 -> 0.8，也增加通透感 */
+  background: rgba(30, 30, 30, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 10px 40px -10px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.05); /* 内描边高光 */
+}
+
+.apple-settings-overlay.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0); /* 向下展开，回到原位 */
+}
+
+.apple-converter-container.apple-converter-mobile .apple-settings-overlay {
+  top: 56px;
+  left: clamp(10px, 3.2vw, 16px);
+  right: clamp(10px, 3.2vw, 16px);
+  max-height: calc(100% - 56px - max(8px, env(safe-area-inset-bottom)));
+  border-radius: 14px;
+  border: 1px solid var(--apple-border);
+  box-shadow:
+    0 16px 36px -24px rgba(0, 0, 0, 0.38),
+    0 4px 14px rgba(0, 0, 0, 0.1);
+  padding: 12px 12px calc(24px + env(safe-area-inset-bottom)) 12px;
+  scrollbar-gutter: stable;
+}
+
+.apple-converter-container.apple-converter-mobile .apple-settings-area {
+  max-width: 360px;
+  width: 100%;
+  margin: 0 auto;
+  gap: 12px;
+  padding: 2px 2px 0;
+}
+
+.apple-converter-container.apple-converter-mobile .apple-setting-section {
+  gap: 7px;
+  padding: 8px 10px 10px;
+  border: 1px solid var(--apple-border);
+  border-radius: 10px;
+  background: var(--apple-surface);
+}
+
+.apple-converter-container.apple-converter-mobile .apple-setting-content {
+  width: 100%;
+}
+
+.apple-converter-container.apple-converter-mobile .apple-settings-area > .setting-item {
+  margin: 0;
+  padding: 10px;
+  border: 1px solid var(--apple-border);
+  border-radius: 10px;
+  background: var(--apple-surface);
+}
+
+/* 移动端底部预留，避免被 Obsidian 底栏覆盖 */
+.apple-converter-container.apple-converter-mobile .apple-settings-area::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: max(88px, calc(56px + env(safe-area-inset-bottom)));
+  flex-shrink: 0;
+}
+
+.apple-converter-container.apple-converter-mobile .apple-setting-label {
+  font-size: 12px;
+  text-transform: none;
+  letter-spacing: 0.1px;
+}
+
+.apple-converter-container.apple-converter-mobile .apple-btn-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 5px;
+}
+
+.apple-converter-container.apple-converter-mobile .apple-btn-theme {
+  min-height: 32px;
+  font-size: 12px;
+  padding: 5px 6px;
+}
+
+.apple-converter-container.apple-converter-mobile .apple-btn-size {
+  min-height: 32px;
+  padding: 5px 8px;
+  font-size: 12px;
+}
+
+.apple-converter-container.apple-converter-mobile .apple-select {
+  min-height: 34px;
+  font-size: 13px;
+}
+
+.apple-converter-container.apple-converter-mobile .apple-btn-row {
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.theme-dark .apple-converter-container.apple-converter-mobile .apple-settings-overlay {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.theme-dark .apple-converter-container.apple-converter-mobile .apple-setting-section,
+.theme-dark .apple-converter-container.apple-converter-mobile .apple-settings-area > .setting-item {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 统一 Obsidian 原生 Setting Toggle 颜色，避免出现宿主题紫色 */
+.apple-settings-overlay .setting-item .checkbox-container.is-enabled {
+  background-color: var(--apple-accent);
+  border-color: var(--apple-accent);
+}
+
+.apple-settings-overlay::-webkit-scrollbar {
+  width: 4px;
+}
+
+.apple-settings-overlay::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.apple-settings-overlay::-webkit-scrollbar-thumb {
+  background: rgba(120, 120, 128, 0.5);
+  border-radius: 999px;
+}
+
+/* 隐藏旧的折叠样式，直接平铺 */
+.apple-settings-area {
+  display: flex;
+  flex-direction: column;
+  gap: 24px; /* 收紧间距，原32px */
+  max-width: 320px; /* 稍微收窄宽度 */
+  margin: 0 auto; /* 居中显示 */
+}
+
+.apple-setting-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.apple-setting-label {
+  font-size: 12px; /* 恢复精致的小字号 */
+  font-weight: 600;
+  color: var(--apple-secondary); /* 使用次级颜色，不喧宾夺主 */
+  text-transform: uppercase; /* 大写增强标题感 */
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+/* ========================================
+   预览区域 (占据剩余空间)
+   ======================================== */
+.apple-preview-wrapper {
+  flex: 1; /* 占据所有剩余高度 */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: var(--apple-surface);
+  overflow: auto;
+  padding: 40px;
+  position: relative; /* 建立层叠上下文 */
+  z-index: 1;
+}
+
+/* 移除旧的设置面板样式，避免冲突 */
+.apple-settings-panel {
+  display: block;
+}
+
+/* === 设置变更处理 === */
+/* ... (保留滑块等其他组件样式) ... */
+
+/* === 主题按钮网格 === */
+.apple-btn-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.apple-btn-theme {
+  min-width: 0;
+  padding: 6px 8px;
+  border: 1px solid var(--apple-border);
+  border-radius: var(--apple-radius-sm);
+  background: var(--apple-background);
+  color: var(--apple-secondary);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.apple-btn-theme:hover {
+  color: var(--apple-primary);
+  border-color: var(--apple-accent);
+}
+
+.apple-btn-theme.active {
+  background: rgba(0, 113, 227, 0.1);
+  color: var(--apple-accent);
+  border-color: rgba(0, 113, 227, 0.3);
+  box-shadow: 0 1px 2px rgba(0, 113, 227, 0.1);
+}
+
+/* === 字号按钮行 === */
+.apple-btn-row {
+  display: flex;
+  gap: 4px;
+}
+
+.apple-btn-size {
+  padding: 6px 10px;
+  border: 1px solid var(--apple-border);
+  border-radius: var(--apple-radius-sm);
+  background: var(--apple-background);
+  color: var(--apple-secondary);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.apple-btn-size:hover {
+  color: var(--apple-primary);
+  border-color: var(--apple-accent);
+}
+
+.apple-btn-size.active {
+  background: rgba(0, 113, 227, 0.1);
+  color: var(--apple-accent);
+  border-color: rgba(0, 113, 227, 0.3);
+}
+
+/* === 颜色选择器 === */
+.apple-color-grid {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.apple-btn-color {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  position: relative;
+}
+
+.apple-btn-color::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--btn-color);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+/* Custom Color Button (Text) */
+.apple-btn-custom-text {
+  padding: 0 10px;
+  height: 28px;
+  border: 1px solid var(--apple-border);
+  border-radius: 14px;
+  /* Pill shape */
+  background: var(--apple-background);
+  color: var(--apple-secondary);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+}
+
+.apple-btn-custom-text:hover {
+  color: var(--apple-primary);
+  border-color: var(--apple-accent);
+}
+
+.apple-btn-custom-text.active {
+  background: rgba(0, 113, 227, 0.1);
+  color: var(--apple-accent);
+  border-color: rgba(0, 113, 227, 0.3);
+}
+
+
+
+.apple-btn-color:hover {
+  transform: scale(1.1);
+}
+
+.apple-btn-color.active {
+  border-color: var(--btn-color);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+/* === Settings Collapsible === */
+.apple-settings-details {
+  border: 1px solid color-mix(in srgb, var(--apple-border) 88%, transparent);
+  border-radius: var(--apple-radius-md);
+  margin-bottom: var(--apple-spacing-md);
+  overflow: hidden;
+  background: color-mix(in srgb, var(--apple-background) 96%, var(--background-secondary));
+}
+
+.apple-settings-summary {
+  padding: 12px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: color-mix(in srgb, var(--background-secondary) 72%, transparent);
+  transition: all 0.2s ease;
+  user-select: none;
+  color: var(--text-normal);
+}
+
+.apple-settings-summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Chevron Arrow */
+.apple-settings-summary::after {
+  content: '';
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-right: 2px solid var(--apple-secondary);
+  border-bottom: 2px solid var(--apple-secondary);
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+  margin-right: 4px;
+}
+
+.apple-settings-details[open] .apple-settings-summary::after {
+  transform: rotate(-135deg);
+  /* Point up */
+}
+
+.apple-settings-summary:hover {
+  background: color-mix(in srgb, var(--background-modifier-hover) 70%, transparent);
+}
+
+.apple-settings-details[open] .apple-settings-summary {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--apple-border) 88%, transparent);
+}
+
+.apple-settings-details .apple-settings-area {
+  padding: 10px 14px 14px;
+  background: transparent;
+}
+
+.apple-settings-details .apple-settings-advanced-area {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  gap: 0;
+}
+
+.apple-settings-details .apple-setting-section {
+  gap: 8px;
+  padding: 12px 0;
+  border: none;
+  border-top: 1px solid color-mix(in srgb, var(--background-modifier-border) 82%, transparent);
+  border-radius: 0;
+  background: transparent;
+  margin-bottom: 0;
+}
+
+.apple-settings-details .apple-setting-section:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.apple-settings-details .apple-setting-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-normal);
+  text-transform: none;
+  letter-spacing: 0.1px;
+  margin-bottom: 0;
+}
+
+.apple-settings-details .apple-setting-content {
+  width: 100%;
+}
+
+.apple-settings-details .apple-setting-content > span {
+  line-height: 1.45;
+}
+
+.apple-settings-details .apple-settings-featured {
+  gap: 10px;
+  padding: 12px 12px 11px;
+  border: 1px solid color-mix(in srgb, var(--apple-border) 72%, transparent);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--apple-background) 92%, var(--background-secondary));
+  margin-bottom: 10px;
+}
+
+.apple-settings-details .apple-settings-featured + .apple-setting-section {
+  border-top: none;
+}
+
+.apple-settings-details .apple-settings-inline-toggle {
+  gap: 10px;
+}
+
+.apple-settings-details .apple-settings-inline-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+}
+
+.apple-settings-details .apple-settings-inline-toggle .apple-setting-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.apple-settings-details .apple-settings-inline-toggle .apple-setting-content > span {
+  margin-top: 2px;
+}
+
+.apple-settings-details .setting-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 14px 0;
+  border-top: 1px solid color-mix(in srgb, var(--background-modifier-border) 82%, transparent);
+}
+
+.apple-settings-details .setting-item:first-child {
+  border-top: none;
+}
+
+.apple-settings-details .setting-item-info {
+  margin: 0;
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: none;
+  padding-right: 0;
+}
+
+.apple-settings-details .setting-item-name {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.apple-settings-details .setting-item-description {
+  margin-top: 4px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+.apple-settings-details .setting-item-control {
+  margin-left: auto;
+  flex: 0 0 auto;
+  justify-self: end;
+  align-self: center;
+}
+
+.apple-settings-details .setting-item-control input[type="text"] {
+  width: 112px;
+  text-align: center;
+}
+
+.apple-settings-details .setting-item-control > * {
+  margin-left: 0;
+}
+
+.apple-settings-details .apple-select {
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+}
+
+.apple-settings-details .setting-item-control .checkbox-container,
+.apple-settings-details .setting-item-control .clickable-icon {
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .apple-settings-details .setting-item {
+    display: block;
+    gap: 10px;
+  }
+
+  .apple-settings-details .setting-item-control {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+}
+
+/* === 下拉选择器 === */
+/* === 下拉选择器 === */
+.apple-select {
+  width: auto;
+  min-width: 80px;
+  max-width: 120px;
+  padding: 6px 28px 6px 10px;
+  border: 1px solid var(--apple-border);
+  border-radius: var(--apple-radius-sm);
+  background: var(--apple-background);
+  color: var(--apple-primary);
+  font-size: 12px;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+  /* 显示下拉箭头 */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236e6e73' d='M2.5 4.5L6 8l3.5-3.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 12px;
+}
+
+.theme-dark .apple-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23b3b3b3' d='M2.5 4.5L6 8l3.5-3.5'/%3E%3C/svg%3E");
+  background-color: #2c2c2e;
+  /* 明确的深色背景 */
+  border-color: #424244;
+  color: #dcddde;
+}
+
+.apple-select:hover {
+  border-color: var(--apple-accent);
+}
+
+.theme-dark .apple-select:hover {
+  border-color: var(--apple-accent);
+}
+
+.apple-select:focus {
+  outline: none;
+  border-color: var(--apple-accent);
+  box-shadow: 0 0 0 2px rgba(0, 113, 227, 0.1);
+}
+
+/* === 开关切换 === */
+.apple-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 40px;
+  height: 22px;
+  cursor: pointer;
+}
+
+.apple-toggle-input {
+  position: absolute;
+  opacity: 0;
+  width: 40px;
+  height: 22px;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+  z-index: 10;
+  margin: 0;
+  padding: 0;
+}
+
+.apple-toggle-slider {
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--apple-border);
+  transition: 0.2s;
+  border-radius: 22px;
+}
+
+body.theme-dark .apple-toggle-slider,
+.theme-dark .apple-toggle-slider {
+  background-color: #2e2e2e;
+  border: 1px solid #555;
+}
+
+body.theme-dark .apple-toggle-input:checked+.apple-toggle-slider,
+.theme-dark .apple-toggle-input:checked+.apple-toggle-slider {
+  background-color: var(--apple-accent);
+  border-color: var(--apple-accent);
+}
+
+.apple-toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  transition: 0.2s;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.apple-toggle-input:checked+.apple-toggle-slider {
+  background-color: var(--apple-accent);
+}
+
+.apple-toggle-input:checked+.apple-toggle-slider:before {
+  transform: translateX(18px);
+}
+
+/* === 滑块 (Slider) - 回归原生样式 === */
+/* 仅保留容器布局，移除所有自定义的 range input 样式，让浏览器/Obsidian 默认样式接管 */
+.apple-slider-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 0;
+}
+
+/* 仅微调颜色以匹配主题，不修改尺寸和布局 */
+input[type="range"].apple-slider {
+  accent-color: var(--apple-accent); /* 现代浏览器支持的强调色属性 */
+  cursor: pointer;
+  flex: 1;
+}
+
+.apple-converter-container.apple-converter-mobile input[type="range"].apple-slider {
+  min-height: 26px;
+  touch-action: pan-y;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 26px;
+  background: transparent;
+}
+
+.apple-converter-container.apple-converter-mobile input[type="range"].apple-slider::-webkit-slider-runnable-track {
+  height: 2px;
+  border-radius: 999px;
+  background: rgba(120, 120, 128, 0.36);
+}
+
+.apple-converter-container.apple-converter-mobile input[type="range"].apple-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 30px;
+  height: 18px;
+  margin-top: 0px;
+  border-radius: 999px;
+  background: #f8f8f8;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.22);
+}
+
+.apple-converter-container.apple-converter-mobile input[type="range"].apple-slider:active::-webkit-slider-thumb {
+  background: var(--apple-accent);
+  border-color: var(--apple-accent);
+}
+
+.theme-dark .apple-converter-container.apple-converter-mobile input[type="range"].apple-slider::-webkit-slider-runnable-track {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.theme-dark .apple-converter-container.apple-converter-mobile input[type="range"].apple-slider::-webkit-slider-thumb {
+  background: #ececef;
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.apple-converter-container.apple-converter-mobile input[type="range"].apple-slider::-webkit-slider-thumb:hover {
+  transform: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.22);
+}
+
+/* 深色模式适配 */
+.theme-dark input[type="range"].apple-slider::-webkit-slider-runnable-track {
+  background: #424244;
+}
+
+/* 交互状态 */
+input[type="range"].apple-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+input[type="range"].apple-slider:active::-webkit-slider-thumb {
+  background: var(--apple-accent);
+}
+
+/* === 操作按钮区 === */
+.apple-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: var(--apple-spacing-md);
+  padding-top: var(--apple-spacing-md);
+  border-top: 1px dashed var(--apple-border);
+  /* Dashed separator */
+}
+
+/* Unified Button Style */
+.apple-btn-primary,
+.apple-btn-secondary {
+  flex: 1;
+  padding: 10px 16px;
+  border: none;
+  border-radius: var(--apple-radius-sm);
+  background: var(--apple-accent);
+  /* Default blue */
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.apple-btn-primary:hover,
+.apple-btn-secondary:hover {
+  opacity: 0.9;
+}
+
+/* Full Width Variant */
+.apple-btn-full {
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  height: 38px;
+  background: var(--apple-accent);
+  /* Blue */
+}
+
+/* ========================================
+   预览区域 - 手机仿真模式 (Canvas Mode)
+   ======================================== */
+.apple-preview-wrapper {
+  flex: 1;
+  display: flex;
+  /* 使用 grid 布局特性或 margin:auto 实现完美的居中+滚动体验 */
+  justify-content: center;
+  align-items: flex-start; /* 关键：防止高度不够时顶部被裁剪 */
+  background: var(--apple-surface);
+  overflow: auto; /* 开启画布滚动 */
+  padding: 40px;
+}
+
+/* 深色模式下背景适配 */
+.theme-dark .apple-preview-wrapper {
+  background: #1e1e1e; /* 深灰色背景，突显白色手机 */
+}
+
+/* 深色模式下为手机增加高光边框，防止融为一体 */
+.theme-dark .apple-phone-frame {
+  box-shadow:
+    inset 0 0 0 2px #e5e5e5,
+    0 0 0 10px #1d1d1f,
+    0 0 0 11px rgba(255, 255, 255, 0.1), /* 1px 微弱高光外描边 */
+    0 40px 80px -20px rgba(0, 0, 0, 0.8); /* 更深的投影 */
+}
+
+.apple-phone-frame {
+  /* === 核心修复：严格锁定尺寸，禁止变形 === */
+  width: 375px;
+  height: 812px;
+  min-width: 375px;
+  min-height: 812px;
+  flex: 0 0 auto; /* 禁止 Flex 压缩或拉伸 */
+  margin: auto; /* 在 flex 容器中自动居中 */
+
+  border-radius: 56px;
+  background: #ffffff;
+  /* 拟态边框 + 深邃阴影 */
+  box-shadow:
+    inset 0 0 0 2px #e5e5e5,
+    0 0 0 10px #1d1d1f,
+    0 40px 80px -20px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease; /* 仅阴影过渡，尺寸不再过渡 */
+}
+
+/* 手机顶部状态栏/导航栏区域 */
+.apple-phone-header {
+  height: 44px;
+  min-height: 44px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff;
+  color: #1d1d1f;
+  font-size: 16px;
+  font-weight: 600;
+  position: relative;
+
+  /* UI 微调：大幅上移，贴近刘海 */
+  margin-top: 12px; /* 原 26px -> 12px */
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+.apple-phone-header .title {
+  text-align: center;
+  transform: translateY(-2px);
+}
+
+.apple-phone-header .dots {
+  position: absolute;
+  right: 24px;
+  font-size: 20px;
+  line-height: 1;
+  /* 颜色调浅 */
+  color: rgba(0, 0, 0, 0.2);
+  letter-spacing: 1px;
+  transform: translateY(-2px);
+}
+
+.apple-phone-header .back {
+  display: none;
+}
+
+/* 底部 Home Indicator */
+.apple-home-indicator {
+  height: 34px;
+  min-height: 34px;
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.apple-home-indicator::after {
+  content: '';
+  width: 134px;
+  height: 5px;
+  background: #000000;
+  border-radius: 100px;
+  opacity: 0.1; /* 调浅一点，不抢眼 */
+}
+
+.apple-converter-preview {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 20px 16px; /* 恢复边距 */
+  background: #ffffff;
+  margin: 0;
+  border-radius: 0;
+  box-shadow: none;
+  color: #1d1d1f;
+
+  /* === 移除整体缩放，恢复清晰度 === */
+  /* zoom: 0.85;  用户反馈太小，移除 */
+}
+
+.apple-converter-preview.apple-preview-loading {
+  position: relative;
+}
+
+.apple-converter-preview.apple-preview-loading::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 4;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--apple-loading-accent, #7c3aed) 34%, transparent) 24%,
+    var(--apple-loading-accent, #7c3aed) 50%,
+    color-mix(in srgb, var(--apple-loading-accent, #7c3aed) 34%, transparent) 76%,
+    transparent 100%
+  );
+  animation: apple-preview-loading-bar 1.1s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes apple-preview-loading-bar {
+  0% {
+    transform: translateX(-40%);
+    opacity: 0.45;
+  }
+  50% {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(40%);
+    opacity: 0.45;
+  }
+}
+
+/* 处理表格：优先换行，仅在极个别长单词情况下滚动 */
+.apple-converter-preview table {
+  width: 100%;
+  table-layout: auto; /* 自动宽度 */
+  border-collapse: collapse;
+  margin: 16px 0;
+  display: table; /* 恢复表格显示属性 */
+}
+
+/* 单元格内容自动换行 */
+.apple-converter-preview td,
+.apple-converter-preview th {
+  white-space: normal; /* 强制换行 */
+  word-wrap: break-word;
+  word-break: break-all; /* 允许在单词内换行，防止长链接撑破 */
+  max-width: 300px; /* 限制最大宽度，触发换行 */
+}
+
+/* 隐藏滚动条，获得更像 App 的体验 */
+.apple-converter-preview::-webkit-scrollbar {
+  display: none;
+}
+
+/* ========================================
+   占位符 (调整以适应手机框)
+   ======================================== */
+.apple-placeholder-note {
+  font-size: 12px;
+  color: #86868b;
+  margin-top: 24px;
+  opacity: 0.8;
+}
+
+.apple-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  color: #6e6e73;
+  background: transparent;
+  /* 强制透明背景，使用父容器的白色背景 */
+}
+
+.apple-placeholder-icon {
+  width: 64px;
+  height: 64px;
+  margin-bottom: var(--apple-spacing-md);
+}
+
+.apple-placeholder h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1d1d1f;
+  margin: 0 0 var(--apple-spacing-sm) 0;
+}
+
+.apple-placeholder p {
+  font-size: 14px;
+  color: #6e6e73;
+  margin: 0 0 var(--apple-spacing-lg) 0;
+}
+
+.apple-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+  padding: var(--apple-spacing-md);
+  background: #f5f5f7;
+  border-radius: var(--apple-radius-md);
+  font-size: 13px;
+  color: #1d1d1f;
+  /* 确保文字颜色适配 */
+}
+
+/* ========================================
+   响应式设计
+   ======================================== */
+@media (max-width: 400px) {
+  .apple-btn-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .apple-actions {
+    flex-direction: column;
+  }
+}
+
+/* ========================================
+   Classic Mode (No Phone Frame)
+   ======================================== */
+.apple-preview-wrapper.mode-classic {
+  padding: 0;
+  background: var(--apple-background);
+  overflow: hidden;
+  align-items: stretch;
+}
+
+.apple-preview-wrapper.mode-classic .apple-converter-preview {
+  width: 100%;
+  height: 100%;
+  /* max-width: 1000px;  Removed to match legacy behavior perfectly */
+  margin: 0; /* Reset margin */
+  padding: 32px 40px;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.apple-preview-wrapper.mode-classic.apple-ai-preview-active .apple-converter-preview,
+.apple-preview-wrapper.mode-classic .apple-converter-preview.apple-ai-preview-active {
+  padding: 0;
+}
+
+.apple-converter-container.apple-converter-mobile .apple-preview-wrapper.mode-classic {
+  padding: 0;
+  overflow: auto;
+}
+
+.apple-converter-container.apple-converter-mobile .apple-preview-wrapper.mode-classic .apple-converter-preview {
+  padding: 10px 8px calc(14px + env(safe-area-inset-bottom));
+}
+
+.apple-converter-container.apple-converter-mobile .apple-preview-wrapper.mode-classic.apple-ai-preview-active .apple-converter-preview,
+.apple-converter-container.apple-converter-mobile .apple-preview-wrapper.mode-classic .apple-converter-preview.apple-ai-preview-active {
+  padding: 0 0 calc(8px + env(safe-area-inset-bottom)) 0;
+}
+
+.theme-dark .apple-preview-wrapper.mode-classic {
+  background: var(--apple-background);
+}
+
+/* 统一使用 Obsidian 界面字体 */
+.vertical-tab-content h2,
+.vertical-tab-content h3,
+.vertical-tab-content h4,
+.vertical-tab-content p,
+.vertical-tab-content .setting-item {
+  font-family: var(--font-interface);
+}
+
+/* 主标题 */
+.vertical-tab-content h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-normal);
+  margin: 0 0 4px 0;
+  padding: 0;
+}
+
+/* 区块标题 h3 */
+.vertical-tab-content h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-normal);
+  margin: 24px 0 8px 0;
+  padding: 16px 0 0 0;
+  border-top: 1px solid var(--background-modifier-border);
+}
+
+/* 首个 h3 不需要上边框 */
+.vertical-tab-content h3:first-of-type {
+  border-top: none;
+  margin-top: 16px;
+  padding-top: 0;
+}
+
+/* 子标题 h4 */
+.vertical-tab-content h4 {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-normal);
+  margin: 16px 0 8px 0;
+  padding: 0;
+}
+
+
+/* ========================================
+   多账号管理样式
+
+   ======================================== */
+.wechat-account-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.wechat-account-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 8px;
+  transition: all 0.15s ease;
+}
+
+.wechat-account-card:hover {
+  border-color: var(--interactive-accent);
+  box-shadow: 0 2px 8px rgba(0, 113, 227, 0.08);
+}
+
+.wechat-account-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.wechat-account-name-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wechat-account-name {
+  font-weight: 600;
+  color: var(--text-normal);
+  font-size: 14px;
+}
+
+.wechat-account-badge {
+  font-size: 10px;
+  font-weight: 600;
+  color: white;
+  background: var(--interactive-accent);
+  padding: 2px 6px;
+  border-radius: 10px;
+}
+
+.wechat-account-appid {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-family: var(--font-monospace);
+}
+
+.wechat-account-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.wechat-btn-small {
+  padding: 4px 10px;
+  font-size: 12px;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 4px;
+  background: var(--background-primary);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.wechat-btn-small:hover {
+  border-color: var(--interactive-accent);
+  color: var(--interactive-accent);
+}
+
+.wechat-btn-small:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.wechat-btn-test {
+  color: var(--text-success);
+  border-color: var(--text-success);
+}
+
+.wechat-btn-test:hover {
+  background: rgba(52, 199, 89, 0.1);
+}
+
+.wechat-btn-danger {
+  color: var(--text-error);
+  border-color: var(--text-error);
+}
+
+.wechat-btn-danger:hover {
+  background: rgba(255, 59, 48, 0.1);
+}
+
+.wechat-add-account-container {
+  margin: 16px 0;
+}
+
+.wechat-btn-add {
+  width: 100%;
+  padding: 10px;
+  border: 2px dashed var(--background-modifier-border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.wechat-btn-add:hover {
+  border-color: var(--interactive-accent);
+  color: var(--interactive-accent);
+  background: rgba(0, 113, 227, 0.05);
+}
+
+.wechat-platform-picker {
+  margin: 10px 0 14px;
+  padding: 14px;
+  border: 1px solid color-mix(in srgb, var(--apple-border) 82%, transparent);
+  border-radius: var(--apple-radius-lg, 12px);
+  background: var(--apple-surface);
+  font-family: var(--apple-font-text);
+}
+
+.wechat-pro-identity-badge {
+  --wechat-pro-accent: oklch(0.72 0.14 82);
+  --wechat-pro-accent-strong: oklch(0.54 0.12 76);
+  --wechat-pro-surface: color-mix(in srgb, var(--wechat-pro-accent) 13%, var(--background-primary));
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  width: fit-content;
+  min-height: 20px;
+  padding: 2px 7px 2px 6px;
+  border: 1px solid color-mix(in srgb, var(--wechat-pro-accent) 52%, var(--apple-border));
+  border-radius: 999px;
+  background: var(--wechat-pro-surface);
+  color: var(--wechat-pro-accent-strong);
+  font-size: 11px;
+  font-weight: 750;
+  line-height: 1;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+.wechat-pro-identity-badge::before {
+  content: '♕';
+  flex: 0 0 auto;
+  color: oklch(0.56 0.14 74);
+  font-size: 13px;
+  line-height: 1;
+  transform: translateY(-0.5px);
+}
+
+.wechat-pro-identity-badge-quota {
+  min-height: 22px;
+  gap: 5px;
+  padding: 3px 8px 3px 6px;
+  font-size: 12px;
+}
+
+.wechat-pro-identity-badge-quota::before {
+  font-size: 15px;
+}
+
+.wechat-pro-identity-badge-panel {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+}
+
+.wechat-multiplatform-onboarding {
+  position: relative;
+  margin: 10px 0 16px;
+  padding: 14px;
+  border: 1px solid color-mix(in srgb, var(--apple-accent) 28%, var(--apple-border));
+  border-radius: var(--apple-radius-lg, 12px);
+  background: color-mix(in srgb, var(--apple-accent) 5%, var(--apple-surface));
+  font-family: var(--apple-font-text);
+}
+
+.wechat-multiplatform-onboarding.is-pro {
+  padding-right: 92px;
+  border-color: color-mix(in srgb, oklch(0.72 0.14 82) 42%, var(--apple-border));
+  background: color-mix(in srgb, oklch(0.72 0.14 82) 8%, var(--apple-surface));
+}
+
+.wechat-multiplatform-onboarding-title {
+  color: var(--apple-primary);
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.wechat-multiplatform-onboarding p {
+  margin: 5px 0 0;
+  color: var(--apple-secondary);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.wechat-multiplatform-onboarding-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.wechat-multiplatform-onboarding-actions button {
+  padding: 5px 10px;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.wechat-multiplatform-warning {
+  color: var(--text-error, #d33);
+  font-weight: 600;
+}
+
+.wechat-multiplatform-token-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: -4px 0 12px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: var(--background-secondary, #f5f5f5);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.wechat-multiplatform-token-status-dot {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  background: var(--background-modifier-border, #ccc);
+  color: var(--text-normal, #333);
+}
+
+.wechat-multiplatform-token-status-dot.is-error {
+  background: color-mix(in srgb, var(--text-error, #d33) 15%, transparent);
+  color: var(--text-error, #d33);
+}
+
+.wechat-multiplatform-token-status-dot.is-unknown {
+  background: color-mix(in srgb, var(--text-warning, #d99300) 18%, transparent);
+  color: var(--text-warning, #d99300);
+}
+
+.wechat-multiplatform-token-status-dot.is-ok {
+  background: color-mix(in srgb, var(--text-success, #2c9c4c) 18%, transparent);
+  color: var(--text-success, #2c9c4c);
+}
+
+.wechat-multiplatform-token-status-text {
+  color: var(--text-muted, #666);
+}
+
+.wechat-bridge-browser-icon {
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.wechat-bridge-status-body {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
+  color: var(--text-muted, #666);
+}
+
+.wechat-bridge-status-profile {
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: var(--background-modifier-border, #ddd);
+  font-size: 11px;
+  color: var(--text-muted, #666);
+}
+
+.wechat-bridge-status-time {
+  margin-left: auto;
+  color: var(--text-faint, #aaa);
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.wechat-bridge-status-id {
+  font-family: var(--font-monospace, monospace);
+  font-size: 10px;
+  color: var(--text-faint, #aaa);
+  cursor: pointer;
+  padding: 1px 4px;
+  border-radius: 3px;
+  border: 1px solid var(--background-modifier-border, #ddd);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.wechat-platform-picker-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.wechat-platform-picker-title {
+  color: var(--apple-primary);
+  font-size: 13px;
+  font-weight: 650;
+  letter-spacing: 0;
+}
+
+.wechat-platform-picker-desc {
+  margin-top: 4px;
+  color: var(--apple-secondary);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.wechat-platform-picker-summary {
+  flex: 0 0 auto;
+  padding: 3px 9px;
+  border-radius: 999px;
+  color: var(--apple-secondary);
+  background: var(--apple-background);
+  border: 1px solid color-mix(in srgb, var(--apple-border) 72%, transparent);
+  font-size: 11px;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.wechat-platform-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 8px;
+}
+
+/* === 平台卡片：双行布局，未选中只显示名称，选中显示名称 + 状态 === */
+.wechat-platform-chip {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 52px;
+  padding: 8px 11px 8px 10px;
+  border: 1px solid color-mix(in srgb, var(--apple-border) 82%, transparent);
+  border-radius: 10px;
+  background: var(--apple-background);
+  color: var(--apple-primary);
+  cursor: pointer;
+  transition: border-color 150ms ease, background-color 150ms ease, box-shadow 150ms ease;
+  user-select: none;
+  overflow: hidden;
+}
+
+.wechat-platform-chip::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10%;
+  bottom: 10%;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: transparent;
+  transition: background-color 150ms ease;
+}
+
+.wechat-platform-chip:hover {
+  border-color: color-mix(in srgb, var(--apple-accent) 38%, var(--apple-border));
+}
+
+.wechat-platform-chip.is-selected {
+  border-color: color-mix(in srgb, var(--apple-accent) 55%, var(--apple-border));
+  background: color-mix(in srgb, var(--apple-accent) 6%, var(--apple-background));
+}
+
+.wechat-platform-chip.is-selected::before {
+  background: var(--apple-accent);
+}
+
+.wechat-platform-chip input {
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+.wechat-platform-chip-body {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  line-height: 1.25;
+}
+
+.wechat-platform-chip-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--apple-primary);
+}
+
+.wechat-platform-chip-status {
+  display: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--apple-tertiary);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.wechat-platform-chip.is-selected .wechat-platform-chip-status {
+  display: block;
+}
+
+.wechat-platform-chip-status.is-ok { color: var(--apple-success); }
+.wechat-platform-chip-status.is-error { color: var(--apple-error); }
+.wechat-platform-chip-status.is-bridge { color: var(--apple-warning); }
+.wechat-platform-chip-status.is-unknown { color: var(--apple-tertiary); }
+
+/* 选中后整张卡片按状态色微染 + 强调条着色 */
+.wechat-platform-chip.is-ok.is-selected {
+  border-color: color-mix(in srgb, var(--apple-success) 38%, var(--apple-border));
+  background: color-mix(in srgb, var(--apple-success) 7%, var(--apple-background));
+}
+.wechat-platform-chip.is-ok.is-selected::before { background: var(--apple-success); }
+
+.wechat-platform-chip.is-error.is-selected {
+  border-color: color-mix(in srgb, var(--apple-error) 32%, var(--apple-border));
+  background: color-mix(in srgb, var(--apple-error) 5%, var(--apple-background));
+}
+.wechat-platform-chip.is-error.is-selected::before { background: var(--apple-error); }
+
+.wechat-platform-chip.is-bridge.is-selected {
+  border-color: color-mix(in srgb, var(--apple-warning) 32%, var(--apple-border));
+  background: color-mix(in srgb, var(--apple-warning) 5%, var(--apple-background));
+}
+.wechat-platform-chip.is-bridge.is-selected::before { background: var(--apple-warning); }
+
+.wechat-platform-chip.is-unknown.is-selected::before { background: var(--apple-tertiary); }
+
+/* 模态框表单样式 */
+.wechat-form-group {
+  margin-bottom: 16px;
+}
+
+.wechat-form-section {
+  margin: 20px 0 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--background-modifier-border);
+}
+
+.wechat-account-publish-options {
+  margin: 20px 0 16px;
+}
+
+.wechat-account-publish-body .wechat-form-help {
+  margin-bottom: 14px;
+}
+
+.wechat-form-section-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-normal);
+  margin-bottom: 6px;
+}
+
+.wechat-form-help {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.wechat-form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-normal);
+  margin-bottom: 6px;
+}
+
+.wechat-form-group input:not([type="checkbox"]),
+.wechat-form-group select,
+.wechat-form-group textarea {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 4px;
+  font-size: 14px;
+  background: var(--background-primary);
+  color: var(--text-normal);
+  transition: border-color 0.15s ease;
+  box-sizing: border-box;
+}
+
+.wechat-form-group input:not([type="checkbox"]):focus,
+.wechat-form-group select:focus,
+.wechat-form-group textarea:focus {
+  outline: none;
+  border-color: var(--interactive-accent);
+  box-shadow: 0 0 0 2px rgba(0, 113, 227, 0.1);
+}
+
+.wechat-form-checkbox-group {
+  margin-bottom: 12px;
+}
+
+.wechat-form-checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-normal);
+  cursor: pointer;
+}
+
+.wechat-form-checkbox-label input[type="checkbox"] {
+  margin: 0;
+}
+
+.wechat-form-checkbox-group.is-disabled {
+  opacity: 0.6;
+}
+
+.wechat-form-checkbox-group.is-disabled .wechat-form-checkbox-label {
+  cursor: not-allowed;
+}
+
+.wechat-form-select-wrap {
+  position: relative;
+}
+
+.wechat-form-select-wrap::after {
+  content: '';
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  border-right: 1.8px solid var(--text-muted);
+  border-bottom: 1.8px solid var(--text-muted);
+  transform: translateY(-65%) rotate(45deg);
+  pointer-events: none;
+}
+
+.wechat-form-select {
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 38px;
+}
+
+.wechat-provider-enabled {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.wechat-provider-enabled .apple-toggle {
+  flex: 0 0 auto;
+}
+
+.wechat-provider-enabled-text {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.wechat-modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--background-modifier-border);
+}
+
+/* Modal buttons are styled at the end of the file (line 984+) */
+
+/* Side Panel 账号选择器 */
+.wechat-account-selector {
+  margin-bottom: 12px;
+}
+
+.wechat-account-select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 4px;
+  background: var(--background-primary);
+  color: var(--text-normal);
+  font-size: 13px;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236e6e73' d='M2.5 4.5L6 8l3.5-3.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
+}
+
+.theme-dark .wechat-account-select {
+  background-color: var(--background-secondary);
+  border-color: var(--background-modifier-border);
+  color: var(--text-normal);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23b3b3b3' d='M2.5 4.5L6 8l3.5-3.5'/%3E%3C/svg%3E");
+}
+
+.wechat-account-select:hover {
+  border-color: var(--interactive-accent);
+}
+
+.wechat-account-select:focus {
+  outline: none;
+  border-color: var(--interactive-accent);
+  box-shadow: 0 0 0 2px rgba(var(--interactive-accent-rgb), 0.15);
+}
+
+/* ========================================
+   同步选项区
+   ======================================== */
+.apple-sync-options {
+  padding: var(--apple-spacing-md);
+  border-top: 1px solid var(--background-modifier-border);
+  background: var(--background-primary);
+}
+
+.apple-sync-options .apple-setting-section {
+  margin-bottom: 12px;
+}
+
+.apple-sync-options .apple-setting-section:last-child {
+  margin-bottom: 0;
+}
+
+.apple-sync-options .apple-setting-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+/* ========================================
+   同步 Modal 样式
+   ======================================== */
+.wechat-sync-modal {
+  min-width: 320px;
+  font-family: var(--apple-font-text);
+  color: var(--apple-primary);
+}
+
+.wechat-sync-shell-mobile {
+  width: 100vw;
+  max-width: 100vw;
+  height: 100vh;
+  max-height: 100vh;
+  margin: 0;
+  border-radius: 0;
+}
+
+.wechat-sync-shell-mobile .modal-content {
+  max-height: calc(100vh - 60px);
+  overflow-y: auto;
+  padding-bottom: max(16px, env(safe-area-inset-bottom));
+}
+
+.wechat-sync-account-single {
+  display: flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 10px;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 6px;
+  color: var(--text-normal);
+  background: var(--background-secondary);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.wechat-sync-mobile-quick-hint {
+  margin: -4px 0 12px;
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.wechat-sync-advanced {
+  border: 1px solid color-mix(in srgb, var(--apple-border) 88%, transparent);
+  border-radius: var(--apple-radius-md);
+  background: color-mix(in srgb, var(--apple-background) 96%, var(--background-secondary));
+  overflow: hidden;
+}
+
+.wechat-sync-advanced-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--apple-primary);
+  background: color-mix(in srgb, var(--background-secondary) 72%, transparent);
+  user-select: none;
+}
+
+.wechat-sync-advanced-summary::-webkit-details-marker {
+  display: none;
+}
+
+.wechat-sync-advanced-summary::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-right: 2px solid var(--apple-secondary);
+  border-bottom: 2px solid var(--apple-secondary);
+  transform: rotate(45deg);
+  transition: transform 0.18s ease;
+}
+
+.wechat-sync-advanced[open] .wechat-sync-advanced-summary::after {
+  transform: rotate(-135deg);
+}
+
+.wechat-sync-advanced-body {
+  padding: 12px 14px 14px;
+  border-top: 1px solid color-mix(in srgb, var(--apple-border) 88%, transparent);
+}
+
+.wechat-publish-shell .wechat-sync-advanced-body {
+  padding: 10px 16px 16px;
+}
+
+.wechat-sync-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  padding: 12px 4px 8px;
+}
+
+.wechat-sync-empty-icon {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.wechat-sync-empty-state h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-normal);
+}
+
+.wechat-sync-empty-state p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.wechat-sync-failure-state {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px 0 4px;
+}
+
+.wechat-sync-failure-message {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-normal);
+  line-height: 1.5;
+}
+
+.wechat-sync-failure-hint {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.wechat-modal-section {
+  margin-bottom: 0;
+  padding: 14px 0;
+  border-top: 1px solid color-mix(in srgb, var(--background-modifier-border) 82%, transparent);
+}
+
+.wechat-modal-section:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.wechat-modal-section:last-child {
+  padding-bottom: 0;
+}
+
+.wechat-modal-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--apple-primary);
+  margin-bottom: 8px;
+  letter-spacing: 0.1px;
+}
+
+.wechat-modal-cover-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.wechat-publish-shell .wechat-modal-cover-content {
+  gap: 14px;
+}
+
+.wechat-modal-cover-preview {
+  width: 160px;
+  height: 100px;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--background-secondary);
+}
+
+.wechat-publish-shell .wechat-modal-cover-preview {
+  width: 180px;
+  height: 112px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--apple-surface) 78%, var(--apple-background));
+}
+
+.wechat-modal-cover-preview.has-material-cover {
+  height: auto;
+  min-height: 0;
+  align-items: stretch;
+  justify-content: flex-start;
+  border: none;
+  background: transparent;
+  overflow: visible;
+}
+
+.wechat-modal-cover-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.wechat-modal-no-cover {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: var(--text-muted);
+  font-size: 12px;
+  background: rgba(0, 0, 0, 0.02);
+  text-align: center;
+  user-select: none;
+}
+
+.wechat-modal-cover-btns {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.wechat-modal-cover-btns button {
+  min-height: 32px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid color-mix(in srgb, var(--apple-border) 88%, transparent);
+  border-radius: var(--apple-radius-sm);
+  background: var(--apple-background);
+  color: var(--apple-secondary);
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.wechat-modal-cover-btns button:hover {
+  color: var(--apple-primary);
+  border-color: var(--apple-accent);
+  background: color-mix(in srgb, var(--apple-accent) 5%, var(--apple-background));
+}
+
+.wechat-publish-shell .wechat-modal-digest-input {
+  min-height: 78px;
+  padding: 9px 10px;
+  border: 1px solid color-mix(in srgb, var(--apple-border) 88%, transparent);
+  border-radius: var(--apple-radius-md);
+  background: var(--apple-background);
+  color: var(--apple-primary);
+  line-height: 1.5;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.wechat-publish-shell .wechat-modal-digest-input:focus {
+  border-color: color-mix(in srgb, var(--apple-accent) 62%, var(--apple-border));
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--apple-accent) 12%, transparent);
+}
+
+.wechat-publish-shell .wechat-modal-title-input {
+  min-height: 36px;
+  padding: 8px 10px;
+  border: 1px solid color-mix(in srgb, var(--apple-border) 88%, transparent);
+  border-radius: var(--apple-radius-md);
+  background: var(--apple-background);
+  color: var(--apple-primary);
+  line-height: 1.5;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.wechat-publish-shell .wechat-modal-title-input:focus {
+  border-color: color-mix(in srgb, var(--apple-accent) 62%, var(--apple-border));
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--apple-accent) 12%, transparent);
+}
+
+.wechat-publish-shell .wechat-account-select {
+  min-height: 34px;
+  border-color: color-mix(in srgb, var(--apple-border) 88%, transparent);
+  border-radius: var(--apple-radius-sm);
+  background-color: var(--apple-background);
+  color: var(--apple-primary);
+}
+
+.wechat-publish-shell .wechat-account-select:hover {
+  border-color: color-mix(in srgb, var(--apple-accent) 42%, var(--apple-border));
+}
+
+/* ========================================
+   Obsidian-Native 极简按钮样式
+   ======================================== */
+
+/* 账号卡片操作按钮 - 极简文字链接风格 */
+.wechat-account-actions button {
+  padding: 4px 8px;
+  font-size: 13px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.15s ease;
+  font-weight: 400;
+}
+
+/* 普通按钮 (编辑、设为默认、测试) */
+.wechat-account-actions button:not(.wechat-btn-danger) {
+  color: var(--text-muted);
+}
+
+.wechat-account-actions button:not(.wechat-btn-danger):hover {
+  color: var(--interactive-accent);
+}
+
+/* 删除按钮 - 红色文字 */
+.wechat-account-actions .wechat-btn-danger {
+  color: var(--text-error);
+}
+
+.wechat-account-actions .wechat-btn-danger:hover {
+  color: #ff3b30;
+}
+
+/* Modal 按钮区 */
+.wechat-modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--background-modifier-border);
+}
+
+.wechat-publish-shell .wechat-modal-buttons {
+  position: sticky;
+  bottom: -1px;
+  z-index: 4;
+  margin: auto 0 0;
+  padding: 14px 0 0;
+  border-top: 1px solid color-mix(in srgb, var(--apple-border) 80%, transparent);
+  background: var(--background-primary);
+}
+
+.wechat-modal-buttons button {
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+/* 取消/测试连接 - 文字链接风格 */
+.wechat-modal-buttons button:not(.mod-cta) {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+}
+
+.wechat-modal-buttons button:not(.mod-cta):hover {
+  color: var(--interactive-accent);
+}
+
+/* CTA 按钮 (保存、开始同步) - 使用 Obsidian 主题色 */
+.wechat-modal-buttons .mod-cta {
+  background: var(--interactive-accent);
+  border: none;
+  color: var(--text-on-accent);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: all 0.15s ease;
+}
+
+.wechat-modal-buttons .mod-cta:hover {
+  background: var(--interactive-accent);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* 测试连接按钮 - 绿色文字 */
+.wechat-modal-buttons .wechat-btn-test {
+  color: var(--text-success);
+}
+
+.wechat-modal-buttons .wechat-btn-test:hover {
+  color: #2ecc71;
+}
+
+.wechat-sync-modal-mobile .wechat-modal-buttons {
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+  background: var(--background-primary);
+  padding-bottom: max(12px, env(safe-area-inset-bottom));
+  gap: 10px;
+  flex-direction: column-reverse;
+}
+
+.wechat-sync-modal-mobile .wechat-modal-buttons button {
+  width: 100%;
+  min-height: 44px;
+  font-size: 14px;
+}
+
+.wechat-sync-modal-mobile .wechat-account-select,
+.wechat-sync-modal-mobile .wechat-sync-account-single,
+.wechat-sync-modal-mobile .wechat-modal-cover-btns button {
+  min-height: 42px;
+  font-size: 14px;
+}
+
+.wechat-sync-modal-mobile .wechat-modal-cover-content {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.wechat-sync-modal-mobile .wechat-modal-cover-preview {
+  width: 100%;
+  height: 180px;
+}
+
+.wechat-publish-shell {
+  width: min(720px, calc(100vw - 48px));
+  max-width: min(720px, calc(100vw - 48px));
+}
+
+.wechat-publish-shell .modal-title {
+  font-family: var(--apple-font-text);
+  font-size: 19px;
+  font-weight: 650;
+  letter-spacing: 0;
+  color: var(--apple-primary);
+}
+
+.wechat-publish-shell .modal-content {
+  display: flex;
+  flex-direction: column;
+  height: min(72vh, 720px);
+  min-height: 560px;
+  overflow-y: auto;
+  padding-top: 2px;
+}
+
+.wechat-publish-shell .modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.wechat-publish-shell .modal-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.wechat-publish-shell .modal-content::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--apple-tertiary) 36%, transparent);
+}
+
+.wechat-multiplatform-shell .modal-content.wechat-multiplatform-modal:not(.wechat-multiplatform-result-modal) {
+  overflow: hidden;
+}
+
+.wechat-multiplatform-shell {
+  width: min(720px, calc(100vw - 48px));
+  max-width: min(720px, calc(100vw - 48px));
+}
+
+.wechat-multiplatform-shell .modal-title,
+.wechat-multiplatform-title {
+  font-family: var(--apple-font-text);
+  font-size: 19px;
+  font-weight: 650;
+  letter-spacing: 0;
+  color: var(--apple-primary);
+}
+
+.wechat-sync-modal .wechat-publish-mode-tabs {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin: 0 0 18px;
+  padding: 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--apple-border) 86%, transparent);
+  background: transparent;
+}
+
+.wechat-sync-modal button.wechat-publish-mode-tab {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 8px 20px 9px 0;
+  color: var(--apple-secondary);
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.2;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.wechat-sync-modal button.wechat-publish-mode-tab:hover {
+  color: var(--apple-primary);
+}
+
+.wechat-sync-modal button.wechat-publish-mode-tab.is-active {
+  color: var(--apple-accent);
+  background: transparent;
+  box-shadow: none;
+}
+
+.wechat-sync-modal button.wechat-publish-mode-tab.is-active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--apple-accent);
+}
+
+.wechat-multiplatform-intro {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+  padding: 14px 16px;
+  border: 1px solid color-mix(in srgb, var(--apple-border) 72%, transparent);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--apple-background) 88%, var(--apple-surface));
+}
+
+.wechat-multiplatform-kicker {
+  margin-bottom: 4px;
+  color: var(--apple-primary);
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.wechat-multiplatform-intro p {
+  max-width: 64ch;
+  margin: 0;
+  color: var(--apple-secondary);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.wechat-multiplatform-quota-hint {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 12px;
+  padding: 10px 12px;
+  border: 1px solid color-mix(in srgb, var(--apple-border) 76%, transparent);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--apple-surface) 78%, var(--apple-background));
+  color: var(--apple-secondary);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.wechat-multiplatform-quota-hint.is-pro {
+  border-color: color-mix(in srgb, oklch(0.72 0.14 82) 48%, var(--apple-border));
+  background: color-mix(in srgb, oklch(0.72 0.14 82) 10%, var(--apple-background));
+  color: var(--apple-primary);
+}
+
+.wechat-multiplatform-quota-copy {
+  flex: 1 1 220px;
+  min-width: 0;
+}
+
+.wechat-multiplatform-quota-hint.is-pro .wechat-multiplatform-quota-copy {
+  font-weight: 650;
+}
+
+.wechat-multiplatform-quota-pill {
+  flex: 0 0 auto;
+  padding: 2px 7px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--apple-border) 76%, transparent);
+  background: var(--apple-background);
+  color: var(--apple-tertiary);
+  font-size: 11px;
+  font-weight: 650;
+  line-height: 1.2;
+}
+
+.wechat-multiplatform-quota-link {
+  margin-left: auto;
+  flex: 0 0 auto;
+  padding: 4px 9px;
+  border: 1px solid color-mix(in srgb, var(--apple-accent) 42%, var(--apple-border));
+  border-radius: 6px;
+  background: var(--apple-background);
+  color: var(--apple-accent);
+  font-size: 12px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.wechat-multiplatform-quota-link:hover {
+  background: color-mix(in srgb, var(--apple-accent) 7%, var(--apple-background));
+}
+
+.wechat-multiplatform-badge {
+  flex: 0 0 auto;
+  padding: 2px 7px;
+  border-radius: 999px;
+  color: var(--apple-tertiary);
+  background: var(--apple-background);
+  border: 1px solid color-mix(in srgb, var(--apple-border) 72%, transparent);
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.wechat-multiplatform-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  color: var(--apple-secondary);
+  background: var(--apple-surface);
+  border: 1px solid color-mix(in srgb, var(--apple-border) 72%, transparent);
+  font-size: 13px;
+}
+
+.wechat-multiplatform-status-dot {
+  flex: 0 0 auto;
+  min-width: 50px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  color: var(--apple-secondary);
+  background: var(--apple-background);
+  text-align: center;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.wechat-multiplatform-status-action {
+  margin-left: auto;
+  flex: 0 0 auto;
+  padding: 4px 10px;
+  border: 1px solid color-mix(in srgb, var(--apple-border) 72%, transparent);
+  border-radius: 6px;
+  background: var(--apple-background);
+  color: var(--apple-primary);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 150ms ease, background-color 150ms ease;
+}
+
+.wechat-multiplatform-status-action:hover {
+  border-color: color-mix(in srgb, var(--apple-accent) 50%, var(--apple-border));
+  background: color-mix(in srgb, var(--apple-accent) 6%, var(--apple-background));
+}
+
+.wechat-multiplatform-status-action:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.wechat-multiplatform-status-dot.is-ok {
+  color: var(--apple-success);
+}
+
+.wechat-multiplatform-status-dot.is-error {
+  color: var(--apple-error);
+}
+
+.wechat-multiplatform-status-dot.is-loading {
+  color: var(--apple-accent);
+}
+
+.wechat-multiplatform-status-text {
+  line-height: 1.45;
+}
+
+.wechat-multiplatform-list {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  flex: 1 1 auto;
+  min-height: 0;
+  margin-top: 10px;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.wechat-multiplatform-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.wechat-multiplatform-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.wechat-multiplatform-list::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--apple-tertiary) 36%, transparent);
+}
+
+.wechat-multiplatform-platform {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 9px 12px 9px 11px;
+  border: 1px solid color-mix(in srgb, var(--apple-border) 82%, transparent);
+  border-radius: 10px;
+  background: var(--apple-background);
+  overflow: hidden;
+  transition: border-color 150ms ease, background-color 150ms ease;
+}
+
+.wechat-multiplatform-platform::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10%;
+  bottom: 10%;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: transparent;
+  transition: background-color 150ms ease;
+}
+
+.wechat-multiplatform-platform:hover {
+  border-color: color-mix(in srgb, var(--apple-accent) 38%, var(--apple-border));
+}
+
+.wechat-multiplatform-platform.is-selected {
+  border-color: color-mix(in srgb, var(--apple-accent) 55%, var(--apple-border));
+  background: color-mix(in srgb, var(--apple-accent) 6%, var(--apple-background));
+}
+.wechat-multiplatform-platform.is-selected::before { background: var(--apple-accent); }
+
+.wechat-multiplatform-platform input {
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+.wechat-multiplatform-platform-label {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  line-height: 1.25;
+  color: var(--apple-primary);
+  cursor: pointer;
+}
+
+.wechat-multiplatform-platform-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.wechat-multiplatform-platform-status {
+  display: none;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--apple-tertiary);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.wechat-multiplatform-platform.is-selected .wechat-multiplatform-platform-status {
+  display: block;
+}
+
+.wechat-multiplatform-platform-status.is-ok { color: var(--apple-success); }
+.wechat-multiplatform-platform-status.is-error { color: var(--apple-error); }
+.wechat-multiplatform-platform-status.is-bridge { color: var(--apple-warning); }
+.wechat-multiplatform-platform-status.is-unknown { color: var(--apple-tertiary); }
+
+.wechat-multiplatform-platform.is-ok.is-selected {
+  border-color: color-mix(in srgb, var(--apple-success) 38%, var(--apple-border));
+  background: color-mix(in srgb, var(--apple-success) 7%, var(--apple-background));
+}
+.wechat-multiplatform-platform.is-ok.is-selected::before { background: var(--apple-success); }
+
+.wechat-multiplatform-platform.is-error.is-selected {
+  border-color: color-mix(in srgb, var(--apple-error) 32%, var(--apple-border));
+  background: color-mix(in srgb, var(--apple-error) 5%, var(--apple-background));
+}
+.wechat-multiplatform-platform.is-error.is-selected::before { background: var(--apple-error); }
+
+.wechat-multiplatform-platform.is-bridge.is-selected {
+  border-color: color-mix(in srgb, var(--apple-warning) 32%, var(--apple-border));
+  background: color-mix(in srgb, var(--apple-warning) 5%, var(--apple-background));
+}
+.wechat-multiplatform-platform.is-bridge.is-selected::before { background: var(--apple-warning); }
+
+.wechat-multiplatform-platform.is-unknown.is-selected::before { background: var(--apple-tertiary); }
+
+.wechat-multiplatform-platform input:disabled + label,
+.wechat-multiplatform-platform.is-disabled label {
+  color: var(--apple-tertiary);
+  cursor: default;
+}
+
+.wechat-multiplatform-state {
+  padding: 16px;
+  border: 1px solid color-mix(in srgb, var(--apple-border) 72%, transparent);
+  border-radius: 12px;
+  background: var(--apple-surface);
+}
+
+.wechat-multiplatform-state-title {
+  margin-bottom: 6px;
+  color: var(--apple-primary);
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.wechat-multiplatform-state p {
+  max-width: 68ch;
+  margin: 0;
+  color: var(--apple-secondary);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.wechat-multiplatform-steps {
+  margin: 10px 0 0 18px;
+  padding: 0;
+  color: var(--apple-secondary);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.wechat-multiplatform-inline-btn {
+  margin-top: 12px;
+  padding: 6px 10px;
+  border: 1px solid color-mix(in srgb, var(--apple-border) 82%, transparent);
+  border-radius: 7px;
+  background: var(--apple-background);
+  color: var(--apple-primary);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.wechat-multiplatform-inline-btn:hover {
+  border-color: var(--apple-accent);
+  color: var(--apple-accent);
+}
+
+.wechat-multiplatform-result-modal {
+  display: flex;
+  flex-direction: column;
+}
+
+.wechat-multiplatform-result-summary {
+  margin: 4px 0 14px;
+  padding: 14px 16px;
+  border: 1px solid color-mix(in srgb, var(--apple-border) 72%, transparent);
+  border-radius: 12px;
+  background: var(--apple-surface);
+}
+
+.wechat-multiplatform-result-summary.is-success {
+  background: color-mix(in srgb, var(--apple-success) 7%, var(--apple-surface));
+}
+
+.wechat-multiplatform-result-summary.is-warning {
+  background: color-mix(in srgb, var(--apple-accent) 5%, var(--apple-surface));
+}
+
+.wechat-multiplatform-result-summary.is-quota-blocked {
+  background: var(--apple-surface);
+}
+
+.wechat-multiplatform-result-summary.is-error {
+  background: color-mix(in srgb, var(--apple-error) 6%, var(--apple-surface));
+}
+
+.wechat-multiplatform-result-summary-title {
+  margin-bottom: 5px;
+  color: var(--apple-primary);
+  font-size: 15px;
+  font-weight: 650;
+}
+
+.wechat-multiplatform-result-summary p {
+  margin: 0;
+  max-width: 68ch;
+  color: var(--apple-secondary);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.wechat-multiplatform-result-list {
+  display: grid;
+  gap: 8px;
+  margin: 0 0 14px;
+}
+
+.wechat-multiplatform-result-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 54px;
+  padding: 11px 12px;
+  border: 1px solid color-mix(in srgb, var(--apple-border) 82%, transparent);
+  border-radius: 10px;
+  background: var(--apple-background);
+}
+
+.wechat-multiplatform-result-row.is-warning {
+  border-color: color-mix(in srgb, var(--apple-warning) 34%, var(--apple-border));
+  background: color-mix(in srgb, var(--apple-warning) 4%, var(--apple-background));
+}
+
+.wechat-multiplatform-result-pill {
+  flex: 0 0 auto;
+  min-width: 42px;
+  padding: 3px 7px;
+  border-radius: 999px;
+  background: var(--apple-surface);
+  color: var(--apple-secondary);
+  text-align: center;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.wechat-multiplatform-result-pill.is-success {
+  color: var(--apple-success);
+}
+
+.wechat-multiplatform-result-pill.is-error {
+  color: var(--apple-error);
+}
+
+.wechat-multiplatform-result-pill.is-warning {
+  color: var(--apple-warning);
+}
+
+.wechat-multiplatform-result-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.wechat-multiplatform-result-name {
+  color: var(--apple-primary);
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.wechat-multiplatform-result-detail {
+  margin-top: 3px;
+  color: var(--apple-secondary);
+  font-size: 12px;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.wechat-multiplatform-quota-platforms {
+  margin-top: 10px;
+}
+
+.wechat-multiplatform-result-row .wechat-multiplatform-inline-btn {
+  margin-top: 0;
+  white-space: nowrap;
+}
+
+/* 添加账号按钮 - 虚线边框 */
+.wechat-btn-add {
+  width: 100%;
+  padding: 10px;
+  border: 1px dashed var(--background-modifier-border);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.wechat-btn-add:hover {
+  border-color: var(--interactive-accent);
+  color: var(--interactive-accent);
+}
+
+/* ========================================
+   设置面板 Tab 导航
+   ======================================== */
+.apple-settings-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--background-modifier-border);
+  margin: 16px 0;
+}
+
+.apple-settings-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  color: var(--text-muted);
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+  user-select: none;
+}
+
+.apple-settings-tab:hover {
+  color: var(--text-normal);
+}
+
+.apple-settings-tab.active {
+  color: var(--text-accent);
+  border-bottom-color: var(--text-accent);
+}
+
+.apple-settings-tab-content {
+  padding: 0;
+}
+
+.wechat-draft-status {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  min-height: 0;
+  margin-top: 10px;
+  padding: 0 6px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.wechat-draft-status span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.wechat-draft-status.is-confirming span {
+  color: var(--apple-primary);
+}
+
+.wechat-draft-status:empty {
+  display: none;
+}
+
+.wechat-draft-unlink {
+  flex: 0 0 auto;
+  padding: 2px 5px;
+  border: none;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 12px;
+  cursor: pointer;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.wechat-draft-unlink:hover {
+  color: var(--text-accent);
+  background: color-mix(in srgb, var(--apple-accent) 8%, transparent);
+}
+
+.wechat-draft-status.is-confirming .wechat-draft-unlink {
+  color: var(--apple-error);
+  background: color-mix(in srgb, var(--apple-error) 7%, transparent);
+}
+
+.wechat-modal-cover-from-material {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 96px;
+  padding: 12px;
+  border: 1px dashed var(--background-modifier-border);
+  border-radius: 8px;
+  color: var(--text-muted);
+  font-size: 13px;
+  text-align: center;
+}
+
+.wechat-modal-cover-material-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.wechat-modal-cover-material-frame {
+  position: relative;
+  width: 100%;
+  height: 112px;
+  overflow: hidden;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--apple-surface) 78%, var(--apple-background));
+}
+
+.wechat-modal-cover-material-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.wechat-modal-cover-material-frame.has-image-error {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  padding: 12px;
+}
+
+.wechat-modal-cover-material-frame.has-image-error::before {
+  content: '已选择微信素材库封面';
+  color: var(--text-muted);
+  font-size: 12px;
+  text-align: center;
+}
+
+.wechat-modal-cover-material-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  color: var(--text-muted);
+}
+
+.wechat-modal-cover-material-meta span {
+  flex: 0 0 auto;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--interactive-accent) 10%, transparent);
+  color: var(--text-accent);
+  font-size: 10px;
+  font-weight: 650;
+  line-height: 1.4;
+}
+
+.wechat-modal-cover-material-meta strong {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.wechat-cover-select-material-btn {
+  cursor: pointer;
+}
+
+.wechat-material-picker-modal {
+  width: min(900px, 92vw);
+  max-width: 92vw;
+  max-height: 85vh;
+}
+
+.wechat-material-picker-modal .modal-title {
+  font-family: var(--apple-font-text);
+  font-size: 19px;
+  font-weight: 650;
+  letter-spacing: 0;
+  color: var(--apple-primary);
+}
+
+.wechat-material-picker {
+  width: 100%;
+  height: 68vh;
+  max-height: 660px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-family: var(--apple-font-text);
+  color: var(--apple-primary);
+}
+
+.wechat-material-toolbar,
+.wechat-material-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.wechat-material-toolbar button,
+.wechat-material-footer button {
+  min-height: 32px;
+  padding: 5px 12px;
+  border: 1px solid color-mix(in srgb, var(--apple-border) 88%, transparent);
+  border-radius: 999px;
+  background: var(--apple-background);
+  color: var(--apple-secondary);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.wechat-material-toolbar button:hover,
+.wechat-material-footer button:hover {
+  color: var(--apple-primary);
+  border-color: var(--apple-accent);
+  background: color-mix(in srgb, var(--apple-accent) 5%, var(--apple-background));
+}
+
+.wechat-material-footer .mod-cta {
+  border-color: var(--apple-accent);
+  background: var(--apple-accent);
+  color: var(--text-on-accent);
+}
+
+.wechat-material-footer .mod-cta:hover {
+  background: color-mix(in srgb, var(--apple-accent) 90%, var(--apple-primary));
+  color: var(--text-on-accent);
+}
+
+.wechat-material-toolbar button:disabled,
+.wechat-material-footer button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.wechat-material-toolbar-meta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  min-width: 0;
+}
+
+.wechat-material-count {
+  color: var(--apple-secondary);
+  font-size: 12px;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.wechat-material-cache-note {
+  min-height: 20px;
+  color: var(--apple-tertiary);
+  font-size: 11px;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.wechat-material-cache-note:not(:empty) {
+  padding: 0 7px;
+  border: 1px solid color-mix(in srgb, var(--apple-border) 72%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--apple-surface) 72%, transparent);
+}
+
+.wechat-material-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
+  grid-auto-rows: min-content;
+  gap: 12px;
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 2px 4px 2px 2px;
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+.wechat-material-grid::-webkit-scrollbar {
+  width: 8px;
+}
+
+.wechat-material-grid::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.wechat-material-grid::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--apple-tertiary) 36%, transparent);
+}
+
+.wechat-material-cell {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  padding: 8px;
+  border: 1px solid color-mix(in srgb, var(--apple-border) 82%, transparent);
+  border-radius: 8px;
+  background: var(--apple-background);
+  cursor: pointer;
+  outline: none;
+  transition: border-color 140ms ease, background-color 140ms ease, box-shadow 140ms ease, transform 140ms ease;
+}
+
+.wechat-material-cell:hover,
+.wechat-material-cell:focus-visible,
+.wechat-material-cell.is-selected {
+  border-color: var(--text-accent);
+  background: color-mix(in srgb, var(--apple-accent) 5%, var(--apple-background));
+}
+
+.wechat-material-cell:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--background-modifier-box-shadow) 16%, transparent);
+}
+
+.wechat-material-cell.is-selected {
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--text-accent) 24%, transparent);
+}
+
+.wechat-material-cell.is-selected::after {
+  content: '✓';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: var(--apple-accent);
+  color: var(--text-on-accent);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 22px;
+  text-align: center;
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--background-modifier-box-shadow) 24%, transparent);
+}
+
+.wechat-material-cell img,
+.wechat-material-thumb-fallback {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 6px;
+  object-fit: cover;
+  background: var(--apple-surface);
+}
+
+.wechat-material-thumb-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  color: var(--apple-secondary);
+  font-size: 12px;
+  text-align: center;
+}
+
+.wechat-material-name {
+  min-height: 32px;
+  color: var(--apple-secondary);
+  font-size: 12px;
+  line-height: 1.35;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow-wrap: anywhere;
+}
+
+.wechat-material-empty,
+.wechat-material-loading {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.wechat-material-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+  border: 1px solid color-mix(in srgb, var(--apple-border) 82%, transparent);
+  border-radius: 8px;
+  background: var(--apple-background);
+}
+
+.wechat-material-skeleton-thumb,
+.wechat-material-skeleton-name {
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--apple-tertiary) 12%, var(--apple-surface));
+}
+
+.wechat-material-skeleton-thumb {
+  aspect-ratio: 1 / 1;
+}
+
+.wechat-material-skeleton-name {
+  width: 72%;
+  height: 14px;
+}
+
+.wechat-material-skeleton-thumb::after,
+.wechat-material-skeleton-name::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--apple-background) 48%, transparent),
+    transparent
+  );
+  animation: wechat-material-skeleton 1.2s ease-out infinite;
+}
+
+@keyframes wechat-material-skeleton {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.wechat-material-pagination {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wechat-material-page-label {
+  min-width: 92px;
+  color: var(--apple-secondary);
+  font-size: 12px;
+  text-align: center;
+}
+
+.wechat-material-page-btn {
+  cursor: pointer;
+}
+
+.wechat-material-confirm {
+  min-width: 116px;
+}

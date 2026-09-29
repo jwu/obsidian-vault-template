@@ -1,0 +1,10 @@
+{
+	"id": "wechat-converter",
+	"name": "Wechat Converter",
+	"version": "2.8.11",
+	"minAppVersion": "1.4.0",
+	"description": "Convert Markdown into polished WeChat articles with live preview, copy, and draft sync.",
+	"author": "DavidLam (林小卫很行)",
+	"authorUrl": "https://github.com/DavidLam-oss",
+	"isDesktopOnly": false
+}

@@ -1,11 +1,10 @@
 {
   "defaultProvider": "deepseek",
-  "defaultModel": "deepseek-v4-pro",
+  "defaultModel": "deepseek-flash",
   "defaultThinkingLevel": "high",
   "theme": "one-dark",
   "enableInstallTelemetry": false,
   "extensions": [
-    "~/bin/pi-config/extensions"
   ],
   "packages": [
   ],

@@ -109,6 +109,10 @@
         "c02ce5f195f3cc3a"
       ]
     },
+    "31-concept-设定": {
+      "icon": "lucide-globe-2",
+      "color": "red"
+    },
     "80-archive-档案库": {
       "icon": "lucide-library-big",
       "color": "blue",
@@ -260,12 +264,16 @@
       "color": "blue"
     },
     "90-personal-私人数据": {
-      "icon": "lucide-lock-keyhole",
+      "icon": "lucide-user-lock",
       "color": "pink",
       "unsynced": [
         "d4071a504930341f",
         "c02ce5f195f3cc3a"
       ]
+    },
+    "91-hardpixel-经营数据": {
+      "icon": "lucide-folder-lock",
+      "color": "pink"
     },
     "98-ai-output": {
       "icon": "lucide-cpu",

@@ -112,8 +112,11 @@ body {
 
     /* List group header heights and spacing */
     --nn-list-group-header-height: 27px; /* Header row and sticky header */
+    --nn-list-group-progress-gap-after: 5px; /* Space below manual sort progress bars */
+    --nn-list-group-goal-header-height: calc(var(--nn-list-group-header-height) + var(--nn-list-group-progress-gap-after));
     --nn-list-group-header-spacer-before: 20px; /* Spacer before subsequent headers */
     --nn-list-group-header-height-mobile: var(--nn-list-group-header-height);
+    --nn-list-group-goal-header-height-mobile: var(--nn-list-group-goal-header-height);
 
     /* Navigation item heights - fixed pixel values to prevent fractional rendering */
     --nn-nav-line-height: 18px; /* Fixed line height for folder/tag names */
@@ -180,6 +183,8 @@ body {
     );
     --nn-theme-nav-separator-height: 1px;
     --nn-theme-nav-separator-opacity: 0.3;
+    --nn-theme-nav-indent-guide-color: var(--nn-theme-foreground-faded);
+    --nn-theme-nav-leader-color: var(--nn-theme-foreground-faded);
     --nn-theme-pinned-shortcut-shadow-color: rgba(0, 0, 0, 0.03);
 
     /* -- Navigation Calendar -- */
@@ -265,6 +270,7 @@ body {
     --nn-theme-file-task-icon-color: var(--nn-theme-navitem-icon-color);
     --nn-theme-file-feature-border-radius: 4px;
     --nn-theme-file-date-color: var(--nn-theme-foreground-faded);
+    --nn-theme-file-word-count-color: var(--nn-theme-foreground-faded);
     --nn-theme-file-parent-color: var(--nn-theme-foreground-faded);
     --nn-theme-file-tag-color: var(--nn-theme-foreground-faded);
     --nn-theme-file-tag-border-color: color-mix(in srgb, var(--nn-theme-foreground) 30%, transparent);
@@ -286,6 +292,7 @@ body {
     --nn-theme-file-selected-name-color: var(--nn-theme-file-name-color);
     --nn-theme-file-selected-preview-color: var(--nn-theme-file-preview-color);
     --nn-theme-file-selected-date-color: var(--nn-theme-foreground-muted);
+    --nn-theme-file-selected-word-count-color: var(--nn-theme-foreground-muted);
     --nn-theme-file-selected-parent-color: var(--nn-theme-foreground-muted);
     --nn-theme-file-selected-tag-color: var(--nn-theme-foreground-muted);
     --nn-theme-file-selected-tag-bg: var(--nn-theme-file-tag-bg);
@@ -295,6 +302,7 @@ body {
     --nn-theme-file-selected-inactive-name-color: var(--nn-theme-file-selected-name-color);
     --nn-theme-file-selected-inactive-preview-color: var(--nn-theme-file-selected-preview-color);
     --nn-theme-file-selected-inactive-date-color: var(--nn-theme-file-selected-date-color);
+    --nn-theme-file-selected-inactive-word-count-color: var(--nn-theme-file-selected-word-count-color);
     --nn-theme-file-selected-inactive-parent-color: var(--nn-theme-file-selected-parent-color);
     --nn-theme-file-selected-inactive-tag-color: var(--nn-theme-file-selected-tag-color);
     --nn-theme-file-selected-inactive-tag-bg: var(--nn-theme-file-tag-bg);
@@ -307,6 +315,7 @@ body {
     --nn-theme-file-compact-name-font-weight: 400;
     --nn-theme-file-preview-font-weight: 400;
     --nn-theme-file-date-font-weight: 400;
+    --nn-theme-file-word-count-font-weight: 400;
     --nn-theme-file-parent-font-weight: 400;
     --nn-theme-file-tag-font-weight: 400;
 
@@ -397,6 +406,7 @@ body {
     --nn-selected-file-name-color: var(--nn-theme-file-selected-name-color);
     --nn-selected-file-preview-color: var(--nn-theme-file-selected-preview-color);
     --nn-selected-file-date-color: var(--nn-theme-file-selected-date-color);
+    --nn-selected-file-word-count-color: var(--nn-theme-file-selected-word-count-color);
     --nn-selected-file-parent-color: var(--nn-theme-file-selected-parent-color);
     --nn-selected-file-tag-color: var(--nn-theme-file-selected-tag-color);
     --nn-selected-file-tag-bg: var(--nn-theme-file-selected-tag-bg);
@@ -418,6 +428,7 @@ body {
     --nn-selected-file-name-color: var(--nn-theme-file-selected-inactive-name-color);
     --nn-selected-file-preview-color: var(--nn-theme-file-selected-inactive-preview-color);
     --nn-selected-file-date-color: var(--nn-theme-file-selected-inactive-date-color);
+    --nn-selected-file-word-count-color: var(--nn-theme-file-selected-inactive-word-count-color);
     --nn-selected-file-parent-color: var(--nn-theme-file-selected-inactive-parent-color);
     --nn-selected-file-tag-color: var(--nn-theme-file-selected-inactive-tag-color);
     --nn-selected-file-tag-bg: var(--nn-theme-file-selected-inactive-tag-bg);
@@ -669,10 +680,6 @@ body {
     --nn-theme-list-bg: var(--nn-theme-mobile-bg);
 }
 
-.notebook-navigator-mobile .nn-navigation-pane {
-    border-right: none;
-}
-
 .nn-split-container.nn-orientation-vertical {
     flex-direction: column;
 }
@@ -682,16 +689,13 @@ body {
     min-width: 0;
     min-height: var(--nn-navigation-pane-min-height);
     flex: 0 1 auto;
+    border-right: none;
 }
 
 .nn-split-container.nn-orientation-vertical .nn-list-pane {
     min-width: 0;
     width: 100%;
     min-height: var(--nn-list-pane-min-height);
-}
-
-.nn-split-container.nn-orientation-vertical .nn-navigation-pane {
-    border-right: none;
 }
 
 .nn-split-container.nn-orientation-vertical:not(.nn-single-pane) .nn-navigation-pane {
@@ -707,7 +711,7 @@ body {
     left: 0;
     top: 0;
     bottom: 0;
-    z-index: 10;
+    z-index: 300;
     touch-action: none;
     -webkit-tap-highlight-color: transparent;
 }
@@ -747,8 +751,8 @@ body {
 /* Single-pane panes - positioned in grid and animated with transforms */
 .nn-split-container.nn-single-pane .nn-navigation-pane,
 .nn-split-container.nn-single-pane .nn-list-pane {
-    width: 100% !important;
-    max-width: 100% !important;
+    width: 100%;
+    max-width: 100%;
     height: 100%;
     grid-column: 1;
     grid-row: 1;
@@ -794,15 +798,9 @@ body {
    Mobile Layout
    ======================================================================== */
 
-/* Make navigation pane flexible on mobile to handle resize gracefully */
-.notebook-navigator-mobile .nn-navigation-pane {
-    flex: 1;
-    background-color: var(--nn-theme-nav-bg) !important;
-}
-
 /* Hide resize handle on mobile */
 .notebook-navigator-mobile .nn-resize-handle {
-    display: none !important;
+    display: none;
 }
 
 /* Add touch-action to prevent browser gestures interfering */
@@ -817,7 +815,7 @@ body {
 
 /* Pane headers - consistent header styling for both panes */
 .nn-pane-header {
-    padding: 8px 8px;
+    padding: 8px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -930,10 +928,6 @@ body {
     line-height: var(--nn-nav-icon-size);
 }
 
-.nn-pane-header-icon[data-has-color='true'] svg {
-    stroke-width: 2.4;
-}
-
 .nn-pane-header-text {
     line-height: var(--nn-nav-line-height);
     overflow: hidden;
@@ -948,13 +942,13 @@ body {
     flex: 0 1 auto;
 }
 
-.nn-pane-header-folder-note {
-    text-decoration: var(--nn-theme-navitem-folder-note-name-decoration) !important;
+.nn-pane-header .nn-pane-header-folder-note {
+    text-decoration: var(--nn-theme-navitem-folder-note-name-decoration);
 }
 
-.nn-pane-header-folder-note:hover {
+.nn-pane-header .nn-pane-header-folder-note:hover {
     cursor: pointer;
-    text-decoration: var(--nn-theme-navitem-folder-note-name-hover-decoration) !important;
+    text-decoration: var(--nn-theme-navitem-folder-note-name-hover-decoration);
 }
 
 /* ========================================================================
@@ -1042,7 +1036,7 @@ body {
 }
 
 /* Mobile back button */
-.notebook-navigator-mobile .nn-back-button {
+.notebook-navigator-mobile button.nn-back-button {
     position: absolute;
     left: 0;
     width: 44px;
@@ -1051,25 +1045,25 @@ body {
     min-height: 44px;
     padding: 10px;
     z-index: 1;
-    opacity: 1 !important;
+    opacity: 1;
 }
 
 /* Increase stroke width for back button arrow and apply link color */
-.notebook-navigator-mobile .nn-back-button svg {
-    stroke: var(--nn-theme-mobile-list-header-link-color) !important;
-    width: 20px !important; /* Default size for Android */
-    height: 20px !important;
+.notebook-navigator-mobile button.nn-back-button svg {
+    stroke: var(--nn-theme-mobile-list-header-link-color);
+    width: 20px; /* Default size for Android */
+    height: 20px;
 }
 
 /* iOS/iPadOS-specific back button adjustments */
-.notebook-navigator-mobile:not(.notebook-navigator-android) .nn-back-button {
-    padding: 4px !important; /* Reduce padding to allow larger icon (44px - 8px padding = 36px space) */
+.notebook-navigator-mobile:not(.notebook-navigator-android) button.nn-back-button {
+    padding: 4px; /* Reduce padding to allow larger icon (44px - 8px padding = 36px space) */
 }
 
 /* iOS/iPadOS-specific back button chevron styling (36px actual, ~32px visual due to Lucide padding) */
-.notebook-navigator-mobile:not(.notebook-navigator-android) .nn-back-button svg {
-    width: 36px !important;
-    height: 36px !important;
+.notebook-navigator-mobile:not(.notebook-navigator-android) button.nn-back-button svg {
+    width: 36px;
+    height: 36px;
 }
 
 /* Mobile header title */
@@ -1112,7 +1106,7 @@ body {
     display: flex;
     align-items: center;
     height: 44px;
-    padding: 0 10px 6px 10px;
+    padding: 0 10px 6px;
     background-color: var(--nn-theme-list-bg);
 }
 
@@ -1152,41 +1146,41 @@ body {
 }
 
 /* Search input field */
-.nn-search-input {
+input.nn-search-input {
     width: 100%;
     height: 32px;
-    padding: 4px 60px 4px 36px !important;
+    padding: 4px 60px 4px 36px;
     font-size: 13px;
-    color: var(--nn-theme-file-selected-name-color) !important;
-    background: var(--nn-theme-list-bg) !important;
-    border: 1px solid var(--nn-theme-list-search-border-color) !important;
-    border-radius: 999px !important;
+    color: var(--nn-theme-file-selected-name-color);
+    background: var(--nn-theme-list-bg);
+    border: 1px solid var(--nn-theme-list-search-border-color);
+    border-radius: 999px;
     outline: none;
     box-sizing: border-box;
 }
 
-.nn-search-input-container--has-shortcut .nn-search-input {
-    padding-right: 84px !important;
+.nn-search-input-container--has-shortcut input.nn-search-input {
+    padding-right: 84px;
 }
 
 /* Active search state - when there's a search query */
-.nn-search-input.nn-search-active {
-    background: var(--nn-theme-list-search-active-bg) !important;
+input.nn-search-input.nn-search-active {
+    background: var(--nn-theme-list-search-active-bg);
 }
 
 /* Maintain highlight background on hover when search is active */
-.nn-search-input.nn-search-active:hover {
-    background: var(--nn-theme-list-search-active-bg) !important;
+input.nn-search-input.nn-search-active:hover {
+    background: var(--nn-theme-list-search-active-bg);
 }
 
 /* Focus state */
-.nn-search-input:focus {
-    border-color: var(--nn-theme-list-search-border-color) !important;
-    box-shadow: 0 0 0 2px var(--nn-theme-list-search-border-color) !important;
+input.nn-search-input:focus {
+    border-color: var(--nn-theme-list-search-border-color);
+    box-shadow: 0 0 0 2px var(--nn-theme-list-search-border-color);
 }
 
-.nn-search-input::placeholder {
-    color: var(--nn-theme-list-header-breadcrumb-color) !important;
+input.nn-search-input::placeholder {
+    color: var(--nn-theme-list-header-breadcrumb-color);
 }
 
 /* Search tag suggestion popover */
@@ -1260,21 +1254,11 @@ body {
 }
 
 /* Mobile search input field */
-.notebook-navigator-mobile .nn-search-input {
+.notebook-navigator-mobile input.nn-search-input {
     height: 36px;
     font-size: 16px; /* Prevent zoom on iOS */
-    padding: 4px 60px 4px 36px !important;
-    border-radius: 999px !important;
-}
-
-/* Mobile search icon */
-.notebook-navigator-mobile .nn-search-input-icon {
-    top: 10px;
-}
-
-/* Mobile clear button */
-.notebook-navigator-mobile .nn-search-clear-button {
-    top: 0;
+    padding: 4px 60px 4px 36px;
+    border-radius: 999px;
 }
 
 .nn-search-clear-button,
@@ -1296,11 +1280,21 @@ body {
     outline-offset: 2px;
 }
 
+.nn-search-clear-button > span,
+.nn-search-star-button > span,
+.nn-search-help-button > span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+}
+
 .nn-search-clear-button svg,
 .nn-search-star-button svg,
 .nn-search-help-button svg {
     width: 16px;
     height: 16px;
+    display: block;
 }
 
 .nn-search-clear-button {
@@ -1319,27 +1313,26 @@ body {
     color: var(--interactive-accent);
 }
 
-.notebook-navigator-mobile .nn-search-clear-button,
-.notebook-navigator-mobile .nn-search-star-button,
-.notebook-navigator-mobile .nn-search-help-button {
+.notebook-navigator-mobile .nn-search-clear-button {
     top: 0;
     height: 36px;
-}
-
-.notebook-navigator-mobile .nn-search-clear-button {
     right: 10px;
 }
 
 .notebook-navigator-mobile .nn-search-star-button {
+    top: 0;
+    height: 36px;
     right: 44px;
 }
 
 .notebook-navigator-mobile .nn-search-help-button {
+    top: 0;
+    height: 36px;
     right: 10px;
 }
 
-.notebook-navigator-mobile .nn-search-input-container--has-shortcut .nn-search-input {
-    padding-right: 94px !important;
+.notebook-navigator-mobile .nn-search-input-container--has-shortcut input.nn-search-input {
+    padding-right: 94px;
 }
 
 /* Clickable path segments in header */
@@ -1391,10 +1384,10 @@ body {
    ======================================================================== */
 
 /* Icon button base style - transparent buttons matching Obsidian's design */
-.nn-icon-button {
-    background: transparent !important;
-    background-color: transparent !important;
-    border: none !important;
+button.nn-icon-button {
+    background: transparent;
+    background-color: transparent;
+    border: none;
     border-radius: var(--radius-s);
     padding: 0 8px;
     color: var(--nn-theme-header-button-icon-color);
@@ -1402,8 +1395,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: none !important;
-    outline: none !important;
+    box-shadow: none;
+    outline: none;
 }
 
 /* Desktop pane header buttons - enforce Obsidian-muted icon color */
@@ -1411,7 +1404,7 @@ body {
     color: var(--nn-theme-header-button-icon-color);
 }
 
-.nn-desktop .nn-pane-header .nn-icon-button svg {
+.nn-desktop .nn-pane-header .nn-icon-button svg:not(.nn-vault-icon-svg) {
     stroke: currentColor;
 }
 
@@ -1435,8 +1428,8 @@ body {
 }
 
 /* Icon button hover state - subtle background on hover - desktop only */
-.nn-desktop .nn-icon-button:hover {
-    background-color: var(--nn-theme-header-button-hover-bg) !important;
+.nn-desktop button.nn-icon-button:hover {
+    background-color: var(--nn-theme-header-button-hover-bg);
     opacity: 1;
 }
 
@@ -1446,14 +1439,14 @@ body {
 }
 
 /* Icon button active state - for toggle buttons that are "ON" */
-.nn-icon-button-active {
-    background-color: var(--nn-theme-header-button-active-bg) !important;
-    color: var(--nn-theme-header-button-active-icon-color) !important;
+button.nn-icon-button.nn-icon-button-active {
+    background-color: var(--nn-theme-header-button-active-bg);
+    color: var(--nn-theme-header-button-active-icon-color);
 }
 
 /* Active button icon color */
-.nn-icon-button-active svg {
-    stroke: var(--nn-theme-header-button-active-icon-color) !important;
+button.nn-icon-button.nn-icon-button-active svg:not(.nn-vault-icon-svg) {
+    stroke: var(--nn-theme-header-button-active-icon-color);
 }
 
 /* Icon button disabled state - visual indicator for unavailable actions */
@@ -1464,7 +1457,7 @@ body {
 }
 
 /* Disabled icon svg stroke color */
-.nn-icon-button:disabled svg {
+.nn-icon-button:disabled svg:not(.nn-vault-icon-svg) {
     stroke: currentColor;
 }
 
@@ -1475,7 +1468,7 @@ body {
 }
 
 /* Disabled icon color - maintains muted appearance */
-.nn-desktop .nn-icon-button:disabled:hover svg {
+.nn-desktop .nn-icon-button:disabled:hover svg:not(.nn-vault-icon-svg) {
     stroke: currentColor;
 }
 
@@ -1491,6 +1484,9 @@ body {
 .nn-icon-button svg {
     width: 16px;
     height: 16px;
+}
+
+.nn-icon-button svg:not(.nn-vault-icon-svg) {
     stroke: currentColor;
     stroke-width: 2;
     fill: none;
@@ -1854,46 +1850,15 @@ body {
 }
 
 /* Overdraw and zero shared corners only between adjacent filled backgrounds */
-.nn-navitem:is(.nn-has-custom-background, .nn-has-search-match, .nn-selected):has(
-        + .nn-navitem:is(.nn-has-custom-background, .nn-has-search-match, .nn-selected)
-    ) {
+.nn-navitem.nn-navitem-has-filled-next {
     --nn-navitem-background-bottom-overdraw: -0.5px;
-}
-
-.nn-navitem:is(.nn-has-custom-background, .nn-has-search-match, .nn-selected)
-    + .nn-navitem:is(.nn-has-custom-background, .nn-has-search-match, .nn-selected) {
-    --nn-navitem-top-left-radius: 0;
-    --nn-navitem-top-right-radius: 0;
-}
-
-.nn-navitem:is(.nn-has-custom-background, .nn-has-search-match, .nn-selected):has(
-        + .nn-navitem:is(.nn-has-custom-background, .nn-has-search-match, .nn-selected)
-    ) {
     --nn-navitem-bottom-left-radius: 0;
     --nn-navitem-bottom-right-radius: 0;
 }
 
-/* Apply the same corner trimming within the virtualized row wrapper */
-.nn-virtual-nav-item:has(> .nn-navitem:is(.nn-has-custom-background, .nn-has-search-match, .nn-selected)):has(
-        + .nn-virtual-nav-item > .nn-navitem:is(.nn-has-custom-background, .nn-has-search-match, .nn-selected)
-    )
-    > .nn-navitem:is(.nn-has-custom-background, .nn-has-search-match, .nn-selected) {
-    --nn-navitem-background-bottom-overdraw: -0.5px;
-}
-
-.nn-virtual-nav-item:has(> .nn-navitem:is(.nn-has-custom-background, .nn-has-search-match, .nn-selected))
-    + .nn-virtual-nav-item:has(> .nn-navitem:is(.nn-has-custom-background, .nn-has-search-match, .nn-selected))
-    > .nn-navitem:is(.nn-has-custom-background, .nn-has-search-match, .nn-selected) {
+.nn-navitem.nn-navitem-has-filled-previous {
     --nn-navitem-top-left-radius: 0;
     --nn-navitem-top-right-radius: 0;
-}
-
-.nn-virtual-nav-item:has(> .nn-navitem:is(.nn-has-custom-background, .nn-has-search-match, .nn-selected)):has(
-        + .nn-virtual-nav-item > .nn-navitem:is(.nn-has-custom-background, .nn-has-search-match, .nn-selected)
-    )
-    > .nn-navitem:is(.nn-has-custom-background, .nn-has-search-match, .nn-selected) {
-    --nn-navitem-bottom-left-radius: 0;
-    --nn-navitem-bottom-right-radius: 0;
 }
 
 /* Folder content - contains folder UI elements */
@@ -1927,7 +1892,7 @@ body {
     );
     width: var(--nn-indent-guide-line-width);
     transform: translateX(-50%);
-    background-color: var(--nn-theme-foreground-faint);
+    background-color: var(--nn-theme-nav-indent-guide-color);
     pointer-events: none;
     z-index: 0;
 }
@@ -2057,14 +2022,10 @@ body {
     line-height: var(--nn-nav-icon-size);
 }
 
-.nn-navitem-icon[data-has-color='true'] svg {
-    stroke-width: 2.4;
-}
-
 /* Folder name text - truncates with ellipsis on overflow */
 .nn-navitem-name {
     font-size: var(--nn-setting-nav-font-size);
-    font-weight: var(--nn-theme-navitem-name-font-weight) !important;
+    font-weight: var(--nn-theme-navitem-name-font-weight);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -2078,30 +2039,79 @@ body {
 
 /* Custom colored folder names */
 .nn-navitem-name.nn-has-custom-color {
-    font-weight: var(--nn-theme-navitem-custom-color-name-font-weight) !important;
+    font-weight: var(--nn-theme-navitem-custom-color-name-font-weight);
 }
 
 /* Folder with folder note */
 .nn-navitem-name.nn-has-folder-note {
-    font-weight: var(--nn-theme-navitem-folder-note-name-font-weight) !important;
-    text-decoration: var(--nn-theme-navitem-folder-note-name-decoration) !important;
+    font-weight: var(--nn-theme-navitem-folder-note-name-font-weight);
+    text-decoration: var(--nn-theme-navitem-folder-note-name-decoration);
 }
 
 /* Folder with folder note and custom color uses custom color weight */
 .nn-navitem-name.nn-has-folder-note.nn-has-custom-color {
-    font-weight: var(--nn-theme-navitem-custom-color-name-font-weight) !important;
+    font-weight: var(--nn-theme-navitem-custom-color-name-font-weight);
 }
 
 /* Folder with folder note - show pointer cursor on hover */
 .nn-navitem-name.nn-has-folder-note:hover {
     cursor: pointer;
-    text-decoration: var(--nn-theme-navitem-folder-note-name-hover-decoration) !important;
+    text-decoration: var(--nn-theme-navitem-folder-note-name-hover-decoration);
 }
 
 /* Spacer element to push count to the end */
 .nn-navitem-spacer {
+    --nn-nav-leader-color: var(--nn-theme-nav-leader-color);
+    --nn-nav-count-leader-bottom-offset: calc((var(--nn-setting-nav-item-height) - var(--nn-nav-line-height)) / 2 + 4px);
     flex: 1;
     min-width: 8px; /* Minimum space between name and count */
+}
+
+.notebook-navigator-mobile .nn-navitem-spacer {
+    --nn-nav-count-leader-bottom-offset: calc((var(--nn-setting-nav-item-height-mobile) - var(--nn-nav-line-height)) / 2 + 5px);
+}
+
+[data-nav-count-leader-style='dots'] .nn-navitem-spacer--leader,
+[data-nav-count-leader-style='dashes'] .nn-navitem-spacer--leader,
+[data-nav-count-leader-style='line'] .nn-navitem-spacer--leader {
+    position: relative;
+    align-self: stretch;
+    margin-inline: 8px;
+    min-width: 16px;
+}
+
+[data-nav-count-leader-style='dots'] .nn-navitem-spacer--leader::after,
+[data-nav-count-leader-style='dashes'] .nn-navitem-spacer--leader::after,
+[data-nav-count-leader-style='line'] .nn-navitem-spacer--leader::after {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    bottom: var(--nn-nav-count-leader-bottom-offset);
+    pointer-events: none;
+}
+
+[data-nav-count-leader-style='dots'] .nn-navitem-spacer--leader::after {
+    height: 2px;
+    background-image: radial-gradient(circle, var(--nn-nav-leader-color) 0, var(--nn-nav-leader-color) 1px, transparent 1px);
+    background-repeat: repeat-x;
+    background-position: center;
+    background-size: 6px 2px;
+}
+
+[data-nav-count-leader-style='dashes'] .nn-navitem-spacer--leader::after {
+    height: 1px;
+    background-image: repeating-linear-gradient(
+        to right,
+        var(--nn-nav-leader-color) 0,
+        var(--nn-nav-leader-color) 6px,
+        transparent 6px,
+        transparent 10px
+    );
+}
+
+[data-nav-count-leader-style='line'] .nn-navitem-spacer--leader::after {
+    height: 1px;
+    background-color: var(--nn-nav-leader-color);
 }
 
 /* Folder file count - shows number of files in folder */
@@ -2155,7 +2165,7 @@ body {
     overflow: visible;
 }
 
-.nn-navitem-hover-action-button {
+button.nn-icon-button.nn-navitem-hover-action-button {
     position: absolute;
     top: 50%;
     inset-inline-end: 0;
@@ -2163,12 +2173,12 @@ body {
     visibility: hidden;
     pointer-events: none;
     cursor: pointer;
-    height: 18px !important;
-    width: 18px !important;
-    min-height: 0 !important;
-    min-width: 0 !important;
-    padding: 0 !important;
-    border-radius: 50% !important;
+    height: 18px;
+    width: 18px;
+    min-height: 0;
+    min-width: 0;
+    padding: 0;
+    border-radius: 50%;
     z-index: 1;
 }
 
@@ -2232,7 +2242,7 @@ body {
 }
 
 .nn-shortcut-item .nn-shortcut-label[data-has-color='true'] {
-    font-weight: var(--nn-theme-navitem-custom-color-file-name-font-weight) !important;
+    font-weight: var(--nn-theme-navitem-custom-color-file-name-font-weight);
 }
 
 .nn-shortcut-item--missing .nn-shortcut-label {
@@ -2241,19 +2251,19 @@ body {
 
 /* Styles for shortcut labels that have an associated folder note */
 .nn-shortcut-item .nn-navitem-name.nn-has-folder-note .nn-shortcut-label {
-    font-weight: var(--nn-theme-navitem-folder-note-name-font-weight) !important;
-    text-decoration: var(--nn-theme-navitem-folder-note-name-decoration) !important;
+    font-weight: var(--nn-theme-navitem-folder-note-name-font-weight);
+    text-decoration: var(--nn-theme-navitem-folder-note-name-decoration);
 }
 
 /* Folder note shortcuts with custom color use custom color weight */
 .nn-shortcut-item .nn-navitem-name.nn-has-folder-note.nn-has-custom-color .nn-shortcut-label {
-    font-weight: var(--nn-theme-navitem-custom-color-file-name-font-weight) !important;
+    font-weight: var(--nn-theme-navitem-custom-color-file-name-font-weight);
 }
 
 /* Pointer cursor on hover for clickable folder note shortcuts */
 .nn-shortcut-item .nn-navitem-name.nn-has-folder-note:hover .nn-shortcut-label {
     cursor: pointer;
-    text-decoration: var(--nn-theme-navitem-folder-note-name-hover-decoration) !important;
+    text-decoration: var(--nn-theme-navitem-folder-note-name-hover-decoration);
 }
 
 .nn-drag-item .nn-shortcut-description {
@@ -2369,7 +2379,7 @@ body {
 }
 
 .nn-root-reorder-item .nn-shortcut-label[data-has-color='true'] {
-    font-weight: var(--nn-theme-navitem-custom-color-name-font-weight) !important;
+    font-weight: var(--nn-theme-navitem-custom-color-name-font-weight);
 }
 
 .nn-root-reorder-item--missing .nn-shortcut-label {
@@ -2610,8 +2620,7 @@ body {
     flex: 0 0 auto;
 }
 
-.nn-navigation-calendar-month .nn-navigation-calendar-quarter-button,
-.nn-navigation-calendar-month .nn-navigation-calendar-quarter-label {
+.nn-navigation-calendar-month .nn-navigation-calendar-quarter-button {
     flex: 0 0 auto;
 }
 
@@ -2629,18 +2638,18 @@ body {
     white-space: nowrap;
 }
 
-.nn-navigation-calendar-period-button,
-.nn-navigation-calendar-nav-button,
-.nn-navigation-calendar-today,
-.nn-navigation-calendar-year-month,
-.nn-navigation-calendar-weeknumber-button,
-.nn-navigation-calendar-day {
+button.nn-navigation-calendar-period-button,
+button.nn-navigation-calendar-nav-button,
+button.nn-navigation-calendar-today,
+button.nn-navigation-calendar-year-month,
+button.nn-navigation-calendar-weeknumber-button,
+button.nn-navigation-calendar-day {
     -webkit-appearance: none;
     appearance: none;
-    border: none !important;
+    border: none;
     border-radius: 6px;
     cursor: pointer;
-    box-shadow: none !important;
+    box-shadow: none;
     outline: none;
 }
 
@@ -2649,8 +2658,8 @@ body {
     position: relative;
 }
 
-.nn-navigation-calendar-period-button {
-    background: var(--nn-calendar-header-chip-bg) !important;
+button.nn-navigation-calendar-period-button {
+    background: var(--nn-calendar-header-chip-bg);
     color: var(--nn-theme-calendar-header-color);
     font: inherit;
     box-sizing: border-box;
@@ -2662,29 +2671,16 @@ body {
     justify-content: center;
 }
 
-.nn-navigation-calendar-period-label {
-    display: inline-flex;
-    align-items: center;
-    padding: 2px 1px;
-    border-radius: 6px;
-    background-color: var(--nn-calendar-header-chip-bg);
-    line-height: 1;
-}
-
-.nn-navigation-calendar-period-button.has-period-note {
-    text-decoration-line: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 2px;
-}
-
-.nn-navigation-calendar-quarter-button.has-period-note {
-    text-decoration: none;
-}
-
-.nn-navigation-calendar-quarter-button.has-period-note .nn-navigation-calendar-quarter-value {
-    text-decoration-line: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 2px;
+.nn-navigation-calendar-period-button.has-period-note::after {
+    content: '';
+    position: absolute;
+    left: 3px;
+    right: 3px;
+    bottom: 2px;
+    height: 1px;
+    background-color: currentColor;
+    pointer-events: none;
+    z-index: 1;
 }
 
 .nn-navigation-calendar-period-button.is-active-editor-file .nn-navigation-calendar-active-outline,
@@ -2758,11 +2754,11 @@ body {
     right: auto;
     top: auto;
     transform: none;
-    width: 0 !important;
-    min-width: 0 !important;
-    height: 20px !important;
+    width: 0;
+    min-width: 0;
+    height: 20px;
     margin-left: 0;
-    padding: 0 !important;
+    padding: 0;
     overflow: hidden;
     flex: 0 0 auto;
 }
@@ -2777,8 +2773,8 @@ body {
     right: auto;
     top: 50%;
     transform: translateY(-50%);
-    width: 20px !important;
-    height: 20px !important;
+    width: 20px;
+    height: 20px;
 }
 
 .nn-navigation-calendar-quarter-inline {
@@ -2802,30 +2798,30 @@ body {
     justify-self: end;
 }
 
-.nn-navigation-calendar-nav-prev {
-    width: 24px !important;
-    justify-content: flex-start !important;
+button.nn-navigation-calendar-nav-button.nn-navigation-calendar-nav-prev {
+    width: 24px;
+    justify-content: flex-start;
 }
 
-.nn-navigation-calendar-nav-next {
-    width: 24px !important;
-    justify-content: flex-end !important;
+button.nn-navigation-calendar-nav-button.nn-navigation-calendar-nav-next {
+    width: 24px;
+    justify-content: flex-end;
 }
 
-.nn-navigation-calendar-nav-button {
+button.nn-navigation-calendar-nav-button {
     width: var(--nn-calendar-nav-button-size);
     height: var(--nn-calendar-nav-button-size);
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: transparent !important;
+    background: transparent;
     color: var(--nn-theme-foreground-muted);
     padding: 0;
     line-height: 0;
 }
 
-.nn-navigation-calendar-today {
-    background: transparent !important;
+button.nn-navigation-calendar-today {
+    background: transparent;
     color: var(--nn-theme-foreground-muted);
     font: inherit;
     font-size: var(--nn-calendar-today-font-size);
@@ -2900,12 +2896,12 @@ body {
     gap: 4px;
 }
 
-.nn-navigation-calendar-year-nav-button {
-    width: 24px !important;
-    height: var(--nn-calendar-nav-button-size) !important;
+button.nn-navigation-calendar-nav-button.nn-navigation-calendar-year-nav-button {
+    width: 24px;
+    height: var(--nn-calendar-nav-button-size);
 }
 
-.nn-navigation-calendar-year-label {
+button.nn-navigation-calendar-year-label {
     color: var(--nn-theme-foreground-muted);
     font-size: var(--nn-calendar-today-font-size);
     font-weight: 600;
@@ -2931,9 +2927,9 @@ body {
     aspect-ratio: 16 / 9;
 }
 
-.nn-navigation-calendar-year-month {
+button.nn-navigation-calendar-year-month {
     position: relative;
-    background-color: transparent !important;
+    background-color: transparent;
     color: var(--nn-theme-calendar-day-in-month-color);
     font: inherit;
     font-size: var(--nn-calendar-day-font-size);
@@ -3056,7 +3052,7 @@ body {
 
 .nn-navigation-calendar[data-highlight-today='true']
     .nn-navigation-calendar-year-month.is-current-month:not(.has-feature-image):not(.has-feature-image-key) {
-    background-color: var(--nn-theme-calendar-day-today-bg) !important;
+    background-color: var(--nn-theme-calendar-day-today-bg);
     color: var(--nn-theme-calendar-day-today-color);
 }
 
@@ -3108,7 +3104,7 @@ body {
     min-height: var(--nn-calendar-weekday-row-height);
     display: grid;
     align-items: center;
-    column-gap: 1px;
+    gap: 0 1px;
     grid-template-columns: repeat(7, minmax(0, 1fr));
     color: var(--nn-theme-calendar-weekday-color);
     font-size: var(--nn-calendar-weekday-font-size);
@@ -3138,7 +3134,7 @@ body {
 .nn-navigation-calendar-week {
     display: grid;
     grid-template-columns: repeat(7, minmax(0, 1fr));
-    column-gap: 1px;
+    gap: 0 1px;
     align-items: center;
 }
 
@@ -3189,9 +3185,9 @@ body {
     font-variant-numeric: tabular-nums;
 }
 
-.nn-navigation-calendar-weeknumber-button {
+button.nn-navigation-calendar-weeknumber-button {
     width: 100%;
-    background: transparent !important;
+    background-color: transparent;
 }
 
 .nn-navigation-calendar button.nn-navigation-calendar-weeknumber {
@@ -3295,18 +3291,18 @@ body {
     border-bottom-right-radius: var(--nn-calendar-weekend-corner-radius);
 }
 
-.nn-navigation-calendar-day {
+button.nn-navigation-calendar-day {
     position: relative;
     height: auto;
     aspect-ratio: 1 / 1;
     box-sizing: border-box;
     min-width: 0;
     width: 100%;
-    padding: 0 !important;
+    padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: transparent !important;
+    background-color: transparent;
     color: var(--nn-theme-calendar-day-in-month-color);
     background-size: cover;
     background-position: center;
@@ -3328,15 +3324,15 @@ body {
 /* Hover effects only apply on hover-capable devices (prevents "stuck hover" on touch). */
 @media (hover: hover) and (pointer: fine) {
     .nn-navigation-calendar-nav-button:hover {
-        background-color: var(--nn-theme-calendar-hover-bg) !important;
+        background-color: var(--nn-theme-calendar-hover-bg);
     }
 
     .nn-navigation-calendar-help:hover {
-        background-color: transparent !important;
+        background-color: transparent;
     }
 
     .nn-navigation-calendar-month-help:hover {
-        background-color: transparent !important;
+        background-color: transparent;
     }
 
     .nn-navigation-calendar-month.has-inline-help .nn-navigation-calendar-inline-help {
@@ -3354,8 +3350,8 @@ body {
 
     .nn-navigation-calendar-month.has-inline-help:not(.has-inline-month-nav):hover .nn-navigation-calendar-inline-help,
     .nn-navigation-calendar-month.has-inline-help:not(.has-inline-month-nav):focus-within .nn-navigation-calendar-inline-help {
-        width: 20px !important;
-        min-width: 20px !important;
+        width: 20px;
+        min-width: 20px;
         margin-left: 2px;
     }
 
@@ -3374,27 +3370,27 @@ body {
     }
 
     .nn-navigation-calendar[data-split-header='true'] .nn-navigation-calendar-header .nn-navigation-calendar-help-inline {
-        width: 0 !important;
-        min-width: 0 !important;
-        padding: 0 !important;
-        margin: 0 !important;
+        width: 0;
+        min-width: 0;
+        padding: 0;
+        margin: 0;
         overflow: hidden;
     }
 
     .nn-navigation-calendar[data-split-header='true'] .nn-navigation-calendar-header:hover .nn-navigation-calendar-help-inline,
     .nn-navigation-calendar[data-split-header='true'] .nn-navigation-calendar-header:focus-within .nn-navigation-calendar-help-inline {
-        width: var(--nn-calendar-nav-button-size) !important;
-        min-width: var(--nn-calendar-nav-button-size) !important;
+        width: var(--nn-calendar-nav-button-size);
+        min-width: var(--nn-calendar-nav-button-size);
     }
 
     .nn-navigation-calendar-today:hover {
-        background-color: var(--nn-theme-calendar-hover-bg) !important;
+        background-color: var(--nn-theme-calendar-hover-bg);
     }
 
     .nn-navigation-calendar-period-button:hover,
     .nn-navigation-calendar-weeknumber-button:hover {
         filter: brightness(1.05);
-        background-color: var(--nn-theme-calendar-hover-bg) !important;
+        background-color: var(--nn-theme-calendar-hover-bg);
     }
 
     .nn-navigation-calendar-day:hover {
@@ -3402,7 +3398,7 @@ body {
     }
 
     .nn-navigation-calendar-day:hover:not(.has-feature-image):not(.has-feature-image-key) {
-        background-color: var(--nn-theme-calendar-hover-bg) !important;
+        background-color: var(--nn-theme-calendar-hover-bg);
     }
 
     .nn-navigation-calendar-year-month:hover {
@@ -3410,7 +3406,7 @@ body {
     }
 
     .nn-navigation-calendar-year-month:hover:not(.is-selected-month):not(.has-feature-image):not(.has-feature-image-key) {
-        background-color: var(--nn-theme-calendar-hover-bg) !important;
+        background-color: var(--nn-theme-calendar-hover-bg);
     }
 }
 
@@ -3490,7 +3486,7 @@ body {
 .nn-navigation-calendar-day.is-today .nn-navigation-calendar-day-number,
 .nn-navigation-calendar-day.has-feature-image .nn-navigation-calendar-day-number,
 .nn-navigation-calendar-day.has-feature-image-key .nn-navigation-calendar-day-number {
-    font-weight: 600 !important;
+    font-weight: 600;
 }
 
 .nn-navigation-calendar-day.has-feature-image {
@@ -3569,8 +3565,13 @@ body {
 
 .nn-calendar-right-sidebar .nn-navigation-calendar {
     --nn-calendar-header-chip-bg: var(--nn-calendar-right-sidebar-bg);
-    --nn-calendar-header-font-size: 13px;
+    --nn-calendar-header-font-size: 16px;
     --nn-calendar-today-font-size: 13px;
+}
+
+.notebook-navigator-mobile .nn-calendar-right-sidebar .nn-navigation-calendar {
+    --nn-calendar-header-font-size: 18px;
+    --nn-calendar-today-font-size: 14px;
 }
 
 .nn-calendar-right-sidebar .nn-navigation-calendar-year-grid {
@@ -3648,12 +3649,12 @@ body {
 }
 
 .nn-list-title-label--folder-note {
-    text-decoration: var(--nn-theme-navitem-folder-note-name-decoration) !important;
+    text-decoration: var(--nn-theme-navitem-folder-note-name-decoration);
 }
 
 .nn-list-title-label--folder-note:hover {
     cursor: pointer;
-    text-decoration: var(--nn-theme-navitem-folder-note-name-hover-decoration) !important;
+    text-decoration: var(--nn-theme-navitem-folder-note-name-hover-decoration);
 }
 
 /* File - container for each file in the list */
@@ -3710,20 +3711,17 @@ body {
     z-index: 2;
 }
 
-.nn-virtual-file-item:has(> .nn-file.nn-has-custom-background)::after,
-.nn-virtual-file-item:has(+ .nn-virtual-file-item > .nn-file.nn-has-custom-background)::after {
+.nn-virtual-file-item-has-custom-background::after,
+.nn-virtual-file-item-has-custom-background-next::after {
     display: none;
 }
 
-.nn-virtual-file-item:has(> .nn-file.nn-has-custom-background)
-    + .nn-virtual-file-item:has(> .nn-file.nn-has-custom-background)
-    > .nn-file.nn-has-custom-background {
+.nn-virtual-file-item-has-custom-background-previous > .nn-file.nn-has-custom-background {
     --nn-file-top-left-radius: 0;
     --nn-file-top-right-radius: 0;
 }
 
-.nn-virtual-file-item:has(> .nn-file.nn-has-custom-background):has(+ .nn-virtual-file-item > .nn-file.nn-has-custom-background)
-    > .nn-file.nn-has-custom-background {
+.nn-virtual-file-item-has-custom-background-next > .nn-file.nn-has-custom-background {
     --nn-file-bottom-left-radius: 0;
     --nn-file-bottom-right-radius: 0;
 }
@@ -3823,6 +3821,182 @@ body {
     justify-content: flex-start; /* Top-align content */
 }
 
+/* Manual property sort editing */
+.nn-manual-sort-scroller {
+    padding: 0 var(--nn-scroller-padding);
+}
+
+.nn-manual-sort-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0.75rem 0 1rem;
+}
+
+.nn-manual-sort-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0 var(--nn-file-item-padding-horizontal);
+}
+
+.nn-manual-sort-header-text {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.nn-manual-sort-title {
+    font-size: var(--nn-desktop-header-font-size);
+    font-weight: var(--nn-theme-list-header-breadcrumb-font-weight);
+    line-height: 1.3;
+    color: var(--nn-theme-list-heading-color);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.nn-manual-sort-hint {
+    font-size: var(--nn-root-reorder-hint-font-size);
+    color: var(--nn-theme-foreground-muted);
+    line-height: 1.25;
+}
+
+.nn-manual-sort-done {
+    flex-shrink: 0;
+    padding: 0 0.75rem;
+    cursor: pointer;
+}
+
+.nn-manual-sort-done:disabled {
+    cursor: default;
+}
+
+.nn-manual-sort-list {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+}
+
+.nn-manual-sort-section-header {
+    margin-top: var(--nn-list-group-header-spacer-before);
+}
+
+.nn-manual-sort-list > .nn-manual-sort-section-header:first-child {
+    margin-top: 0;
+}
+
+.nn-manual-sort-sortable-item {
+    position: relative;
+    width: 100%;
+}
+
+.nn-manual-sort-sortable-item-sorting {
+    z-index: 2;
+}
+
+.nn-manual-sort-row {
+    display: flex;
+    align-items: stretch;
+    min-width: 0;
+    cursor: grab;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.nn-manual-sort-row-sorting {
+    z-index: 2;
+}
+
+.nn-manual-sort-row-sorting::after {
+    display: none;
+}
+
+.nn-manual-sort-row-hide-separator::after,
+.nn-manual-sort-row-has-custom-background::after,
+.nn-manual-sort-row-has-custom-background-next::after {
+    display: none;
+}
+
+.nn-manual-sort-row-has-custom-background-previous .nn-file.nn-has-custom-background {
+    --nn-file-top-left-radius: 0;
+    --nn-file-top-right-radius: 0;
+}
+
+.nn-manual-sort-row-has-custom-background-next .nn-file.nn-has-custom-background {
+    --nn-file-bottom-left-radius: 0;
+    --nn-file-bottom-right-radius: 0;
+}
+
+.nn-manual-sort-row-drag-block .nn-file.nn-selected .nn-file-content::before {
+    box-shadow: inset 0 0 0 2px var(--interactive-accent);
+}
+
+.nn-manual-sort-row-disabled {
+    cursor: default;
+}
+
+.nn-manual-sort-row:not(.nn-manual-sort-row-last)::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    inset-inline-start: calc(
+        var(--nn-file-item-padding-horizontal) + var(--nn-file-icon-slot-width-mobile, var(--nn-file-icon-slot-width)) +
+            var(--nn-file-icon-slot-gap)
+    );
+    inset-inline-end: var(--nn-file-item-padding-horizontal);
+    height: var(--nn-separator-height);
+    background-color: var(--nn-theme-list-separator-color);
+    z-index: 100;
+    pointer-events: none;
+}
+
+.nn-manual-sort-file {
+    flex: 1;
+    min-width: 0;
+}
+
+.nn-manual-sort-file .nn-file,
+.nn-manual-sort-file .nn-file-content,
+.nn-manual-sort-file .nn-file-inner-content {
+    height: auto;
+}
+
+.nn-file-manual-sort-disabled {
+    opacity: 0.55;
+}
+
+.notebook-navigator-mobile .nn-manual-sort-title {
+    font-size: var(--nn-mobile-header-font-size);
+}
+
+.notebook-navigator-mobile .nn-manual-sort-hint {
+    font-size: var(--nn-root-reorder-hint-font-size-mobile);
+}
+
+.notebook-navigator-mobile .nn-manual-sort-row {
+    cursor: default;
+}
+
+.notebook-navigator-mobile .nn-manual-sort-row-draggable:not(.nn-manual-sort-row-last)::after {
+    inset-inline-start: calc(
+        var(--nn-file-item-padding-horizontal) + var(--nn-file-icon-slot-width-mobile, var(--nn-file-icon-slot-width)) +
+            var(--nn-file-icon-slot-gap)
+    );
+    inset-inline-end: calc(var(--nn-file-item-padding-horizontal) + 28px + var(--nn-file-item-padding-horizontal));
+}
+
+.notebook-navigator-mobile .nn-manual-sort-row .nn-drag-handle {
+    align-self: center;
+    width: calc(28px + var(--nn-file-item-padding-horizontal));
+    padding-inline-end: var(--nn-file-item-padding-horizontal);
+    box-sizing: border-box;
+}
+
 /* File name - primary text with ellipsis overflow */
 .nn-file-name {
     font-size: var(--nn-file-name-size-mobile, var(--nn-file-name-size));
@@ -3847,6 +4021,11 @@ body {
 
 .nn-file-name[data-has-color='true'] {
     color: var(--nn-file-name-custom-color);
+}
+
+.nn-file-word-count-suffix {
+    color: var(--nn-theme-file-word-count-color);
+    font-weight: var(--nn-theme-file-word-count-font-weight);
 }
 
 .nn-file-icon {
@@ -3889,10 +4068,6 @@ body {
 
 .nn-file.nn-selected .nn-file-icon.nn-file-icon-unfinished-task[data-has-color='false'] {
     color: var(--nn-theme-file-task-icon-color);
-}
-
-.nn-file-icon[data-has-color='true'] svg {
-    stroke-width: 2.4;
 }
 
 /* Quick actions panel - horizontal container for action icons */
@@ -4065,10 +4240,6 @@ body {
     flex-shrink: 0;
 }
 
-.nn-parent-folder-icon[data-has-color='true'] svg {
-    stroke-width: 2.4;
-}
-
 .nn-parent-folder-label {
     font-weight: var(--nn-theme-file-parent-font-weight);
 }
@@ -4220,13 +4391,17 @@ body {
     color: var(--nn-selected-file-date-color);
 }
 
+.nn-file.nn-selected .nn-file-word-count-suffix {
+    color: var(--nn-selected-file-word-count-color);
+}
+
 .nn-file.nn-selected .nn-parent-folder {
     color: var(--nn-selected-file-parent-color);
 }
 /* Source: src/styles/sections/list-compact-mode.css */
 
 /* ========================================================================
-   Compact Mode Styles - When date, preview, and image are all disabled
+   Compact Mode Styles
    ======================================================================== */
 
 /* Compact file item - more compact list appearance */
@@ -4397,6 +4572,12 @@ body {
     text-transform: uppercase;
     letter-spacing: 0.1px;
 }
+
+.nn-file-extension-icon {
+    width: min(24px, 42%);
+    height: min(24px, 42%);
+    color: var(--nn-theme-foreground-muted);
+}
 /* Source: src/styles/sections/list-group-headers.css */
 
 /* ========================================================================
@@ -4411,7 +4592,7 @@ body {
     font-size: var(--nn-file-small-size-mobile, var(--nn-file-small-size));
     font-weight: var(--nn-theme-list-group-header-font-weight);
     color: var(--nn-theme-list-group-header-color);
-    background-color: transparent !important;
+    background-color: transparent;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -4435,7 +4616,7 @@ body {
     pointer-events: none;
 }
 
-.nn-list-pane-scroller .nn-virtual-list-group-header:not(.nn-first-list-group-header)::after {
+.nn-list-pane-scroller .nn-virtual-list-group-header:not(.nn-hide-list-group-header-separator)::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -4454,14 +4635,14 @@ body {
 .nn-list-sticky-header .nn-list-group-header {
     position: relative;
     overflow: visible;
-    background-color: var(--nn-theme-list-bg) !important;
+    background-color: var(--nn-theme-list-bg);
     pointer-events: auto;
 }
 
 .nn-list-sticky-header .nn-list-group-header::before {
     content: '';
     position: absolute;
-    top: 0;
+    top: -1px;
     bottom: 0;
     inset-inline-start: calc(-1 * var(--nn-scroller-padding));
     inset-inline-end: calc(-1 * var(--nn-scroller-padding));
@@ -4469,20 +4650,29 @@ body {
     z-index: -1;
 }
 
-.nn-list-sticky-header .nn-list-group-header::after {
+.nn-list-sticky-header .nn-manual-sort-group-header-shell {
+    overflow: visible;
+    background-color: var(--nn-theme-list-bg);
+    pointer-events: auto;
+}
+
+.nn-list-sticky-header .nn-manual-sort-group-header-shell::before {
     content: '';
     position: absolute;
+    top: -1px;
     bottom: 0;
     inset-inline-start: calc(-1 * var(--nn-scroller-padding));
     inset-inline-end: calc(-1 * var(--nn-scroller-padding));
-    height: var(--nn-separator-height);
-    background-color: var(--nn-theme-list-separator-color);
-    z-index: 100;
-    pointer-events: none;
+    background-color: var(--nn-theme-list-bg);
+    z-index: -1;
 }
 
-.nn-list-sticky-header.nn-first-list-group-header .nn-list-group-header::after {
-    display: none;
+.nn-list-sticky-header .nn-manual-sort-group-header-shell .nn-list-group-header {
+    background-color: transparent;
+}
+
+.nn-list-sticky-header .nn-manual-sort-group-header-shell .nn-list-group-header::before {
+    content: none;
 }
 
 .nn-list-group-header-icon {
@@ -4500,33 +4690,180 @@ body {
     height: 100%;
 }
 
-.nn-list-group-header-text {
+.nn-list-group-header--manual-sort {
+    --nn-manual-sort-group-header-accent: var(--interactive-accent);
+}
+
+.nn-manual-sort-group-header-shell {
+    --nn-manual-sort-group-header-accent: var(--interactive-accent);
+    height: var(--nn-list-group-goal-header-height-mobile, var(--nn-list-group-goal-header-height));
+    position: relative;
+    overflow: hidden;
+    background-color: var(--nn-theme-list-bg);
+}
+
+.nn-manual-sort-group-header-content {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.nn-manual-sort-group-header-content--accent-all {
+    color: var(--nn-manual-sort-group-header-accent);
+}
+
+.nn-manual-sort-group-header-custom-icon {
+    flex: 0 0 auto;
+    width: var(--nn-list-group-header-icon-size, var(--nn-file-icon-size-mobile, var(--nn-file-icon-size)));
+    height: var(--nn-list-group-header-icon-size, var(--nn-file-icon-size-mobile, var(--nn-file-icon-size)));
+    color: currentColor;
+}
+
+.nn-manual-sort-group-header-content--accent-icon .nn-manual-sort-group-header-custom-icon {
+    color: var(--nn-manual-sort-group-header-accent);
+}
+
+.nn-manual-sort-group-header-custom-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.nn-manual-sort-group-header-title {
+    flex: 0 1 auto;
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
+.nn-manual-sort-group-header-count {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 400;
+    color: var(--nn-theme-foreground-muted);
+}
+
+.nn-manual-sort-group-header-content--accent-all .nn-manual-sort-group-header-count {
+    color: inherit;
+}
+
+.nn-manual-sort-group-header-percent {
+    flex: 0 0 auto;
+    margin-inline-start: auto;
+    font-weight: 600;
+    color: var(--nn-manual-sort-group-header-accent);
+}
+
+.nn-manual-sort-group-header-progress {
+    position: relative;
+    width: 100%;
+    height: 3px;
+    overflow: hidden;
+    border-radius: 999px;
+}
+
+.nn-manual-sort-group-header-progress::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background-color: var(--nn-manual-sort-group-header-accent);
+    opacity: 0.1;
+}
+
+.nn-manual-sort-group-header-progress-fill {
+    position: relative;
+    width: var(--nn-manual-sort-group-header-progress);
+    height: 100%;
+    border-radius: inherit;
+    background-color: var(--nn-manual-sort-group-header-accent);
+}
+
+.nn-manual-sort-group-header-progress-row {
+    box-sizing: border-box;
+    position: absolute;
+    z-index: 1;
+    inset-inline-start: 0;
+    inset-inline-end: 0;
+    bottom: var(--nn-list-group-progress-gap-after);
+    height: 3px;
+    display: flex;
+    align-items: center;
+    padding: 0 var(--nn-file-item-padding-horizontal);
+    pointer-events: none;
+}
+
+.nn-list-group-header-text {
+    flex: 0 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.nn-list-group-header-text--custom-color {
+    font-weight: var(--nn-theme-navitem-custom-color-name-font-weight);
+}
+
+.nn-list-group-header-path {
+    display: inline-flex;
+    align-items: center;
+}
+
+.nn-list-group-header-folder-segment {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.nn-list-group-header-path-separator {
+    flex: 0 0 auto;
+    padding-inline: 4px;
+}
+
+button.nn-list-group-header-collapse-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: var(--nn-list-group-header-height-mobile, var(--nn-list-group-header-height));
+    height: var(--nn-list-group-header-height-mobile, var(--nn-list-group-header-height));
+    margin-inline-start: auto;
+    margin-inline-end: -6px;
+    padding: 0;
+    border: 0;
+    border-radius: 4px;
+    color: var(--nn-theme-list-group-header-color);
+    background: transparent;
+    box-shadow: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+button.nn-list-group-header-collapse-button:focus-visible {
+    color: var(--text-normal);
+    background-color: var(--background-modifier-hover);
+}
+
+button.nn-list-group-header-collapse-button .nn-list-group-header-icon {
+    width: var(--nn-list-group-header-icon-size, var(--nn-file-icon-size-mobile, var(--nn-file-icon-size)));
+    height: var(--nn-list-group-header-icon-size, var(--nn-file-icon-size-mobile, var(--nn-file-icon-size)));
+}
+
 .nn-list-group-header-text--folder-note {
-    text-decoration: var(--nn-theme-navitem-folder-note-name-decoration) !important;
+    text-decoration: var(--nn-theme-navitem-folder-note-name-decoration);
 }
 
 .nn-list-group-header-text--folder-note:hover {
     cursor: pointer;
-    text-decoration: var(--nn-theme-navitem-folder-note-name-hover-decoration) !important;
+    text-decoration: var(--nn-theme-navitem-folder-note-name-hover-decoration);
 }
 
 .nn-pinned-section-header {
     align-items: center;
     user-select: none;
-}
-
-.nn-pinned-section-toggle {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    width: 100%;
-    min-width: 0;
-    cursor: pointer;
 }
 
 /* Virtual list item - absolute positioning for list pane items */
@@ -4758,15 +5095,6 @@ body.nn-resizing {
     outline-offset: -2px;
 }
 
-/* Disable drag and drop feedback on mobile */
-.notebook-navigator-mobile [draggable='true'] {
-    cursor: default !important;
-}
-
-.notebook-navigator-mobile .nn-drag-over {
-    background-color: transparent !important;
-}
-
 /* Special visual feedback for tag drop zones - uses pre-composited solid color */
 [data-drop-zone='tag'].nn-drag-over {
     background-color: var(--nn-computed-tag-positive-bg, var(--nn-theme-tag-positive-bg));
@@ -4782,6 +5110,20 @@ body.nn-resizing {
 [data-drop-zone='tag'][data-tag='__untagged__'].nn-drag-over {
     background-color: var(--nn-computed-tag-negative-bg, var(--nn-theme-tag-negative-bg));
     border-radius: min(14px, var(--nn-theme-navitem-border-radius));
+}
+
+/* Disable drag and drop feedback on mobile */
+.notebook-navigator-mobile [draggable='true'] {
+    cursor: default;
+}
+
+.notebook-navigator-mobile .nn-navitem.nn-drag-over,
+.notebook-navigator-mobile [data-drop-zone].nn-drag-over {
+    background-color: transparent;
+}
+
+.notebook-navigator-mobile .nn-list-pane-scroller.nn-drag-over {
+    outline: none;
 }
 
 /* Empty placeholder to hide browser's default drag preview */
@@ -4937,18 +5279,21 @@ body.nn-resizing {
     --nn-theme-file-name-color: var(--nn-theme-foreground);
     --nn-theme-file-preview-color: var(--nn-theme-foreground);
     --nn-theme-file-date-color: var(--nn-theme-foreground);
+    --nn-theme-file-word-count-color: var(--nn-theme-foreground);
     --nn-theme-file-parent-color: var(--nn-theme-foreground);
     --nn-theme-file-tag-color: var(--nn-theme-foreground);
     --nn-theme-file-property-color: var(--nn-theme-foreground);
     --nn-theme-file-selected-name-color: var(--nn-theme-foreground);
     --nn-theme-file-selected-preview-color: var(--nn-theme-foreground);
     --nn-theme-file-selected-date-color: var(--nn-theme-foreground);
+    --nn-theme-file-selected-word-count-color: var(--nn-theme-foreground);
     --nn-theme-file-selected-parent-color: var(--nn-theme-foreground);
     --nn-theme-file-selected-tag-color: var(--nn-theme-foreground);
     --nn-theme-file-selected-property-color: var(--nn-theme-foreground);
     --nn-theme-file-selected-inactive-name-color: var(--nn-theme-foreground);
     --nn-theme-file-selected-inactive-preview-color: var(--nn-theme-foreground);
     --nn-theme-file-selected-inactive-date-color: var(--nn-theme-foreground);
+    --nn-theme-file-selected-inactive-word-count-color: var(--nn-theme-foreground);
     --nn-theme-file-selected-inactive-parent-color: var(--nn-theme-foreground);
     --nn-theme-file-selected-inactive-tag-color: var(--nn-theme-foreground);
     --nn-theme-file-selected-inactive-property-color: var(--nn-theme-foreground);
@@ -4979,6 +5324,28 @@ body.nn-resizing {
 .nn-input:focus {
     outline: none;
     border-color: var(--interactive-accent);
+}
+
+.nn-input-description {
+    color: var(--nn-theme-foreground-muted);
+    font-size: var(--font-ui-small);
+    margin-top: 12px;
+}
+
+.nn-merge-notes-summary {
+    margin-bottom: 8px;
+}
+
+.nn-merge-notes-details {
+    color: var(--nn-theme-foreground-muted);
+    font-size: var(--font-ui-small);
+    unicode-bidi: plaintext;
+}
+
+.nn-merge-notes-warning {
+    color: var(--text-error);
+    font-weight: 700;
+    unicode-bidi: plaintext;
 }
 
 .nn-input-checkbox-row {
@@ -5481,10 +5848,15 @@ body.nn-resizing {
 .modal.nn-whats-new-modal {
     width: 600px;
     max-width: calc(100vw - 40px);
+    overflow: hidden;
 }
 
 /* What's new content layout */
 .modal.nn-whats-new-modal .modal-content {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
     padding: 16px;
 }
 
@@ -5493,13 +5865,10 @@ body.nn-resizing {
     pointer-events: auto;
 }
 
-/* What's new header */
-.nn-whats-new-header {
-    margin-bottom: 16px;
-}
-
 /* What's new scrollable container */
 .nn-whats-new-scroll {
+    flex: 1 1 auto;
+    min-height: 0;
     max-height: min(70vh, 520px);
     overflow-y: auto;
     margin-bottom: 0;
@@ -5524,7 +5893,7 @@ body.nn-resizing {
     font-weight: 600;
     color: var(--nn-theme-foreground);
     background: var(--background-secondary);
-    margin: 0 0 4px 0;
+    margin: 0 0 4px;
     padding: 6px 10px;
     border-radius: 6px;
 }
@@ -5560,6 +5929,7 @@ body.nn-resizing {
 /* Release banner image */
 .nn-whats-new-banner {
     position: relative;
+    display: block;
     width: 100%;
     aspect-ratio: 16 / 9;
     overflow: hidden;
@@ -5567,6 +5937,12 @@ body.nn-resizing {
     background: var(--background-secondary);
     border: 1px solid var(--background-modifier-border);
     margin-bottom: 12px;
+    text-decoration: none;
+}
+
+.nn-whats-new-banner:focus-visible {
+    outline: 2px solid var(--interactive-accent);
+    outline-offset: 2px;
 }
 
 .nn-whats-new-banner-image {
@@ -5732,11 +6108,6 @@ body.nn-resizing {
         line-height: 1.6;
     }
 
-    /* Mobile header size for the modal title */
-    .nn-whats-new-header {
-        font-size: 16px;
-    }
-
     /* Version header size on mobile */
     .nn-whats-new-version h3 {
         font-size: 15px;
@@ -5745,11 +6116,6 @@ body.nn-resizing {
 
 /* Obsidian mobile app adjustments */
 .is-mobile {
-    /* Modal title */
-    .nn-whats-new-header {
-        font-size: 16px;
-    }
-
     /* Body text and labels */
     .nn-whats-new-info,
     .nn-whats-new-version li,
@@ -5773,23 +6139,16 @@ body.nn-resizing {
 .modal.nn-icon-picker-modal {
     width: 480px;
     max-width: calc(100vw - 40px);
+    height: auto;
 }
 
 /* Icon picker content layout */
 .modal.nn-icon-picker-modal .modal-content {
     padding: 0;
     height: 100%;
+    min-height: 380px;
     display: flex;
     flex-direction: column;
-}
-
-/* Icon picker modal height control */
-.modal.nn-icon-picker-modal {
-    height: auto;
-}
-
-/* Prevent icon picker content overflow */
-.modal.nn-icon-picker-modal .modal-content {
     overflow: hidden;
 }
 
@@ -5840,11 +6199,16 @@ body.nn-resizing {
 
 /* Icon category headers */
 .nn-icon-section-header {
-    font-size: 13px;
-    font-weight: 400;
+    font-size: var(--font-ui-small);
+    font-weight: 600;
     color: var(--nn-theme-foreground-muted);
     letter-spacing: 0.5px;
-    margin-bottom: 12px;
+    margin-top: 12px;
+    margin-bottom: 4px;
+}
+
+.nn-icon-section-header:first-child {
+    margin-top: 0;
 }
 
 /* Icon grid layout - 5 columns */
@@ -5860,7 +6224,7 @@ body.nn-resizing {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 8px 8px;
+    padding: 8px;
     border-radius: var(--radius-s);
 }
 
@@ -6019,21 +6383,21 @@ body.nn-resizing {
     position: relative;
 }
 
-.modal.nn-property-keys-modal .nn-property-keys-search {
+.modal.nn-property-keys-modal input.nn-property-keys-search {
     margin: 0;
     height: 32px;
-    padding: 4px 36px 4px 12px !important;
-    border-radius: 999px !important;
-    border: 1px solid var(--nn-theme-list-search-border-color) !important;
+    padding: 4px 36px 4px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--nn-theme-list-search-border-color);
 }
 
-.modal.nn-property-keys-modal .nn-property-keys-search.is-active {
-    background: var(--nn-theme-list-search-active-bg) !important;
+.modal.nn-property-keys-modal input.nn-property-keys-search.is-active {
+    background: var(--nn-theme-list-search-active-bg);
 }
 
-.modal.nn-property-keys-modal .nn-property-keys-search:focus {
-    border-color: var(--nn-theme-list-search-border-color) !important;
-    box-shadow: 0 0 0 2px var(--nn-theme-list-search-border-color) !important;
+.modal.nn-property-keys-modal input.nn-property-keys-search:focus {
+    border-color: var(--nn-theme-list-search-border-color);
+    box-shadow: 0 0 0 2px var(--nn-theme-list-search-border-color);
 }
 
 .modal.nn-property-keys-modal .nn-property-keys-search-clear {
@@ -6215,6 +6579,103 @@ body.nn-resizing {
 .is-mobile .modal.nn-property-keys-modal .nn-property-keys-footer {
     padding-top: var(--size-2-3);
 }
+/* Source: src/styles/sections/modal-manual-sort-group-header.css */
+
+/* ========================================================================
+   Manual Sort Group Header Modal
+   ======================================================================== */
+
+.modal.nn-manual-sort-group-header-modal {
+    width: min(360px, calc(100vw - 32px));
+}
+
+.modal.nn-manual-sort-group-header-modal .modal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.nn-manual-sort-header-description {
+    margin: 0;
+}
+
+.nn-manual-sort-header-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.nn-manual-sort-header-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.nn-manual-sort-header-field-label {
+    color: var(--text-muted);
+    font-size: var(--font-ui-smaller);
+}
+
+.nn-manual-sort-header-input {
+    width: 100%;
+}
+
+.nn-manual-sort-header-appearance-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+}
+
+.nn-manual-sort-header-action-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    min-width: 0;
+}
+
+.nn-manual-sort-header-style-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+}
+
+.nn-manual-sort-header-style-preview {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    color: var(--text-muted);
+}
+
+.nn-manual-sort-header-style-preview svg {
+    width: 16px;
+    height: 16px;
+}
+
+.nn-manual-sort-header-style-preview.nn-color-swatch {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 1px solid var(--background-modifier-border);
+    background-color: var(--nn-manual-sort-header-preview-color);
+}
+
+.nn-manual-sort-header-style-preview.is-empty.nn-color-swatch {
+    background-color: transparent;
+}
+
+.nn-manual-sort-header-style-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.nn-manual-sort-header-toggle-setting {
+    border: 0;
+    padding: 0;
+}
 /* Source: src/styles/sections/modal-settings-transfer.css */
 
 /* ========================================================================
@@ -6300,129 +6761,45 @@ body.nn-resizing {
    Settings Page Styles
    ======================================================================== */
 
-/* Settings page indentation for sub-settings */
-.nn-sub-settings {
-    margin-inline-start: 20px;
-    padding-left: 1em;
-}
-
-/* Restore bottom padding on last setting inside sub-settings containers
-   (Obsidian's .setting-item:last-child removes it, but nested containers need it) */
-.nn-sub-settings > .setting-item:last-child {
-    padding-bottom: var(--size-4-4);
-}
-
 /* Settings layout root */
 .nn-settings-tab-root {
     display: block;
     min-height: 0;
 }
 
-/* Settings tabs layout and navigation */
-.nn-settings-tabs {
-    display: block;
-    min-height: 0;
-}
-
-.nn-settings-tabs-nav {
-    display: flex;
-    flex-direction: column;
-    gap: var(--size-2-3);
-    flex-shrink: 0;
-    margin-bottom: var(--size-4-4);
-}
-
-.nn-settings-tabs-nav-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--size-2-3);
-}
-
-.nn-settings-tabs-nav-row.is-hidden {
+.nn-settings-tab-root .setting-group.nn-settings-lifecycle-group {
     display: none;
 }
 
-.nn-settings-tabs-nav-row.is-icons-hidden .nn-settings-tab-icon {
-    display: none;
-}
-
-/* Separator between primary and secondary tab rows */
-.nn-settings-tabs-nav-secondary {
-    gap: var(--size-2-2);
-    border-top: 1px solid var(--background-modifier-border);
-    padding-top: var(--size-2-3);
-}
-
-.nn-settings-tab-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--size-2-2);
-    padding: 6px 12px;
-    font-size: var(--font-ui-small);
-}
-
-/* Icon inside settings tab buttons */
-.nn-settings-tab-icon {
-    display: inline-flex;
-    align-items: center;
-}
-
-.nn-settings-tab-icon svg {
-    width: 16px;
-    height: 16px;
-    stroke-width: 2;
-}
-
-.nn-settings-tab-button.is-hidden {
-    display: none;
-}
-
-.nn-settings-tab-button-primary.is-group-active {
-    background-color: transparent;
-    color: var(--interactive-accent);
-    opacity: 0.85;
-}
-
-.nn-settings-tab-button-primary.is-group-active:hover {
-    background-color: var(--background-modifier-hover);
-    opacity: 1;
-}
-
-.nn-settings-tab-button-secondary {
-    padding: 5px 10px;
-}
-
-.nn-settings-tab-button-secondary.is-active {
-    background-color: var(--background-modifier-hover);
-    color: var(--text-normal);
-}
-
-.nn-settings-tabs-content {
-    position: static;
-    min-height: 0;
-    overflow: visible;
-    box-sizing: border-box;
-    padding-inline-end: 0;
-}
-
-/* Hide tabs by default, show only active tab */
-.nn-settings-tab {
-    display: none;
-}
-
-.nn-settings-tab.is-active {
-    display: block;
+.nn-settings-tab-root .setting-group.nn-settings-lifecycle-group + .setting-group {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
 }
 
 /* Settings section header spacing */
-.setting-item-heading {
+.nn-settings-tab-root .setting-item-heading {
     margin-top: 30px;
 }
 
 /* First settings header - no top margin */
-.setting-item-heading:first-child {
+.nn-settings-tab-root .setting-item-heading:first-child {
     margin-top: 0;
+}
+
+.nn-settings-legacy-titlebar {
+    padding-inline: 0;
+}
+
+.nn-settings-legacy-titlebar .setting-item-name {
+    display: flex;
+    align-items: center;
+    gap: var(--size-2-2);
+}
+
+.nn-settings-legacy-page-link:focus-visible {
+    outline: 2px solid var(--background-modifier-border-focus);
+    outline-offset: -2px;
 }
 
 /* Utility class for conditionally hidden settings */
@@ -6460,48 +6837,19 @@ body.nn-resizing {
     opacity: 1;
 }
 
-/* Setting name marker appended to setting names */
-.nn-settings-tab-root .setting-item-name.nn-setting-name-marker::after {
-    content: ' ' attr(data-nn-setting-marker);
-    color: var(--text-muted);
-    font-weight: normal;
-}
-
-.mod-rtl .nn-settings-tab-root .setting-item-name.nn-setting-name-marker::after {
-    content: '';
-}
-
-.mod-rtl .nn-settings-tab-root .setting-item-name.nn-setting-name-marker::before {
-    content: attr(data-nn-setting-marker) ' ';
-    color: var(--text-muted);
-    font-weight: normal;
-}
-
-/* Dim disabled calendar pattern text inputs */
-.nn-settings-tab-root .setting-item.nn-setting-disabled input[type='text']:disabled {
-    opacity: 0.6;
-    pointer-events: none;
-    -webkit-user-select: none;
-    user-select: none;
-}
-
 /* Container for additional info below settings */
 .nn-setting-info-container {
     margin-top: 8px;
     margin-bottom: 8px;
 }
 
-.nn-setting-info-container.nn-setting-info-centered.setting-item {
-    justify-content: center;
+.nn-setting-info-list ol {
+    margin: 6px 0 0 1.5em;
+    padding: 0;
 }
 
-.nn-setting-info-container.nn-setting-info-centered .setting-item-info,
-.nn-setting-info-container.nn-setting-info-centered .setting-item-description {
-    text-align: center;
-}
-
-.nn-sub-settings > .setting-item.nn-setting-property-keys-info:last-child {
-    padding-bottom: 0;
+.nn-setting-info-list li + li {
+    margin-top: 4px;
 }
 
 /* Wider text inputs for settings that benefit from more space */
@@ -6624,18 +6972,31 @@ body.nn-resizing {
     margin-inline-start: auto;
 }
 
-.nn-toolbar-visibility-toggle {
+button.nn-toolbar-visibility-toggle.nn-mobile-toolbar-button {
     position: relative;
     padding: 0;
-    /* Override mobile toolbar button dimensions for settings */
-    width: 32px !important;
-    height: 32px !important;
-    min-width: 32px !important;
-    min-height: 32px !important;
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    min-height: 32px;
 }
 
-.nn-toolbar-visibility-toggle:not(.nn-mobile-toolbar-button-active) {
+button.nn-toolbar-visibility-toggle.nn-mobile-toolbar-button:not(.nn-mobile-toolbar-button-active) {
     opacity: 0.6;
+}
+
+button.nn-toolbar-visibility-toggle.nn-mobile-toolbar-button.nn-mobile-toolbar-button-active {
+    color: var(--nn-theme-mobile-toolbar-button-active-icon-color);
+    background-color: var(--nn-theme-mobile-toolbar-button-active-bg);
+}
+
+button.nn-toolbar-visibility-toggle.nn-mobile-toolbar-button.nn-mobile-toolbar-button-active .nn-toolbar-visibility-icon {
+    color: var(--nn-theme-mobile-toolbar-button-active-icon-color);
+}
+
+button.nn-toolbar-visibility-toggle.nn-mobile-toolbar-button.nn-mobile-toolbar-button-active svg:not(.nn-vault-icon-svg) {
+    stroke: var(--nn-theme-mobile-toolbar-button-active-icon-color);
+    stroke-width: 2;
 }
 
 .nn-toolbar-visibility-icon {
@@ -6647,10 +7008,15 @@ body.nn-resizing {
     color: var(--nn-theme-foreground);
 }
 
-.nn-toolbar-visibility-icon svg {
+.nn-toolbar-visibility-icon svg:not(.nn-vault-icon-svg) {
     width: 18px;
     height: 18px;
     stroke-width: 1.5;
+}
+
+.nn-toolbar-visibility-icon svg.nn-vault-icon-svg {
+    width: 18px;
+    height: 18px;
 }
 
 /* Mobile-specific toolbar visibility button styles */
@@ -6679,28 +7045,28 @@ body.nn-resizing {
 }
 
 /* YouTube-style play button used in settings */
-.nn-youtube-button {
-    background-color: #ff0000 !important;
-    border: none !important;
-    color: #ffffff !important;
+button.nn-youtube-button {
+    background-color: #ff0000;
+    border: none;
+    color: #ffffff;
     min-width: 54px;
 }
 
-.nn-youtube-button:hover {
-    background-color: #cc0000 !important;
+button.nn-youtube-button:hover {
+    background-color: #cc0000;
 }
 
-.nn-youtube-button svg {
-    color: #ffffff !important;
-    fill: #ffffff !important;
-    stroke: none !important;
+button.nn-youtube-button svg {
+    color: #ffffff;
+    fill: #ffffff;
+    stroke: none;
 }
 
-.is-mobile .nn-toolbar-visibility-toggle {
-    width: 44px !important;
-    height: 44px !important;
-    min-width: 44px !important;
-    min-height: 44px !important;
+.is-mobile button.nn-toolbar-visibility-toggle.nn-mobile-toolbar-button {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
 }
 
 .is-mobile .nn-toolbar-visibility-icon {
@@ -6714,11 +7080,11 @@ body.nn-resizing {
 }
 
 /* Android-specific adjustments for smaller buttons */
-.notebook-navigator-android .nn-toolbar-visibility-toggle {
-    width: 40px !important;
-    height: 40px !important;
-    min-width: 40px !important;
-    min-height: 40px !important;
+.notebook-navigator-android button.nn-toolbar-visibility-toggle.nn-mobile-toolbar-button {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
 }
 
 .notebook-navigator-android .nn-toolbar-visibility-icon {
@@ -6741,11 +7107,20 @@ body.nn-resizing {
     max-width: none;
 }
 
+.nn-slider-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nn-slider-control input[type='range'] {
+    flex: 0 0 100px;
+}
+
 .nn-slider-value {
-    margin-left: 12px;
+    flex: 0 0 48px;
     font-size: var(--font-ui-smaller);
     color: var(--nn-theme-foreground-muted);
-    min-width: 48px;
     text-align: right;
     font-variant-numeric: tabular-nums;
 }
@@ -6787,32 +7162,14 @@ body.nn-resizing {
 .nn-stats-text {
     font-size: var(--font-ui-smaller);
     color: var(--nn-theme-foreground-muted);
-    text-align: center;
     line-height: 1.5;
 }
 
-/* Remove duplicate borders when statistics are displayed */
-.nn-stats-section {
-    border: none !important;
-    padding: 0 !important;
-}
-
-/* Ensure proper spacing from previous sections */
+/* Remove default setting item chrome when statistics are displayed */
 .nn-stats-section.setting-item {
+    border: none;
+    padding: 0;
     margin-top: 0;
-}
-
-/* Advanced > Local cache: center text by removing the empty control column */
-.nn-local-cache-stats-setting .setting-item-control {
-    display: none;
-}
-
-.nn-local-cache-stats-setting .setting-item-info {
-    width: 100%;
-}
-
-.nn-local-cache-stats-setting .nn-stats-text {
-    text-align: center;
 }
 /* Source: src/styles/sections/modal-color-picker.css */
 
@@ -6934,21 +7291,21 @@ body.nn-resizing {
 .nn-checkerboard,
 .nn-preview-color.nn-no-color {
     background-image:
-        linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%, #ccc),
-        linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%, #ccc);
+        linear-gradient(45deg, #cccccc 25%, transparent 25%, transparent 75%, #cccccc 75%, #cccccc),
+        linear-gradient(45deg, #cccccc 25%, transparent 25%, transparent 75%, #cccccc 75%, #cccccc);
     background-size: 10px 10px;
     background-position:
         0 0,
         5px 5px;
-    background-color: #fff;
+    background-color: #ffffff;
 }
 
 .theme-dark .nn-checkerboard,
 .theme-dark .nn-preview-color.nn-no-color {
     background-image:
-        linear-gradient(45deg, #444 25%, transparent 25%, transparent 75%, #444 75%, #444),
-        linear-gradient(45deg, #444 25%, transparent 25%, transparent 75%, #444 75%, #444);
-    background-color: #222;
+        linear-gradient(45deg, #444444 25%, transparent 25%, transparent 75%, #444444 75%, #444444),
+        linear-gradient(45deg, #444444 25%, transparent 25%, transparent 75%, #444444 75%, #444444);
+    background-color: #222222;
 }
 
 .nn-preview-arrow {
@@ -7366,6 +7723,7 @@ body.nn-resizing {
     --nn-file-single-text-line-height: var(--nn-file-single-text-line-height-mobile);
     --nn-file-multiline-text-line-height: var(--nn-file-multiline-text-line-height-mobile);
     --nn-list-group-header-height-mobile: calc(var(--nn-list-group-header-height) + 8px);
+    --nn-list-group-goal-header-height-mobile: calc(var(--nn-list-group-header-height-mobile) + var(--nn-list-group-progress-gap-after));
 }
 
 /* Folder text size on mobile */
@@ -7400,7 +7758,15 @@ body.nn-resizing {
    ======================================================================== */
 
 /* Make panes flex containers on mobile to accommodate mobile toolbars. */
-.notebook-navigator-mobile .nn-navigation-pane,
+.notebook-navigator-mobile .nn-navigation-pane {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100%;
+    border-right: none;
+    background-color: var(--nn-theme-nav-bg);
+}
+
 .notebook-navigator-mobile .nn-list-pane {
     display: flex;
     flex-direction: column;
@@ -7408,8 +7774,7 @@ body.nn-resizing {
 }
 
 /* Ensure scrollers take remaining space. */
-.notebook-navigator-mobile .nn-navigation-pane-scroller,
-.notebook-navigator-mobile .nn-list-pane-scroller {
+.notebook-navigator-mobile .nn-navigation-pane-scroller {
     flex: 1;
     min-height: 0; /* Important for proper scrolling */
     -webkit-overflow-scrolling: touch;
@@ -7420,6 +7785,12 @@ body.nn-resizing {
 
 /* Mobile list pane scroller uses the mobile list surface. */
 .notebook-navigator-mobile .nn-list-pane-scroller {
+    flex: 1;
+    min-height: 0; /* Important for proper scrolling */
+    -webkit-overflow-scrolling: touch;
+    /* Keep horizontal pane bounce/chaining disabled while allowing native vertical edge feedback. */
+    overscroll-behavior-x: none;
+    overscroll-behavior-y: contain;
     background-color: var(--nn-theme-list-bg); /* Opaque background on scroller for GPU scroll layer (see .nn-list-pane-scroller) */
 }
 /* Source: src/styles/sections/mobile-tab-bars.css */
@@ -7454,13 +7825,6 @@ body.nn-resizing {
     flex-shrink: 0;
 }
 
-.notebook-navigator-mobile .nn-mobile-toolbar-left,
-.notebook-navigator-mobile .nn-mobile-toolbar-right,
-.notebook-navigator-mobile .nn-mobile-toolbar-pill,
-.notebook-navigator-mobile .nn-mobile-toolbar-circle {
-    display: contents;
-}
-
 /* Mobile toolbar grouping containers */
 .nn-mobile-toolbar-left {
     display: flex;
@@ -7488,7 +7852,7 @@ body.nn-resizing {
 }
 
 /* Mobile toolbar buttons */
-.nn-mobile-toolbar-button {
+button.nn-mobile-toolbar-button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -7496,8 +7860,7 @@ body.nn-resizing {
     height: 44px;
     min-width: 44px;
     min-height: 44px;
-    background: transparent !important;
-    background-color: transparent !important;
+    background: transparent;
     border: none;
     border-radius: var(--radius-m);
     color: var(--nn-theme-mobile-toolbar-button-icon-color);
@@ -7506,7 +7869,7 @@ body.nn-resizing {
         color 0.15s ease;
     cursor: pointer;
     padding: 0;
-    box-shadow: none !important;
+    box-shadow: none;
 }
 
 .nn-mobile-toolbar-button-circle {
@@ -7517,6 +7880,9 @@ body.nn-resizing {
 .nn-mobile-toolbar-button svg {
     width: 24px;
     height: 24px;
+}
+
+.nn-mobile-toolbar-button svg:not(.nn-vault-icon-svg) {
     stroke-width: 1.5;
     stroke: var(--nn-theme-mobile-toolbar-button-icon-color);
 }
@@ -7527,13 +7893,13 @@ body.nn-resizing {
 }
 
 /* Active mobile toolbar button state - toggled on */
-.nn-mobile-toolbar-button-active {
-    color: var(--nn-theme-mobile-toolbar-button-active-icon-color) !important;
-    background-color: var(--nn-theme-mobile-toolbar-button-active-bg) !important;
+.notebook-navigator-mobile button.nn-mobile-toolbar-button.nn-mobile-toolbar-button-active {
+    color: var(--nn-theme-mobile-toolbar-button-active-icon-color);
+    background-color: var(--nn-theme-mobile-toolbar-button-active-bg);
 }
 
-.nn-mobile-toolbar-button-active svg {
-    stroke: var(--nn-theme-mobile-toolbar-button-active-icon-color) !important;
+.notebook-navigator-mobile button.nn-mobile-toolbar-button.nn-mobile-toolbar-button-active svg:not(.nn-vault-icon-svg) {
+    stroke: var(--nn-theme-mobile-toolbar-button-active-icon-color);
     stroke-width: 2;
 }
 
@@ -7630,11 +7996,6 @@ body.nn-resizing {
     flex: 0 0 auto;
 }
 
-.notebook-navigator-ios.notebook-navigator-ios-floating-toolbars .nn-mobile-toolbar-pill,
-.notebook-navigator-ios.notebook-navigator-ios-floating-toolbars .nn-mobile-toolbar-circle {
-    display: flex;
-}
-
 .notebook-navigator-ios.notebook-navigator-ios-floating-toolbars {
     --nn-theme-mobile-toolbar-button-icon-color: var(--nn-theme-foreground);
     --nn-ios-toolbar-glass-bg: color-mix(in srgb, var(--nn-theme-mobile-toolbar-glass-bg) 45%, transparent);
@@ -7661,6 +8022,7 @@ body.nn-resizing {
 
 .notebook-navigator-ios.notebook-navigator-ios-floating-toolbars .nn-mobile-toolbar-pill,
 .notebook-navigator-ios.notebook-navigator-ios-floating-toolbars .nn-mobile-toolbar-circle {
+    display: flex;
     position: relative;
     z-index: 0;
     border-radius: 999px;
@@ -7708,7 +8070,7 @@ body.nn-resizing {
     border-radius: 999px;
 }
 
-.notebook-navigator-ios.notebook-navigator-ios-floating-toolbars .nn-mobile-toolbar-button svg {
+.notebook-navigator-ios.notebook-navigator-ios-floating-toolbars .nn-mobile-toolbar-button svg:not(.nn-vault-icon-svg) {
     stroke-width: 2;
 }
 
@@ -7823,25 +8185,25 @@ body.nn-resizing {
        which Android doesn't scale. Only compensate font-size on emoji elements directly. */
 }
 
-/* Note counts in navigation pane - !important needed to override other rules */
-.notebook-navigator-android .nn-navitem-count {
+/* Note counts in navigation pane */
+.notebook-navigator-android .nn-mobile .nn-navitem-count {
     font-size: calc(
         var(--nn-navitem-count-font-size-mobile, var(--nn-navitem-count-font-size)) * var(--nn-android-font-scale-reciprocal, 1)
-    ) !important;
+    );
 }
 
 /* Root reorder panel text */
-.notebook-navigator-android .nn-root-reorder-hint {
+.notebook-navigator-android .nn-mobile .nn-root-reorder-hint {
     font-size: calc(
         var(--nn-root-reorder-hint-font-size-mobile, var(--nn-root-reorder-hint-font-size)) * var(--nn-android-font-scale-reciprocal, 1)
-    ) !important;
+    );
 }
 
 /* Emoji and webfont icons - Android scales font-size but not SVG dimensions.
    Only apply to .nn-emoji-icon and .nn-iconfont to avoid breaking Lucide SVG icons. */
-.notebook-navigator-android .nn-emoji-icon,
-.notebook-navigator-android .nn-iconfont {
-    font-size: calc(var(--nn-file-icon-size-mobile, var(--nn-file-icon-size)) * var(--nn-android-font-scale-reciprocal, 1)) !important;
+.notebook-navigator-android .nn-mobile .nn-emoji-icon,
+.notebook-navigator-android .nn-mobile .nn-iconfont {
+    font-size: calc(var(--nn-file-icon-size-mobile, var(--nn-file-icon-size)) * var(--nn-android-font-scale-reciprocal, 1));
 }
 
 /* Clamp height compensation - Android doesn't scale max-height, so match the compensated line-height after textZoom applies. */
@@ -7914,12 +8276,15 @@ body.nn-resizing {
 /* Emoji icon styles */
 .nn-emoji-icon {
     font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
+    font-style: normal;
+    font-weight: normal;
     line-height: 1;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
     text-align: center;
+    text-decoration: none;
 
     /* Prevent text selection of emoji icons */
     user-select: none;
@@ -7936,13 +8301,6 @@ body.nn-resizing {
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-/* Prevent emoji icons from being affected by text styles */
-.nn-emoji-icon {
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: none;
 }
 
 /* Ensure proper sizing when used in buttons */
@@ -7973,11 +8331,6 @@ body.nn-resizing {
 .nn-mobile-toolbar-button > span > svg,
 .nn-navigation-calendar-nav-button > span > svg {
     display: block;
-}
-
-/* Icon Picker Modal Styles */
-.modal.nn-icon-picker-modal .modal-content {
-    min-height: 380px;
 }
 
 /* Icon font styles */
@@ -8049,7 +8402,7 @@ body.nn-resizing {
 }
 
 .nn-icon-provider-link-row {
-    padding: 8px 12px 0 12px;
+    padding: 8px 12px 0;
     text-align: center;
 }
 
@@ -8090,55 +8443,16 @@ body.nn-resizing {
 .nn-icon-item-preview.nn-emoji-preview {
     font-size: 24px;
 }
-
-/* Icon section headers for categories */
-.nn-icon-section-header {
-    font-size: var(--font-ui-small);
-    font-weight: 600;
-    color: var(--nn-theme-foreground-muted);
-    margin-top: 12px;
-    margin-bottom: 4px;
-}
-
-.nn-icon-section-header:first-child {
-    margin-top: 0;
-}
 /* Source: src/styles/sections/settings-metadata-info.css */
 
 /* ========================================================================
    Metadata Info Styles
    ======================================================================== */
 
-/* Container for metadata parsing info - flex row layout */
-.nn-metadata-info-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 16px;
-}
-
-/* Text container - takes up available space */
-.nn-metadata-info-text {
-    flex: 1;
-}
-
 /* Error text styling */
 .nn-metadata-error-text {
     color: var(--text-error);
     font-weight: bold;
-}
-
-/* Export button - stays on the right */
-.nn-metadata-export-button {
-    flex-shrink: 0;
-}
-
-/* Make delete menu items red (items with trash icon) */
-.menu-item:has(.menu-item-icon svg.lucide-trash) {
-    color: var(--text-error);
-}
-.menu-item:has(.menu-item-icon svg.lucide-trash) .menu-item-icon {
-    color: var(--text-error);
 }
 /* Source: src/styles/sections/settings-style-settings.css */
 
@@ -8582,6 +8896,24 @@ settings:
         default-light: '#'
         default-dark: '#'
     -
+        id: nn-theme-nav-indent-guide-color
+        title: Indent guide color
+        description: Line color for navigation indent guides.
+        type: variable-themed-color
+        opacity: true
+        format: rgb
+        default-light: '#'
+        default-dark: '#'
+    -
+        id: nn-theme-nav-leader-color
+        title: Leader color
+        description: Color for leaders between item names and trailing values.
+        type: variable-themed-color
+        opacity: true
+        format: rgb
+        default-light: '#'
+        default-dark: '#'
+    -
         id: nn-nav-pane-items-heading
         title: Folder & tag items
         type: heading
@@ -9020,6 +9352,14 @@ settings:
         default-light: '#'
         default-dark: '#'
     -
+        id: nn-theme-file-word-count-color
+        title: File word count color
+        description: Text color for word count suffixes.
+        type: variable-themed-color
+        format: hex
+        default-light: '#'
+        default-dark: '#'
+    -
         id: nn-theme-file-parent-color
         title: File parent folder color
         description: Text color for parent folder path (when showing subfolders).
@@ -9130,6 +9470,14 @@ settings:
         default-light: '#'
         default-dark: '#'
     -
+        id: nn-theme-file-selected-word-count-color
+        title: Selected file word count color
+        description: Text color for word count suffixes when selected.
+        type: variable-themed-color
+        format: hex
+        default-light: '#'
+        default-dark: '#'
+    -
         id: nn-theme-file-selected-parent-color
         title: Selected file parent folder color
         description: Text color for parent folder path when selected.
@@ -9181,6 +9529,14 @@ settings:
         id: nn-theme-file-selected-inactive-date-color
         title: Selected file date color (inactive)
         description: File date color when selected and pane is inactive.
+        type: variable-themed-color
+        format: hex
+        default-light: '#'
+        default-dark: '#'
+    -
+        id: nn-theme-file-selected-inactive-word-count-color
+        title: Selected file word count color (inactive)
+        description: Word count suffix color when file is selected and pane is inactive.
         type: variable-themed-color
         format: hex
         default-light: '#'
@@ -9287,6 +9643,15 @@ settings:
         id: nn-theme-file-date-font-weight
         title: Date font weight
         description: Font weight for file dates.
+        type: variable-number-slider
+        default: 400
+        min: 100
+        max: 900
+        step: 100
+    -
+        id: nn-theme-file-word-count-font-weight
+        title: Word count font weight
+        description: Font weight for word count suffixes.
         type: variable-number-slider
         default: 400
         min: 100

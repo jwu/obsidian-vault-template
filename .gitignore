@@ -4,9 +4,6 @@
 .obsidian/cache/
 .obsidian/logs/
 
-# 插件配置含明文密钥，不纳入版本管理
-.obsidian/plugins/wechat-converter/data.json
-
 # Obsidian 插件产生的临时/备份文件
 .obsidian/plugins/iconic/data.json.backup*
 .obsidian/plugins/*/*.bak
@@ -45,3 +42,6 @@ Desktop.ini
 *.swp
 *.swo
 *~
+
+# 模板专用：插件配置可能含明文密钥，不纳入版本管理
+.obsidian/plugins/wechat-converter/data.json

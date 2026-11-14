@@ -136,6 +136,37 @@ for f in "${ROOT_FILES[@]}"; do
     fi
 done
 
+# ── 模板专用忽略规则 ──
+# .gitignore 会被 work 版本覆盖，这里幂等补回模板独有的忽略规则，
+# 避免插件配置中的明文密钥重新变成可提交状态。
+TEMPLATE_IGNORE_RULES=(
+    ".obsidian/plugins/wechat-converter/data.json"
+)
+
+ensure_template_ignore() {
+    local rule="$1"
+    local gitignore="${TEMPLATE}/.gitignore"
+
+    if $DRY_RUN; then
+        if ! grep -qxF "${rule}" "${gitignore}" 2>/dev/null; then
+            echo "[dry-run] 将在 .gitignore 补回规则: ${rule}"
+        fi
+        return
+    fi
+
+    if ! grep -qxF "${rule}" "${gitignore}" 2>/dev/null; then
+        if ! grep -qF "# 模板专用：插件配置可能含明文密钥" "${gitignore}" 2>/dev/null; then
+            printf '\n# 模板专用：插件配置可能含明文密钥，不纳入版本管理\n' >> "${gitignore}"
+        fi
+        printf '%s\n' "${rule}" >> "${gitignore}"
+        log ".gitignore 补回规则: ${rule}"
+    fi
+}
+
+for rule in "${TEMPLATE_IGNORE_RULES[@]}"; do
+    ensure_template_ignore "${rule}"
+done
+
 # ═══════════════════════════════════════════
 # 5. 内容目录 — 仅同步目录结构 + .gitkeep
 # ═══════════════════════════════════════════

@@ -53,21 +53,28 @@ AI 的首要任务：理解内容、保留原意、帮助归类、提升可执�
 - 嵌套列表的子级使用 4 空格缩进
 - 引用文件夹时不要使用 `[[wikilink]]`，统一使用 ``文件夹名/`` 形式
 - Markdown 表格内的 `[[wikilink|alias]]` 需写成 `[[wikilink\|alias]]`，否则 `|` 会被当作表格分隔符导致表格断裂
+- 中文冒号后接链接时，一律用尖括号包住 URL，如 `官网：<https://example.com>`；写成 `：https://...` 紧贴时 Obsidian 认不出自动链接，会显示成纯文本
 - 编辑已有 `.md` 笔记内容时，一律使用 `edit` tool
 - 创建、重命名、移动、删除文件时，必须使用 `obsidian-cli`，并显式指定 `vault=work`
     - 新建笔记：`obsidian vault=work create name=<name> path=<dir>`
     - 移动文件：`obsidian vault=work move path=<fullpath> to=<target-dir>`
     - 重命名文件：`obsidian vault=work rename file=<name> path=<dir> name=<new-name>`
     - 删除文件：`obsidian vault=work delete file=<name> path=<dir>`
-- 编辑 `01-daily-日记/` 里的日记时，请先阅读 `99-system/deprecated/dairy-editing-guide.md`
+- 编辑 `01-daily-日记/` 里的日记时，格式规则见 `.pi/prompts/daily-note.md` 第 4 节（旧 guide 已废弃）
 - 优先小步编辑，避免大改结构或覆盖大量原文
 - 不确定时保留原意，不替用户强行改写观点
+- 不要手改或删除 `modified:`，它由两处维护、格式固定 `YYYY-MM-DD`：Obsidian 保存时由 Linter 插件写入，AI 编辑后用 `.scripts/touch_modified.py` 补写
+- AI 修改完任何带 `modified:` 的笔记后，必须补跑一次：`uv run python .scripts/touch_modified.py <相对路径...>`（支持 `--staged`）。不做这步，当天日记的「今日修改」会漏掉这些笔记
+- 补写历史日期的日记时必须显式带 `--date <日期>`，否则 `modified` 被刷成今天，那批事务会重复记进当天日记
+- 笔记标题与正文中的人物、组织、网站、产品名，按 `99-system/specs/title-naming.md` 的优先级呈现
 
 ### 创建
 
 - 创建笔记前，必须先检查目标笔记是否已经存在，避免重复创建、误覆盖或制造重复笔记
 - 创建笔记用 `obsidian vault=work create ...` 但不要把内容写进去，而是创建后再用 `edit` 编辑
 - 新建的笔记必须包含 `created:` 属性，并写入对应创建时间
+- 新建的笔记紧接 `created:` 之后必须有 `modified:` 属性，值与 `created:` 相同（模板已内置，用模板创建即可自动带上）
+- `01-daily-日记/` 是唯一例外：日记不写 `created:` / `modified:`，日期由文件名承载，Linter 也忽略该目录
 - 无法稳定分类时，优先放回 `00-inbox-收件箱/`
 
 ### 搜索

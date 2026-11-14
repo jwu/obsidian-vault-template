@@ -1,5 +1,6 @@
 ---
 created: 2026-04-13
+modified: 2026-06-07
 ---
 - 严禁用 `obsidian-cli` 的 `daily:append` 和 `daily:prepend` 编辑日记
 - 请直接编辑

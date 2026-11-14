@@ -1,5 +1,6 @@
 ---
 created: 2026-04-30
+modified: 2026-05-01
 author: "[[No Name]]"
 ---
 ## AI 速查（AI Quick Reference）

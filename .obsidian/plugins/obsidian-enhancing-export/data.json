@@ -8,7 +8,8 @@
     },
     {
       "name": "Html",
-      "arguments": "-f ${fromFormat} --resource-path=\"${currentDir}\" --resource-path=\"${attachmentFolderPath}\" --lua-filter=\"${luaDir}/math_block.lua\" --embed-resources --standalone --metadata title=\"${currentFileName}\" -s -o \"${outputPath}\" -t html -c \"${vaultDir}/.obsidian/snippets/pandoc-water.css\""
+      "arguments": "-f ${fromFormat} --resource-path=\"${currentDir}\" --resource-path=\"${attachmentFolderPath}\" --lua-filter=\"${luaDir}/math_block.lua\" --embed-resources --standalone --metadata title=\"${currentFileName}\" -s -o \"${outputPath}\" -t html -c \"${vaultDir}/.obsidian/snippets/pandoc-water.css\"",
+      "customArguments": "--math-method=mathjax:\"https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg-full.js\""
     },
     {
       "name": "TextBundle"
@@ -60,7 +61,7 @@
   "lastEditName": "Html",
   "lastExportDirectory": {
     "win32": "C:\\Users\\Karas\\Downloads",
-    "darwin": "/Users/zyq/Documents"
+    "darwin": "/Users/jwu/Documents"
   },
   "lastExportType": "Html"
 }

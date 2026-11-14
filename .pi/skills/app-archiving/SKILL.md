@@ -35,7 +35,7 @@ allowed-tools: read bash edit write grep find ls
 - `80-archive-档案库/Application-应用/`
 
 默认要求：
-- 文件名使用应用常用名
+- 文件名使用应用常用名，并按 `99-system/specs/title-naming.md` 的优先级呈现
 - 笔记需包含 `created:` 属性
 - 优先沿用 `[[Application Template]]` 的结构
 - 语言 wikilink 一律小写，创建前需检查 `80-archive-档案库/Technique-技术/` 中是否已有对应语言笔记

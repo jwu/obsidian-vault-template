@@ -1,13 +1,44 @@
 filters:
   or:
     - date(created).format("YYYY-MM-DD") == this.file.name
-    - file.links.contains(this.file)
+    - date(modified).format("YYYY-MM-DD") == this.file.name
+    - file.hasLink(this.file)
 views:
   - type: table
-    name: Table
+    name: 今日创建
     filters:
       and:
-        - '!file.tags.contains("daily")'
+        - date(created).format("YYYY-MM-DD") == this.file.name
+        - '!file.hasTag("daily")'
+        - file.name != this.file.name
+    order:
+      - file.name
+      - file.path
+    sort:
+      - property: file.path
+        direction: ASC
+  - type: table
+    name: 今日修改
+    filters:
+      and:
+        - date(modified).format("YYYY-MM-DD") == this.file.name
+        - date(created).format("YYYY-MM-DD") != this.file.name
+        - '!file.hasTag("daily")'
+        - file.name != this.file.name
+    order:
+      - file.name
+      - file.path
+    sort:
+      - property: file.path
+        direction: ASC
+  - type: table
+    name: 提到本日
+    filters:
+      and:
+        - file.hasLink(this.file)
+        - date(created).format("YYYY-MM-DD") != this.file.name
+        - date(modified).format("YYYY-MM-DD") != this.file.name
+        - '!file.hasTag("daily")'
         - file.name != this.file.name
     order:
       - file.name

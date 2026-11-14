@@ -1,6 +1,6 @@
 ---
 created: 2026-04-20
-updated: 2026-04-20
+modified: 2026-04-20
 source: https://github.com/sparanoid/chinese-copywriting-guidelines/blob/master/README.zh-Hans.md
 ---
 # 中文文案排版指北

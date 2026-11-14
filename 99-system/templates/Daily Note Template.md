@@ -12,7 +12,9 @@ highlight:
 
 ## 关联笔记
 
-![[Daily References.base]]
+![[Daily References.base#今日创建]]
+
+![[Daily References.base#今日修改]]
 
 ---
 **<% tp.date.now("YYYY", 0, tp.file.title, "YYYY-MM-DD") %> 年 / <% tp.date.now("MM", 0, tp.file.title, "YYYY-MM-DD") %> 月 / 第 <% tp.date.now("WW", 0, tp.file.title, "YYYY-MM-DD") %> 周**

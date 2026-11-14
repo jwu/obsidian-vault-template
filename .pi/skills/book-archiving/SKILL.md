@@ -34,7 +34,7 @@ allowed-tools: read bash edit write grep find ls
 - `80-archive-档案库/Book-书籍/`
 
 默认要求：
-- 文件名使用书籍常用名
+- 文件名使用书籍常用名，并按 `99-system/specs/title-naming.md` 的优先级呈现
 - 笔记需包含 `created:` 属性
 - 优先沿用 `[[Book Template]]` 的结构
 - 作者若库内已有对应人物笔记，使用 wikilink，否则用纯文本

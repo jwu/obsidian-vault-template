@@ -10,5 +10,6 @@
   "obsidian-enhancing-export",
   "obsidian-local-images-plus",
   "gdscript-syntax-highlighting",
-  "wechat-converter"
+  "wechat-converter",
+  "obsidian-linter"
 ]

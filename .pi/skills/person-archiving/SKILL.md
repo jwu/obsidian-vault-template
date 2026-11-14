@@ -32,7 +32,7 @@ allowed-tools: read bash edit write grep find ls
 - `80-archive-档案库/People-人物/`
 
 默认要求：
-- 文件名使用人物常用名
+- 文件名使用人物常用名，并按 `99-system/specs/title-naming.md` 的优先级呈现
 - 笔记需包含 `created:` 属性
 - 优先沿用 `[[People Template]]` 的结构
 

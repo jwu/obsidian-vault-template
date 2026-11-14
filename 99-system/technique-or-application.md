@@ -1,5 +1,6 @@
 ---
 created: 2026-04-25
+modified: 2026-04-25
 ---
 ## Technique（技术）与 Application（应用）的区分规则
 

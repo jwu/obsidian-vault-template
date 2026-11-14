@@ -54,7 +54,7 @@ echo ""
 # ═══════════════════════════════════════════
 # 1. .obsidian/ — 排除本地/个人部分
 # ═══════════════════════════════════════════
-info "1/6  .obsidian/ (排除本地部分)"
+info "1/7  .obsidian/ (排除本地部分)"
 $RSYNC --delete \
     --exclude='workspace*.json' \
     --exclude='.DS_Store' \
@@ -66,7 +66,7 @@ $RSYNC --delete \
 # ═══════════════════════════════════════════
 # 2. .pi/ — 排除本地依赖
 # ═══════════════════════════════════════════
-info "2/6  .pi/ (排除 node_modules & lock)"
+info "2/7  .pi/ (排除 node_modules & lock)"
 $RSYNC --delete \
     --exclude='npm/node_modules/' \
     --exclude='npm/package-lock.json' \
@@ -82,7 +82,7 @@ fi
 # ═══════════════════════════════════════════
 # 3. 99-system/ — 排除 cookie.md, work-with-me 脱敏
 # ═══════════════════════════════════════════
-info "3/6  99-system/ (排除 cookie.md, work-with-me 脱敏)"
+info "3/7  99-system/ (排除 cookie.md, work-with-me 脱敏)"
 
 # 先同步除了 cookie.md 和 work-with-me.md 之外的所有内容
 $RSYNC --delete \
@@ -114,7 +114,7 @@ done
 # ═══════════════════════════════════════════
 # 4. 根目录文件 — 排除 ABOUT-ME.md
 # ═══════════════════════════════════════════
-info "4/6  根目录文件 (排除 ABOUT-ME.md)"
+info "4/7  根目录文件 (排除 ABOUT-ME.md)"
 
 ROOT_FILES=(
     ".gitignore"
@@ -139,7 +139,7 @@ done
 # ═══════════════════════════════════════════
 # 5. 内容目录 — 仅同步目录结构 + .gitkeep
 # ═══════════════════════════════════════════
-info "5/6  内容目录结构 (仅目录 + .gitkeep)"
+info "5/7  内容目录结构 (仅目录 + .gitkeep)"
 
 CONTENT_DIRS=(
     "00-inbox-收件箱"
@@ -192,7 +192,7 @@ log "内容目录结构已同步"
 # ═══════════════════════════════════════════
 # 6. 清理模板中 work 不存在但 template 有的残留
 # ═══════════════════════════════════════════
-info "6/6  清理残留"
+info "6/7  清理残留"
 
 # 清理模板中的 .agents/ 目录（原项目已移除）
 if ! $DRY_RUN && [ -d "${TEMPLATE}/.agents" ]; then
@@ -218,8 +218,124 @@ echo ""
 echo "═══════════════════════════════════════════"
 echo -e "  ${GREEN}✓ 同步完成${NC}"
 echo ""
+
+# ═══════════════════════════════════════════
+# 7/7  敏感字段扫描 (仅告警，不阻断)
+# ═══════════════════════════════════════════
+info "7/7  敏感字段扫描 (仅告警，不阻断)"
+echo "  扫描 .obsidian/ 、99-system/ 与根配置文件；命中只提示，不阻断同步"
+
+if ! command -v python3 >/dev/null 2>&1; then
+    warn "python3 不可用，跳过敏感字段扫描"
+else
+    # 退出码始终为 0：发现敏感字段只提示，不打断同步流程
+    python3 - "${TEMPLATE}" <<'PY' || true
+import os
+import re
+import subprocess
+import sys
+
+root = sys.argv[1]
+SCAN_DIRS = [".obsidian", "99-system"]
+ROOT_FILES = [
+    ".gitignore", ".gitattributes", "cog.toml",
+    "AGENTS.md", "README.md", "pyproject.toml", ".python-version",
+]
+SCAN_EXT = (".json", ".toml", ".yaml", ".yml", ".md", ".txt", ".sh")
+
+PATTERNS = [
+    ("字段", re.compile(
+        r'"(app_?secret|api_?key|secret_?key|client_?secret|access_?token|'
+        r'refresh_?token|password|passwd|private_?key|token)"\s*:\s*"([^"]{8,})"',
+        re.I)),
+    ("凭证前缀", re.compile(
+        r'\b(gh[pous]_[A-Za-z0-9]{20,}|sk-[A-Za-z0-9]{20,}|'
+        r'AKIA[0-9A-Z]{12,}|xox[baprs]-[A-Za-z0-9-]{10,})')),
+    ("私钥", re.compile(r'-----BEGIN [A-Z ]*PRIVATE KEY-----')),
+    ("Bearer", re.compile(r'(?i)\bbearer\s+([A-Za-z0-9._:\-]{20,})')),
+]
+PLACEHOLDER = re.compile(
+    r'^(?:your[_-].*|<.*>|\$\{.*\}|xxx+|todo|tbd|changeme|placeholder|'
+    r'example|none|null|redacted|false|true)$', re.I)
+
+
+def mask(value):
+    value = value.strip()
+    if len(value) <= 10:
+        return value[:2] + "***"
+    return value[:4] + "***" + value[-4:]
+
+
+def is_ignored(path):
+    try:
+        result = subprocess.run(
+            ["git", "-C", root, "check-ignore", "-q", path],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+        return result.returncode == 0
+    except OSError:
+        return False
+
+
+files = []
+for rel_dir in SCAN_DIRS:
+    base = os.path.join(root, rel_dir)
+    if not os.path.isdir(base):
+        continue
+    for dirpath, dirnames, filenames in os.walk(base):
+        dirnames[:] = [
+            d for d in dirnames
+            if d not in (".git", "node_modules", ".venv", "__pycache__")
+        ]
+        for name in filenames:
+            if name.endswith(SCAN_EXT):
+                files.append(os.path.join(dirpath, name))
+for rel_file in ROOT_FILES:
+    path = os.path.join(root, rel_file)
+    if os.path.isfile(path):
+        files.append(path)
+
+hits = []
+for path in files:
+    try:
+        with open(path, "r", encoding="utf-8", errors="ignore") as handle:
+            for lineno, line in enumerate(handle, 1):
+                for label, pattern in PATTERNS:
+                    match = pattern.search(line)
+                    if not match:
+                        continue
+                    if label == "字段":
+                        field, raw = match.group(1), match.group(2)
+                    else:
+                        field, raw = label, match.group(0)
+                    if PLACEHOLDER.match(raw.strip()):
+                        continue
+                    hits.append((
+                        os.path.relpath(path, root),
+                        lineno,
+                        field,
+                        mask(raw),
+                        is_ignored(path),
+                    ))
+    except OSError:
+        continue
+
+if not hits:
+    print("  ✓ 未发现疑似敏感字段")
+else:
+    print("  ⚠ 发现 %d 处疑似敏感字段，请人工确认后再提交：" % len(hits))
+    for rel_path, lineno, field, masked, ignored in hits:
+        tag = " [已被 .gitignore 忽略]" if ignored else " [将被提交!]"
+        print("    %s:%d  %s = %s%s" % (rel_path, lineno, field, masked, tag))
+    print("    → 若为真实凭据：改用占位符，或把该文件加入 .gitignore")
+PY
+fi
+
+echo ""
 echo "  建议下一步:"
 echo "    1. git diff --stat  查看改动概览"
 echo "    2. git diff          审查具体改动"
-echo "    3. 确认无误后提交"
+echo "    3. 若上方有敏感字段告警，先处理再提交"
+echo "    4. 确认无误后提交"
 echo "═══════════════════════════════════════════"
